@@ -30,7 +30,7 @@ const IntroSection = () => {
           <br />
           <Link
             to="projects"
-            className="text-neutral-100 font-semibold px-6 py-3 bg-teal-600 rounded shadow hover:bg-teal-700  cursor-grab"
+            className="text-neutral-100 font-semibold px-6 py-3 bg-teal-600 rounded shadow hover:bg-teal-700 cursor-pointer"
             activeClass="active"
             spy={true}
             smooth={true}
@@ -48,7 +48,7 @@ const IntroSection = () => {
           smooth={true}
           offset={-100}
           duration={500}>
-          <HiArrowDown size={35} className="animate-bounce  cursor-grab" />
+          <HiArrowDown size={35} className="animate-bounce cursor-pointer"/>
         </Link>
       </div>
     </section>

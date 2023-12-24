@@ -2,18 +2,20 @@
 import React from "react"
 import Image from "next/image"
 import { useTheme } from 'next-themes'
+import { BiLogoCPlusPlus, BiLogoDocker, BiLogoGit, BiLogoGoLang, BiLogoJava, BiLogoReact, BiLogoTailwindCss } from "react-icons/bi";
+import { SiApple, SiSwift, SiNextdotjs } from "react-icons/si";
 
 const skills = [
-    { skill: "C++", level: "bg-gradient-to-r from-teal-600 from-80% to-gray-200 to-80%" },
-    { skill: "Java", level: "bg-gradient-to-r from-teal-600 from-65% to-gray-200 to-65%" },
-    { skill: "Objective-C", level: "bg-gradient-to-r from-teal-600 from-60% to-gray-200 to-60%" },
-    { skill: "Swift", level: "bg-gradient-to-r from-teal-600 from-50% to-gray-200 to-50%" },
-    { skill: "Go", level: "bg-gradient-to-r from-teal-600 from-45% to-gray-200 to-45%" },
-    { skill: "React", level: "bg-gradient-to-r from-teal-600 from-40% to-gray-200 to-40%" },
-    { skill: "Next.js", level: "bg-gradient-to-r from-teal-600 from-35% to-gray-200 to-35%" },
-    { skill: "Tailwind CSS", level: "bg-gradient-to-r from-teal-600 from-40% to-gray-200 to-40%" },
-    { skill: "Git", level: "bg-gradient-to-r from-teal-600 from-75% to-gray-200 to-75%" },
-    { skill: "Docker", level: "bg-gradient-to-r from-teal-600 from-45% to-gray-200 to-45%" },
+    { skill: "C++", level: "bg-gradient-to-r from-teal-600/75 from-80% to-gray-200/75 to-80%", icon: <BiLogoCPlusPlus size={20} /> },
+    { skill: "Java", level: "bg-gradient-to-r from-teal-600/75 from-65% to-gray-200/75 to-65%", icon: <BiLogoJava size={20} /> },
+    { skill: "Objective-C", level: "bg-gradient-to-r from-teal-600/75 from-60% to-gray-200/75 to-60%", icon: <SiApple size={20} /> },
+    { skill: "Swift", level: "bg-gradient-to-r from-teal-600/75 from-50% to-gray-200/75 to-50%", icon: <SiSwift size={20} /> },
+    { skill: "Go", level: "bg-gradient-to-r from-teal-600/75 from-45% to-gray-200/75 to-45%", icon: <BiLogoGoLang size={20} /> },
+    { skill: "React", level: "bg-gradient-to-r from-teal-600/75 from-40% to-gray-200/75 to-40%", icon: <BiLogoReact size={20} /> },
+    { skill: "Next.js", level: "bg-gradient-to-r from-teal-600/75 from-35% to-gray-200/75 to-35%", icon: <SiNextdotjs size={20} /> },
+    { skill: "Tailwind CSS", level: "bg-gradient-to-r from-teal-600/75 from-40% to-gray-200/75 to-40%", icon: <BiLogoTailwindCss size={20} /> },
+    { skill: "Git", level: "bg-gradient-to-r from-teal-600/75 from-75% to-gray-200/75 to-75%", icon: <BiLogoGit size={20} /> },
+    { skill: "Docker", level: "bg-gradient-to-r from-teal-600/75 from-45% to-gray-200/75 to-45%", icon: <BiLogoDocker size={20} /> },
 ]
 
 const AboutSection = () => {
@@ -89,18 +91,17 @@ const AboutSection = () => {
                         </p>
                     </div>
                     <div className="text-center md:w-1/2 md:text-left">
-                        <h1 className="text-2xl font-bold mb-2">My Skills</h1>
+                        <h1 className="text-2xl font-bold">My Skills</h1>
                         <div className="flex flex-wrap flex-col justify-center z-10 md:justify-start">
                             {skills.map((item, idx) => {
                                 return (
-                                    <div key={idx} className="mt-3">
-                                        <h3>{item.skill}</h3>
-                                        <p
-                                            className={`bg-gray-200 px-4 py-3 mr-2 mt-1 rounded ${item.level}`}
-                                        >
-                                        </p>
+                                    <div key={idx} className="-mt-1">
+                                        <div className="flex flex-wrap flex-row relative -bottom-8 -right-3">
+                                            <div className="pr-2 text-gray-200 mb-0.5">{item.icon}</div>
+                                            <div className="text-sm text-gray-200 font-semibold">{item.skill}</div>
+                                        </div>
+                                        <p className={`bg-gray-200 px-4 py-4 mr-3 m-1 rounded ${item.level}`}></p>
                                     </div>
-
                                 )
                             })}
                         </div>

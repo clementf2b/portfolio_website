@@ -40,12 +40,12 @@ const Navbar = () => {
                     <div className="flex items-center justify-between py-2 md:py-4 md:block">
                         <Link to="home">
                             <div className="container flex items-center space-x-2">
-                                <h2 className="text-2xl font-bold text-stone-900 dark:text-stone-50">Clement</h2>
+                                <h2 className="text-2xl font-bold text-stone-900 dark:text-stone-50 hover:-translate-y-1 transition-transform cursor-pointer">Clement</h2>
                             </div>
                         </Link>
                         <div className="md:hidden">
                             <button
-                                className="p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border"
+                                className="p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border cursor-pointer"
                                 onClick={() => setNavbar(!navbar)}
                             >
                                 {navbar ? <IoMdClose size={28} /> : <IoMdMenu size={28} />}
@@ -56,24 +56,28 @@ const Navbar = () => {
 
                 <div className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${navbar ? "block" : "hidden"
                     }`}>
-                    <div className='items-center justify-center space-y-6 md:items-center md:flex md:space-x-6 md:space-y-0'>
+                    <div className='items-center justify-center space-y-6 md:items-center md:flex md:space-x-3 md:space-y-0'>
                         {NavItems.map((item, index) => {
                             return (
-                                <Link
-                                    key={index}
-                                    to={item.page}
-                                    className={
-                                        "block lg:inline-block text-neutral-900  hover:text-neutral-500 dark:text-neutral-100"
-                                    }
-                                    activeClass="active"
-                                    spy={true}
-                                    smooth={true}
-                                    offset={-100}
-                                    duration={500}
-                                    onClick={() => setNavbar(!navbar)}
-                                >
-                                    {item.label}
-                                </Link>
+                                <div key={index} className={
+                                    "hover:bg-teal-500 hover:rounded-md hover:text-neutral-100 dark:text-neutral-100 hover:-translate-y-1 transition-transform cursor-pointer"
+                                }>
+                                    <Link
+                                        to={item.page}
+                                        className={
+                                            "px-3 py-1 block lg:inline-block text-neutral-900 hover:text-neutral-100 dark:text-neutral-100 cursor-pointer"
+                                        }
+                                        activeClass="active"
+                                        spy={true}
+                                        smooth={true}
+                                        offset={-100}
+                                        duration={500}
+                                        onClick={() => setNavbar(!navbar)}
+                                    >
+                                        {item.label}
+                                    </Link>
+                                </div>
+
                             )
                         })}
 
@@ -81,14 +85,14 @@ const Navbar = () => {
                         {currentTheme === "dark" ? (
                             <button
                                 onClick={() => setTheme("light")}
-                                className="bg-slate-100 p-2 rounded-xl"
+                                className="bg-slate-100 p-2 rounded-xl hover:-translate-y-1 transition-transform cursor-pointer"
                             >
                                 <RiSunLine size={25} color="black" />
                             </button>
                         ) : (
                             <button
                                 onClick={() => setTheme("dark")}
-                                className="bg-slate-100 p-2 rounded-xl"
+                                className="bg-slate-100 p-2 rounded-xl hover:-translate-y-1 transition-transform cursor-pointer"
                             >
                                 <RiMoonFill size={25} />
                             </button>
