@@ -118,16 +118,17 @@ const ProjectsSection = () => {
                   </div>
 
                   <div className="mt-8 md:w-1/2">
-                    <div>
-                    <Image
+                    <div className="flex flex-row">
+                      <Image
                         src={project.listIcon}
                         alt=""
-                        width={25}
-                        height={25}
+                        width={60}
+                        height={60}
+                        className="mb-3"
                       />
-                    <h1 className="text-4xl font-bold mb-6">{project.name}</h1>
+                      <h1 className="text-4xl font-bold mb-3 mt-1.5">{project.name}</h1>
                     </div>
-                  
+
                     <p className="text-xl leading-7 mb-4 text-neutral-600 dark:text-neutral-400">
                       {project.description}
                     </p>
