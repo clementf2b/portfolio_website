@@ -21,7 +21,7 @@ const projects = [
       title: "Figure 1. Main Page - Select different functions"
     }, {
       image: "/projects/faceT/predictColor.png",
-      title: "Figure 2. predict for user's skin color tone"
+      title: "Figure 2. predict for user&apos;s skin color tone"
     }, {
       image: "/projects/faceT/recommedation.png",
       title: "Figure 3. recommend the suitable product for user"

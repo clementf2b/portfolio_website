@@ -76,7 +76,7 @@ const AboutSection = () => {
                         <br />
                         <p>
                             I have the ability to work in a large, collaborative teams to achieve organizational goals, and passionate about building an innovative culture.
-                            I handle for many different functions in Navicat like Data Generator for generating the sample real data for use, Data Modeler which let users to create data structure and sql script by using a few clicks. Also, building the Charts makes user&#39;s data visualization to show the trends.
+                            I handle for many different functions in Navicat like Data Generator for generating the sample real data for use, Data Modeler which let users to create data structure and sql script by using a few clicks. Also, building the Charts makes user{"'"}s data visualization to show the trends.
                         </p>
                         <br />
                         <p>
@@ -84,7 +84,7 @@ const AboutSection = () => {
                             <span className="font-bold text-teal-600">
                                 never stop growing
                             </span>{" "}
-                            and that&#39;s what I strive to do, I have a passion for
+                            and that{"'"}s what I strive to do, I have a passion for
                             technology and a desire to always push the limits of what is
                             possible. I am excited to see where my career takes me and am
                             always open to new opportunities. 🙂
