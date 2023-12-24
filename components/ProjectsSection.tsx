@@ -10,7 +10,7 @@ const projects = [
   {
     listIcon: "/projects/hkust_fyp.png",
     name: "FaceT",
-    image: "/projects/FaceTImg.png",
+    image: "/projects/faceTImg.png",
     link: "https://github.com/clementf2b/FaceT",
     subtitle: "HKUST Final Year Project (2017)",
     description: "An aesthetic and easy-to- use mobile app platform for enhancing women’s experience in shopping for cosmetic products",
@@ -45,7 +45,7 @@ const projects = [
   {
     listIcon: "/projects/ecare.png",
     name: "E-Care",
-    image: "/projects/ECareImg.png",
+    image: "/projects/ecareImg.png",
     link: "https://github.com/ysoseerius/e_care_new",
     subtitle: "HKUST Mobile Application Design Contest (2016)",
     description: "A platform for simplifying the process of medicine acquisition or appointment",
@@ -65,7 +65,7 @@ const projects = [
   {
     listIcon: "/projects/cccu_fyp.png",
     name: "耆樂寶",
-    image: "/projects/CCCUfypImg.png",
+    image: "/projects/cccufypImg.png",
     link: "",
     subtitle: "CCCU Final Year Project(2015)",
     description: "A system for handling the photo, video and entertainment",
@@ -118,7 +118,16 @@ const ProjectsSection = () => {
                   </div>
 
                   <div className="mt-8 md:w-1/2">
+                    <div>
+                    <Image
+                        src={project.listIcon}
+                        alt=""
+                        width={25}
+                        height={25}
+                      />
                     <h1 className="text-4xl font-bold mb-6">{project.name}</h1>
+                    </div>
+                  
                     <p className="text-xl leading-7 mb-4 text-neutral-600 dark:text-neutral-400">
                       {project.description}
                     </p>
