@@ -34,7 +34,7 @@ const Navbar = () => {
     const pathname = usePathname()
 
     return (
-        <header className="w-full mx-auto  px-5 sm:px-20 fixed top-0 z-50 shadow bg-white text-stone-900 dark:bg-stone-900  dark:border-b dark:border-stone-600 dark:text-stone-600">
+        <header className="w-full mx-auto px-5 sm:px-20 fixed top-0 z-50 drop-shadow bg-white text-stone-900 dark:bg-stone-900  dark:border-b dark:border-stone-600 dark:text-stone-600">
             <div className="justify-between md:items-center md:flex">
                 <div>
                     <div className="flex items-center justify-between py-2 md:py-4 md:block">

@@ -12,10 +12,10 @@ const projects = [
     name: "FaceT",
     image: "/projects/faceTImg.png",
     link: "https://github.com/clementf2b/FaceT",
-    subtitle: "HKUST Final Year Project (2017)",
+    subtitle: "HKUST Final Year Project",
     description: "An aesthetic and easy-to- use mobile app platform for enhancing women’s experience in shopping for cosmetic products",
     detail: "Objective: \n\n  1. To ease users in finding out the cosmetic products which suit them best.\n  2. To help users understand the effects of the makeup products. \n  3. To allow users’ contribution by letting them add new cosmetic products to the database. \n  4. To locate retail stores selling concerned cosmetic products. \n  5. To provide a platform for users to share their views on different cosmetic products.\n  6. To minimize user’s actions for performing tasks",
-    expanded: false,
+    yearTag: "2017",
     extraImageList: [{
       image: "/projects/faceT/mainPage.png",
       title: "Figure 1. Main Page - Select different functions"
@@ -47,10 +47,10 @@ const projects = [
     name: "E-Care",
     image: "/projects/ecareImg.png",
     link: "https://github.com/ysoseerius/e_care_new",
-    subtitle: "HKUST Mobile Application Design Contest (2016)",
+    subtitle: "HKUST Mobile Application Design Contest",
     description: "A platform for simplifying the process of medicine acquisition or appointment",
     detail: "Features: \n\n1. QR code login and account registration \n- There are different type of accounts such as the patients and health care group. \n- Member of health care group will help users to create an account then give QR code for them to scan and login in their own. \n\n2. Appointment management Patients have a booking with health care group before they come to the connected clinic/hospital \n- For the patient without appointment, this application will provide a SMS reminder for them if he is the next one. \n\n3. Data encryption and storing Health care group inputs the records for the patients and stores the encrypted data in the database \n\n4. Courtesy reminder of taking relevant medication \n- The application would provide an alarm for them when time is reached to take the relevant medicine. There would provide a button for the patient to report to the doctor that they have or have not taken that medicine \n\n5. Report system for side effect \nThe patients have the option to report any side effects encountered while taking the medication and rate it as urgent, major or minor discomfort. \n- The health care group gives immediate responses to the patient and give advices to tackle the situation",
-    expanded: false,
+    yearTag: "2016",
     extraImageList: [{
       image: "/projects/ecare/ecare1.png",
       title: "Figure 1. import the medication report to the doctor"
@@ -67,10 +67,10 @@ const projects = [
     name: "耆樂寶",
     image: "/projects/cccufypImg.png",
     link: "",
-    subtitle: "CCCU Final Year Project(2015)",
+    subtitle: "CCCU Final Year Project",
     description: "A system for handling the photo, video and entertainment",
     detail: "The functions included in the application have four main parts:  \n1. Social networking function focusing on sharing of events photo\n  2. Chat function that may contains in text, image, video and sound recording for script and record.\n  3. Gaming function which train users’ concentration, reaction and mobility\n  4. Video browsing function for user to watch TV episodes and films\n\nElders living in nursing home needs a lot of attentions, since their ability is degenerating by age grew. However, even nursing home have limited human resources, the elders’ family members may not have spare time to visit them face to face. Therefore the project is going provide an interface between elders, wardens and the family of them.\n\nFor elderly side:\n  1. Provide a convenient way to communicate with their family members\n  2. Entertain thought in-built functions like game and video\n  3. Pay attentions on events of the nursing home\n  4. Share photo with other members and comment other photo\n\nFor family side:\n  1. Provide a platform to care about the situation of the elders\n  2. Share daily life with the elders\n\nFor wardens side:\n  1. Train elders easier through the application\n  2. Observe elders ability by the rating of the games\n  3. Reduce workloads and maintain the nursing quality",
-    expanded: false,
+    yearTag: "2014",
     extraImageList: [{
       image: "/projects/cccufyp/photo3.png",
       title: "Figure.1 build this app for HKSKH "
@@ -126,8 +126,15 @@ const ProjectsSection = () => {
                         height={60}
                         className="mb-3"
                       />
-                      <h1 className="text-4xl font-bold mb-3 mt-1.5">{project.name}</h1>
+                      <h1 className="text-4xl font-bold mb-3 mt-1.5 mr-4">{project.name}</h1>
+                      <p className="pt-2 mt-1 mb-6 px-5 border text-teal-600 border-teal-600 rounded-full">
+                        {project.yearTag}
+                      </p>
                     </div>
+
+                    <p className="text-sm font-bold leading-7 mb-4 text-neutral-500 dark:text-neutral-300">
+                      {project.subtitle}
+                    </p>
 
                     <p className="text-xl leading-7 mb-4 text-neutral-600 dark:text-neutral-400">
                       {project.description}
