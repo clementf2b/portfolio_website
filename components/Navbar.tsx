@@ -7,7 +7,9 @@ import { useTheme } from 'next-themes'
 import { usePathname } from "next/navigation"
 import { RiMoonFill, RiSunLine } from 'react-icons/ri'
 import { IoMdMenu, IoMdClose } from 'react-icons/io'
+import { Dancing_Script } from 'next/font/google';
 
+const dancingScript = Dancing_Script({ subsets: ['latin'] });
 interface NavItem {
     label: string;
     page: string;
@@ -40,7 +42,7 @@ const Navbar = () => {
                     <div className="flex items-center justify-between py-2 md:py-4 md:block">
                         <Link to="home">
                             <div className="container flex items-center space-x-2">
-                                <h2 className="text-2xl font-bold text-stone-900 dark:text-stone-50 hover:-translate-y-1 transition-transform cursor-pointer">Clement</h2>
+                                <h2 className={`text-4xl font-bold text-stone-900 dark:text-stone-50 hover:-translate-y-1 transition-transform cursor-pointer ${dancingScript.className}`}>Clement</h2>
                             </div>
                         </Link>
                         <div className="md:hidden">

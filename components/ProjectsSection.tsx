@@ -127,7 +127,7 @@ const ProjectsSection = () => {
                         className="mb-3"
                       />
                       <h1 className="text-4xl font-bold mb-3 mt-1.5 mr-4">{project.name}</h1>
-                      <p className="pt-2 mt-1 mb-6 px-5 border text-teal-600 border-teal-600 rounded-full">
+                      <p className="pt-2 mt-1 mb-6 px-5 border rounded-full text-teal-600 bg-teal-100/25 border-teal-600 dark:text-teal-200 dark:bg-teal-400/25 dark:border-teal-600 ">
                         {project.yearTag}
                       </p>
                     </div>
@@ -161,7 +161,7 @@ const ProjectsSection = () => {
                   className="relative w-full h-12 inset-x-0 top-0 items-end z-10 opacity-0 cursor-pointer peer" />
                 <IoIosArrowDown
                   size={30}
-                  className="relative -top-12 w-full h-12 transition-transform duration-500 rotato-0 peer-checked:rotate-180 hover:-translate-y-1 cursor-pointer" />
+                  className="relative -top-12 w-full h-12 transition-transform duration-500 rotato-0 peer-checked:rotate-180 cursor-pointer" />
 
                 {/* Collapse Content */}
                 <div className="overflow-hidden transition-all duration-500 max-h-0 peer-checked:max-h-fit">
