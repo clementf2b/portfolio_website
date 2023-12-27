@@ -8,11 +8,11 @@ import {
 
 const Footer = () => {
   return (
-    <footer className="mx-auto max-w-3xl px-4 sm:px-6 md:max-w-5xl ">
+    <footer className="mx-auto max-w-3xl px-4 mb-2 sm:px-6 md:max-w-5xl ">
       <hr className="w-full h-0.5 mx-auto mt-8 bg-neutral-200 border-0"></hr>
       <div className="mx-auto  p-4 flex flex-col text-center text-neutral-900 md:flex-row md:justify-between">
         <div className="flex flex-row items-center justify-center space-x-1 text-neutral-500 dark:text-neutral-100">
-        © Clement Ng | All rights reserved 2024.<a href="/" className="hover:underline"></a>
+          © Clement Ng | All rights reserved 2024.<a href="/" className="hover:underline"></a>
         </div>
         <div className="flex flex-row items-center justify-center space-x-2 mb-1">
           <a href="https://github.com/clementf2b" rel="noreferrer" target="_blank">
