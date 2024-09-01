@@ -69,7 +69,7 @@ const AboutSection = () => {
                         </p>
                         <br />
                         <p>
-                            I have more than <span className="text-xl font-bold">{"6 years experiences"}</span> as a senior software developer in <span className="font-bold">{"Premiumsoft Cybertech ltd."}</span>
+                            I have more than <span className="text-xl font-bold">{"7 years experiences"}</span> as a senior software developer in <span className="font-bold">{"Premiumsoft Cybertech ltd."}</span>
                             I mainly help to build the main product, <span className="font-bold">{"Navicat"}</span> which is a database development tool for different databases.
                             I need to use <span className="font-bold">{"C++"}</span> to build in <span className="font-bold">{"QT"}</span> for the <span className="font-bold">{"Linux"}</span> platform and <span className="font-bold">{"Objective-C & Swift"}</span> in <span className="font-bold">{"Xcode"}</span> for <span className="font-bold">{"Mac"}</span>.
                         </p>
