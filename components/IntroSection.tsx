@@ -25,7 +25,7 @@ const IntroSection = () => {
           </p>
           <br />
           <p className="text-1xl">
-            Passionate software developer with 6 years of professional experience building mobile and desktop applications. Learning the latest cutting edge development tools and procedures. Able to effectively self-manage during independent projects, as well as collaborate as part of a productive team. Target to write high-quality code.
+            Passionate software developer with 7 years of professional experience building mobile and desktop applications. Learning the latest cutting edge development tools and procedures. Able to effectively self-manage during independent projects, as well as collaborate as part of a productive team. Target to write high-quality code.
           </p>
           <br />
           <Link
