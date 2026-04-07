@@ -83,15 +83,15 @@ const IntroSection = () => {
           </div>
 
           <div className="order-1 lg:order-2">
-            <div className="mx-auto max-w-md">
-              <div className="relative mx-auto flex w-fit items-center justify-center rounded-full border border-[var(--card-border)] bg-[var(--surface-strong)] p-2.5 shadow-[var(--shadow)]">
+            <div className="mx-auto max-w-sm">
+              <div className="relative mx-auto flex w-fit items-center justify-center rounded-full border border-[var(--card-border)] bg-[var(--surface-strong)] p-2 shadow-[var(--shadow)]">
                 <div className="absolute inset-x-8 top-4 h-20 rounded-full bg-teal-400/20 blur-3xl" />
                 <div className="relative rounded-full border border-white/20 bg-white/40 p-2 dark:bg-slate-950/30">
                   <Image
                     src="/avatar.png"
                     alt="Portrait of Clement Ng"
-                    width={520}
-                    height={520}
+                    width={420}
+                    height={420}
                     priority
                     className="mx-auto rounded-[1.75rem] object-cover"
                   />
