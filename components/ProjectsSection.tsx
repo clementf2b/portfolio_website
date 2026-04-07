@@ -1,201 +1,244 @@
-"use client" // this is a client component
-import React, { useState } from "react"
-import Image from "next/image"
-import Link from "next/link"
-import SlideUp from "./SlideUp"
-import { BsGithub } from "react-icons/bs"
-import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io"
+"use client"
+
+import React, { useEffect, useState } from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { BsArrowUpRight } from 'react-icons/bs'
+import { IoMdClose } from 'react-icons/io'
+import SlideUp from './SlideUp'
+
+const sectionHeadingClassName =
+  'font-sans text-3xl font-semibold leading-none tracking-[-0.04em] text-[var(--foreground)] dark:text-white sm:text-4xl lg:text-5xl'
 
 const projects = [
   {
-    listIcon: "/projects/hkust_fyp.png",
-    name: "FaceT",
-    image: "/projects/faceTImg.png",
-    link: "https://github.com/clementf2b/FaceT",
-    subtitle: "HKUST Final Year Project",
-    description: "An aesthetic and easy-to- use mobile app platform for enhancing women’s experience in shopping for cosmetic products",
-    detail: "Objective: \n\n  1. To ease users in finding out the cosmetic products which suit them best.\n  2. To help users understand the effects of the makeup products. \n  3. To allow users’ contribution by letting them add new cosmetic products to the database. \n  4. To locate retail stores selling concerned cosmetic products. \n  5. To provide a platform for users to share their views on different cosmetic products.\n  6. To minimize user’s actions for performing tasks",
-    yearTag: "2017",
-    extraImageList: [{
-      image: "/projects/faceT/mainPage.png",
-      title: "Figure 1. Main Page - Select different functions"
-    }, {
-      image: "/projects/faceT/predictColor.png",
-      title: "Figure 2. predict for user&apos;s skin color tone"
-    }, {
-      image: "/projects/faceT/recommedation.png",
-      title: "Figure 3. recommend the suitable product for user"
-    }, {
-      image: "/projects/faceT/applyResult.png",
-      title: "Figure 4. see the effect for the cosmetic products"
-    }, {
-      image: "/projects/faceT/compareResult.png",
-      title: "Figure 5. compare the result after the cosmetic products"
-    }, {
-      image: "/projects/faceT/loginPage.png",
-      title: "Figure 6. Login Page - can use google or fb login"
-    }, {
-      image: "/projects/faceT/productDetail1.png",
-      title: "Figure 7. see the cosmetic products detail"
-    }, {
-      image: "/projects/faceT/productDetail2.png",
-      title: "Figure 8. rate and comment the cosmetic products"
-    }],
+    listIcon: '/projects/hkust_fyp.png',
+    name: 'FaceT',
+    image: '/projects/faceTImg.png',
+    link: 'https://github.com/clementf2b/FaceT',
+    subtitle: 'HKUST Final Year Project',
+    description:
+      'A cosmetic discovery mobile app that helps users understand product fit, compare effects, and make more confident shopping decisions.',
+    detail:
+      'The goal was to reduce the friction involved in choosing suitable cosmetic products. The app combined recommendation flows, product contribution, effect previewing, store lookup, and community feedback into one mobile experience.',
+    yearTag: '2017',
+    extraImageList: [
+      { image: '/projects/faceT/mainPage.png', title: 'Main page with quick access to core flows' },
+      { image: '/projects/faceT/predictColor.png', title: 'Skin tone prediction experience' },
+      { image: '/projects/faceT/recommedation.png', title: 'Personalized product recommendation screen' },
+      { image: '/projects/faceT/applyResult.png', title: 'Product effect preview before purchase' },
+    ],
   },
   {
-    listIcon: "/projects/ecare.png",
-    name: "E-Care",
-    image: "/projects/ecareImg.png",
-    link: "https://github.com/ysoseerius/e_care_new",
-    subtitle: "HKUST Mobile Application Design Contest",
-    description: "A platform for simplifying the process of medicine acquisition or appointment",
-    detail: "Features: \n\n1. QR code login and account registration \n- There are different type of accounts such as the patients and health care group. \n- Member of health care group will help users to create an account then give QR code for them to scan and login in their own. \n\n2. Appointment management Patients have a booking with health care group before they come to the connected clinic/hospital \n- For the patient without appointment, this application will provide a SMS reminder for them if he is the next one. \n\n3. Data encryption and storing Health care group inputs the records for the patients and stores the encrypted data in the database \n\n4. Courtesy reminder of taking relevant medication \n- The application would provide an alarm for them when time is reached to take the relevant medicine. There would provide a button for the patient to report to the doctor that they have or have not taken that medicine \n\n5. Report system for side effect \nThe patients have the option to report any side effects encountered while taking the medication and rate it as urgent, major or minor discomfort. \n- The health care group gives immediate responses to the patient and give advices to tackle the situation",
-    yearTag: "2016",
-    extraImageList: [{
-      image: "/projects/ecare/ecare1.png",
-      title: "Figure 1. import the medication report to the doctor"
-    }, {
-      image: "/projects/ecare/ecare2.png",
-      title: "Figure 2. clock alarm for take pills"
-    }, {
-      image: "/projects/ecare/ecare3.png",
-      title: "Figure 3. report for the allergy sufferer or urgent problem"
-    }],
+    listIcon: '/projects/ecare.png',
+    name: 'E-Care',
+    image: '/projects/ecareImg.png',
+    link: 'https://github.com/ysoseerius/e_care_new',
+    subtitle: 'HKUST Mobile Application Design Contest',
+    description:
+      'A care coordination platform for appointment handling, medicine reminders, and patient communication.',
+    detail:
+      'E-Care focused on making healthcare interactions less fragmented for patients and care groups. It introduced account onboarding, appointment flow support, secure record handling, medication reminders, and side-effect reporting.',
+    yearTag: '2016',
+    extraImageList: [
+      { image: '/projects/ecare/ecare1.png', title: 'Medication report shared with doctors' },
+      { image: '/projects/ecare/ecare2.png', title: 'Medication reminder and alarm flow' },
+      { image: '/projects/ecare/ecare3.png', title: 'Urgent side-effect reporting screen' },
+    ],
   },
   {
-    listIcon: "/projects/cccu_fyp.png",
-    name: "耆樂寶",
-    image: "/projects/cccufypImg.png",
-    link: "",
-    subtitle: "CCCU Final Year Project",
-    description: "A system for handling the photo, video and entertainment",
-    detail: "The functions included in the application have four main parts:  \n1. Social networking function focusing on sharing of events photo\n  2. Chat function that may contains in text, image, video and sound recording for script and record.\n  3. Gaming function which train users’ concentration, reaction and mobility\n  4. Video browsing function for user to watch TV episodes and films\n\nElders living in nursing home needs a lot of attentions, since their ability is degenerating by age grew. However, even nursing home have limited human resources, the elders’ family members may not have spare time to visit them face to face. Therefore the project is going provide an interface between elders, wardens and the family of them.\n\nFor elderly side:\n  1. Provide a convenient way to communicate with their family members\n  2. Entertain thought in-built functions like game and video\n  3. Pay attentions on events of the nursing home\n  4. Share photo with other members and comment other photo\n\nFor family side:\n  1. Provide a platform to care about the situation of the elders\n  2. Share daily life with the elders\n\nFor wardens side:\n  1. Train elders easier through the application\n  2. Observe elders ability by the rating of the games\n  3. Reduce workloads and maintain the nursing quality",
-    yearTag: "2014",
-    extraImageList: [{
-      image: "/projects/cccufyp/photo3.png",
-      title: "Figure.1 build this app for HKSKH "
-    }, {
-      image: "/projects/cccufyp/photo1.png",
-      title: "Figure.2 Account information"
-    }, {
-      image: "/projects/cccufyp/photo5.png",
-      title: "Figure.3 login page"
-    }, {
-      image: "/projects/cccufyp/photo2.png",
-      title: "Figure.4 Scan QRCode login"
-    }, {
-      image: "/projects/cccufyp/photo4.png",
-      title: "Figure.5 upload photo to database"
-    }],
+    listIcon: '/projects/cccu_fyp.png',
+    name: '耆樂寶',
+    image: '/projects/cccufypImg.png',
+    link: '',
+    subtitle: 'CCCU Final Year Project',
+    description:
+      'A communication and entertainment platform designed to help elderly residents stay connected, informed, and engaged.',
+    detail:
+      'This project supported event sharing, chat, games, media browsing, and family communication for elderly residents in nursing homes. The product aimed to improve connection, reduce isolation, and give caregivers better visibility into daily life.',
+    yearTag: '2014',
+    extraImageList: [
+      { image: '/projects/cccufyp/photo3.png', title: 'Built for nursing home usage scenarios' },
+      { image: '/projects/cccufyp/photo1.png', title: 'Account information view' },
+      { image: '/projects/cccufyp/photo5.png', title: 'Login page for users' },
+      { image: '/projects/cccufyp/photo4.png', title: 'Photo upload and sharing flow' },
+    ],
   },
 ]
 
 const ProjectsSection = () => {
+  const [zoomedImage, setZoomedImage] = useState<{
+    src: string
+    alt: string
+  } | null>(null)
+
+  useEffect(() => {
+    if (!zoomedImage) {
+      return
+    }
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setZoomedImage(null)
+      }
+    }
+
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [zoomedImage])
+
   return (
-    <section id="projects">
-      <h1 className="text-center font-bold text-4xl pb-12">
-        Projects
-        <hr className="w-16 h-1 mx-auto my-4 bg-teal-500 border-0 rounded"></hr>
-      </h1>
+    <>
+      <section id="projects" className="pt-10 pb-0 sm:pt-14 sm:pb-2">
+        <div className="section-shell">
+        <div className="mb-12">
+          <h2 className={sectionHeadingClassName}>Projects</h2>
+          <p className="mt-4 text-sm leading-6 text-[var(--muted)]">
+            A selection of projects that reflects my approach to product thinking,
+            engineering execution, and interface design.
+          </p>
+        </div>
 
-      <div className="flex flex-col space-y-20 pb-20">
-        {projects.map((project, idx) => {
-          return (
-            <div key={idx}>
-              <SlideUp offset="-300px 0px -300px 0px">
-
-                <div className="flex flex-col p-2 animate-slideUpCubiBezier animation-delay-2 md:flex-row md:space-x-12">
-                  <div className=" md:w-1/2">
-                    <Link href={project.link}>
+        <div className="space-y-8">
+          {projects.map((project) => (
+            <SlideUp key={project.name} offset="-150px 0px -100px 0px">
+              <article className="overflow-hidden rounded-[2rem] bg-[var(--surface-strong)]">
+                <div className="grid gap-0 lg:grid-cols-[1.1fr_0.9fr]">
+                  <div className="relative p-5 lg:p-6">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setZoomedImage({
+                          src: project.image,
+                          alt: `${project.name} project preview`,
+                        })
+                      }
+                      className="group block w-full overflow-hidden rounded-[1.5rem]"
+                    >
                       <Image
                         src={project.image}
-                        alt=""
-                        width={1000}
-                        height={1000}
-                        className="rounded-xl shadow-xl hover:opacity-70"
+                        alt={`${project.name} project preview`}
+                        width={1200}
+                        height={900}
+                        className="h-full w-full rounded-[1.5rem] object-cover transition duration-300 group-hover:scale-[1.02]"
                       />
-                    </Link>
+                    </button>
                   </div>
 
-                  <div className="mt-8 md:w-1/2">
-                    <div className="flex flex-row">
+                  <div className="p-6 sm:p-8">
+                    <div className="flex flex-wrap items-center gap-4">
                       <Image
                         src={project.listIcon}
-                        alt=""
-                        width={60}
-                        height={60}
-                        className="mb-3"
+                        alt={`${project.name} icon`}
+                        width={56}
+                        height={56}
+                        className="rounded-2xl"
                       />
-                      <h1 className="text-4xl font-bold mb-3 mt-1.5 mr-4">{project.name}</h1>
-                      <p className="pt-2 mt-1 mb-6 px-5 border rounded-full text-teal-600 bg-teal-100/25 border-teal-600 dark:text-teal-200 dark:bg-teal-400/25 dark:border-teal-600 ">
-                        {project.yearTag}
-                      </p>
+                      <div className="flex-1">
+                        <div className="flex flex-wrap items-center gap-3">
+                          <h3 className="text-3xl">{project.name}</h3>
+                          <span className="inline-flex items-center rounded-full bg-[var(--accent-soft)] px-5 py-1.5 text-sm font-semibold tracking-[0.14em] text-[var(--accent)]">
+                            {project.yearTag}
+                          </span>
+                        </div>
+                        <p className="mt-2 text-sm font-semibold uppercase tracking-[0.16em] text-[var(--muted)]">
+                          {project.subtitle}
+                        </p>
+                      </div>
                     </div>
 
-                    <p className="text-sm font-bold leading-7 mb-4 text-neutral-500 dark:text-neutral-300">
-                      {project.subtitle}
-                    </p>
-
-                    <p className="text-xl leading-7 mb-4 text-neutral-600 dark:text-neutral-400">
+                    <p className="mt-6 text-lg leading-8 text-[var(--foreground)]">
                       {project.description}
                     </p>
+                    <p className="mt-4 text-sm leading-7 text-[var(--muted)] sm:text-base">
+                      {project.detail}
+                    </p>
 
-                    {project.link.length > 0 ? (
-                      <div className="flex flex-row align-bottom space-x-4">
-                        <Link href={project.link} target="_blank">
-                          <BsGithub
-                            size={30}
-                            className="hover:-translate-y-1 transition-transform cursor-pointer"
-                          />
+                    <div className="mt-6 flex flex-wrap gap-3">
+                      {project.link ? (
+                        <Link href={project.link} target="_blank" className="secondary-button gap-2">
+                          View repository
+                          <BsArrowUpRight size={14} />
                         </Link>
-                      </div>) : (<div></div>)}
+                      ) : (
+                        <span className="secondary-button cursor-default">Private academic project</span>
+                      )}
+                    </div>
                   </div>
                 </div>
 
-              </SlideUp>
+                <div className="p-6 sm:p-8">
+                  <div className="mb-5 flex items-center justify-between gap-4">
+                    <h4 className="text-2xl">Interface snapshots</h4>
+                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--accent)]">
+                      {project.extraImageList.length} screens
+                    </p>
+                  </div>
 
-
-              <div>
-                {/* Arrow up */}
-                <input type="checkbox"
-                  className="relative w-full h-12 inset-x-0 top-0 items-end z-10 opacity-0 cursor-pointer peer" />
-                <IoIosArrowDown
-                  size={30}
-                  className="relative -top-12 w-full h-12 transition-transform duration-500 rotato-0 peer-checked:rotate-180 cursor-pointer" />
-
-                {/* Collapse Content */}
-                <div className="overflow-hidden transition-all duration-500 max-h-0 peer-checked:max-h-fit">
-                  <p className="whitespace-pre-line">
-                    {project.detail}
-                  </p>
-                  <br />
-
-                  <div className="grid grid-cols-2 gap-4 justify-between">
-                    {project.extraImageList.map((imageItem, idx) => {
-                      return (
-                        <div key={idx} className="p-3">
-                          <div>
-                            <img src={imageItem.image}
-                              alt=""
-                              width={360}
-                              height={600} />
-                            <div className="p-3">
-                              <h3>{imageItem.title}</h3>
-                            </div>
-                          </div>
+                  <div className="grid justify-center gap-6 sm:grid-cols-2 xl:grid-cols-3">
+                    {project.extraImageList.map((imageItem) => (
+                      <button
+                        key={imageItem.image}
+                        type="button"
+                        onClick={() =>
+                          setZoomedImage({
+                            src: imageItem.image,
+                            alt: imageItem.title,
+                          })
+                        }
+                        className="mx-auto w-full max-w-[22rem] overflow-hidden rounded-[1.5rem] bg-white/30 text-left transition duration-300 hover:-translate-y-1 dark:bg-white/5"
+                      >
+                        <div className="flex h-[28rem] items-center justify-center bg-black/5 p-4 dark:bg-white/5">
+                          <Image
+                            src={imageItem.image}
+                            alt={imageItem.title}
+                            width={720}
+                            height={1280}
+                            className="max-h-full w-auto max-w-full object-contain"
+                          />
                         </div>
-                      )
-                    })}
+                        <div className="p-4">
+                          <p className="text-sm leading-6 text-[var(--muted)]">{imageItem.title}</p>
+                        </div>
+                      </button>
+                    ))}
                   </div>
-
                 </div>
+              </article>
+            </SlideUp>
+          ))}
+        </div>
+        </div>
+      </section>
 
-              </div>
-            </div>
-          )
-        })}
-      </div>
-    </section>
+      {zoomedImage ? (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm"
+          onClick={() => setZoomedImage(null)}
+        >
+          <button
+            type="button"
+            onClick={() => setZoomedImage(null)}
+            className="absolute right-4 top-4 rounded-full bg-white/10 p-2 text-white transition hover:bg-white/20"
+            aria-label="Close image viewer"
+          >
+            <IoMdClose size={28} />
+          </button>
+          <div
+            className="relative max-h-[90vh] max-w-6xl overflow-hidden rounded-[1.5rem]"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <Image
+              src={zoomedImage.src}
+              alt={zoomedImage.alt}
+              width={1800}
+              height={1400}
+              className="max-h-[90vh] w-auto max-w-full object-contain"
+            />
+          </div>
+        </div>
+      ) : null}
+    </>
   )
 }
 

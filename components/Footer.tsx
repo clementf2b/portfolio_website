@@ -1,23 +1,21 @@
 import React from "react"
 import {
   AiOutlineGithub,
-  AiOutlineTwitter,
   AiOutlineLinkedin,
-  AiOutlineYoutube,
 } from "react-icons/ai"
 
 const Footer = () => {
   return (
-    <footer className="mx-auto max-w-3xl px-4 mb-2 sm:px-6 md:max-w-5xl ">
-      <hr className="w-full h-0.5 mx-auto mt-8 bg-neutral-200 border-0"></hr>
-      <div className="mx-auto p-4 flex flex-col text-center text-neutral-900 md:flex-row md:justify-between">
-        <div className="flex flex-row items-center justify-center space-x-1 text-neutral-500 dark:text-neutral-100">
-          © Clement Ng | All rights reserved 2024.<a href="/" className="hover:underline"></a>
+    <footer className="mx-auto max-w-7xl px-4 pb-8 pt-0 sm:px-6 lg:px-8">
+      <div className="section-shell rounded-[1.75rem] px-6 py-4 shadow-none">
+        <div className="mx-auto flex flex-col gap-3 text-center md:flex-row md:items-center md:justify-between md:text-left">
+        <div className="text-sm leading-7 text-[var(--muted)]">
+          © Clement Ng. Crafted for thoughtful product engineering and long-term software quality.
         </div>
-        <div className="flex flex-row items-center justify-center space-x-2 mb-1">
+        <div className="flex flex-row items-center justify-center space-x-2 mb-1 md:justify-end">
           <a href="https://github.com/clementf2b" rel="noreferrer" target="_blank">
             <AiOutlineGithub
-              className="hover:-translate-y-1 transition-transform cursor-pointer text-neutral-500 dark:text-neutral-100"
+              className="cursor-pointer rounded-full border border-[var(--card-border)] p-2 text-[var(--foreground)] transition-transform hover:-translate-y-1"
               size={30}
             />
           </a>
@@ -27,11 +25,12 @@ const Footer = () => {
             target="_blank"
           >
             <AiOutlineLinkedin
-              className="hover:-translate-y-1 transition-transform cursor-pointer text-neutral-500 dark:text-neutral-100"
+              className="cursor-pointer rounded-full border border-[var(--card-border)] p-2 text-[var(--foreground)] transition-transform hover:-translate-y-1"
               size={30}
             />
           </a>
         </div>
+      </div>
       </div>
     </footer>
   )

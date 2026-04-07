@@ -8,11 +8,9 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 
 const inter = Inter({
-  weight: ['400', '700'],
-  display: 'swap',
-  variable: '--font-inter',
-  fallback: ['Helvetica', 'sans-serif'],
   subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-sans',
 })
 
 export default function RootLayout({
@@ -21,9 +19,9 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={inter.className}>
+    <html lang="en" className={inter.variable} suppressHydrationWarning>
       <Header />
-      <body>
+      <body className="min-h-screen bg-[var(--background)] text-[var(--foreground)] antialiased">
         <ThemeProvider enableSystem={true} attribute="class">
           <Navbar />
           {children}
