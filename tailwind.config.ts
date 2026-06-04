@@ -12,6 +12,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        serif: ['var(--font-serif)', 'serif'],
+        sans: ['var(--font-sans)', 'sans-serif'],
+      },
       screens: { sm: "480px", md: "768px", lg: "976px", xl: "1440px" },
       animation: {
         fadeIn: "fadeIn 1.5s",
