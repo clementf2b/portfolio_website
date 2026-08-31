@@ -10,9 +10,14 @@ const IntroSection = () => {
   return (
     <section id="home" className="pb-4 pt-12 sm:pb-6 sm:pt-16">
       <div>
-        <div className="grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr]">
-          <div className="order-2 pt-2 lg:order-1 lg:-translate-y-6 lg:pt-4">
-            {/*
+        {/*
+         * The heading sits outside the grid so it spans the full width. Inside
+         * the text column it only had about 55% to work with, which pushed it
+         * onto three ragged lines; across the full measure it sets on two and
+         * fills them, which is what the approved mockup showed.
+         */}
+        <div>
+          {/*
              * Two-line statement replacing the old "About me", which collided
              * with the #about section heading further down the page.
              *
@@ -28,11 +33,14 @@ const IntroSection = () => {
              * The 52px display treatment agreed in the mockup belongs to the
              * visual revamp Epic; this keeps the current type scale.
              */}
-            <h1 className="mb-6 font-sans text-3xl font-semibold leading-[1.08] tracking-[-0.033em] text-[var(--foreground)] dark:text-white sm:text-4xl lg:text-5xl">
-              <span className="block">9+ years of cross-platform engineering,</span>
-              <span className="block text-[var(--accent)]">with AI-assisted coding in my workflow.</span>
-            </h1>
+          <h1 className="mb-10 font-display text-3xl font-semibold leading-[1.06] tracking-[-0.033em] text-[var(--foreground)] sm:text-4xl lg:text-5xl xl:text-[4rem]">
+            <span className="block">9+ years of cross-platform engineering,</span>
+            <span className="block text-[var(--accent)]">with AI-assisted coding in my workflow.</span>
+          </h1>
+        </div>
 
+        <div className="grid items-start gap-10 lg:grid-cols-[1.15fr_0.85fr]">
+          <div className="order-2 lg:order-1">
             {/*
              * Description text — only 2-3 key phrases are highlighted
              * in accent color for a cleaner, more professional look.
@@ -94,8 +102,13 @@ const IntroSection = () => {
             </div>
           </div>
 
-          <div className="order-1 lg:order-2">
-            <div className="mx-auto max-w-sm">
+          {/*
+           * lg:pt-6 drops the portrait a little below the bio's first line, so
+           * it reads as sitting alongside the paragraph rather than racing the
+           * heading that now spans above both.
+           */}
+          <div className="order-1 lg:order-2 lg:pt-6">
+            <div className="mx-auto max-w-xs sm:max-w-sm">
               {/*
                * The amber glow and the drop shadow are both gone: the approved
                * direction has no shadows, and the glow was a hardcoded colour
