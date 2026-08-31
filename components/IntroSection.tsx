@@ -34,8 +34,8 @@ const IntroSection = () => {
              * visual revamp Epic; this keeps the current type scale.
              */}
           <h1 className="mb-10 font-display text-3xl font-semibold leading-[1.06] tracking-[-0.033em] text-[var(--foreground)] sm:text-4xl lg:text-5xl xl:text-[4rem]">
-            <span className="block">9+ years of cross-platform engineering,</span>
-            <span className="block text-[var(--accent)]">with AI-assisted coding in my workflow.</span>
+            <span className="block">9+ years of cross-platform engineering.</span>
+            <span className="block text-[var(--accent)]">AI-assisted workflow.</span>
           </h1>
         </div>
 
