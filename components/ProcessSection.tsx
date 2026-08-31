@@ -26,32 +26,34 @@ const MARKER = 'process-arrow'
 const ProcessSection = () => {
   return (
     <section
-      id="process"
-      className="mt-8 border-t border-[var(--card-border)] pt-10 pb-8 sm:mt-10 sm:pt-14 sm:pb-12"
+      id="workflow"
+      className="mt-8 border-t border-[var(--card-border)] pt-10 pb-4 sm:mt-10 sm:pt-14 sm:pb-6"
     >
-      <h2 className={sectionHeadingClassName}>How this site was built</h2>
+      <h2 className={sectionHeadingClassName}>Workflow</h2>
       <p className="section-copy mt-4 max-w-[74ch]">{process.lede}</p>
 
-      {/* ── 1 · Decision moments ─────────────────────────────────────────── */}
-      <div className="mt-10">
-        {process.moments.map((moment, index) => (
+      {/*
+       * ── 1 · Decision moments ──────────────────────────────────────────
+       *
+       * Cards rather than a divided list. The first moment below is about a
+       * card layout that failed, so this is worth saying: that failure was
+       * six untitled sentences in a grid, where the frame carried no
+       * information. These three each have a label and a heading, which is
+       * the structure the card format is actually for.
+       */}
+      <div className="mt-10 grid gap-4 lg:grid-cols-3">
+        {process.moments.map((moment) => (
           <div
             key={moment.title}
-            className={
-              index > 0
-                ? 'mt-6 border-t border-[var(--card-border)] pt-6'
-                : undefined
-            }
+            className="flex flex-col rounded-card bg-[var(--surface)] p-6"
           >
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--accent)]">
               {moment.kicker}
             </p>
-            <h3 className="mt-2.5 font-display text-xl font-semibold tracking-[-0.02em] text-[var(--foreground)]">
+            <h3 className="mt-2.5 font-display text-lg font-semibold leading-snug tracking-[-0.02em] text-[var(--foreground)]">
               {moment.title}
             </h3>
-            <p className="mt-2.5 max-w-[74ch] text-sm leading-7 text-[var(--muted)] sm:text-base">
-              {moment.body}
-            </p>
+            <p className="mt-3 flex-1 text-sm leading-7 text-[var(--muted)]">{moment.body}</p>
             {moment.link && (
               <a
                 href={moment.link.href}
@@ -62,7 +64,7 @@ const ProcessSection = () => {
                 {...(moment.link.href.startsWith('http')
                   ? { target: '_blank', rel: 'noopener noreferrer' }
                   : {})}
-                className="focus-ring mt-3 inline-block rounded-sm text-sm font-semibold text-[var(--accent)] hover:underline"
+                className="focus-ring mt-4 inline-block rounded-sm text-sm font-semibold text-[var(--accent)] hover:underline"
               >
                 {moment.link.label} →
               </a>
@@ -188,12 +190,17 @@ const ProcessSection = () => {
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <Step who="Agent" title="Three variants" caption="Built with the real bullets">
             <a href="/process/experience-variants.html" className="focus-ring block rounded-lg">
+              {/*
+                * The thumbnail is the whole page, so it is tall. Cropped from
+                * the top rather than squashed — it is a preview, and the link
+                * goes to the page itself.
+                */}
               <Image
                 src="/process/variants-thumb.png"
                 alt="Three layout variants rendered with the real bullet text"
-                width={640}
-                height={815}
-                className="w-full rounded-lg"
+                width={560}
+                height={1349}
+                className="h-[260px] w-full rounded-lg object-cover object-top"
               />
             </a>
           </Step>
