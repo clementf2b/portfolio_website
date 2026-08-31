@@ -13,13 +13,14 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        serif: ['var(--font-serif)', 'serif'],
         sans: ['var(--font-sans)', 'sans-serif'],
         /*
-         * S3 display stack. --font-display is wired to Inter Tight when the
-         * 「視覺改版套用」 epic loads it via next/font; until then this falls
-         * back to the system stack. PingFang TC is Apple's own Chinese face,
-         * so it sits naturally next to Inter Tight.
+         * No serif key: the style gate ruled the editorial serif out, and
+         * nothing referenced font-serif once h1–h4 moved to the display stack.
+         *
+         * --font-display is Inter Tight, loaded via next/font in layout.tsx.
+         * PingFang TC is Apple's own Chinese face, so it sits naturally
+         * alongside it.
          */
         display: ['var(--font-display)', 'PingFang TC', 'Microsoft JhengHei', 'system-ui', 'sans-serif'],
       },

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import '../styles/globals.css'
-import { Inter, Playfair_Display } from 'next/font/google'
+import { Inter, Inter_Tight } from 'next/font/google'
 
 import Providers from './providers'
 import Navbar from '../components/Navbar'
@@ -12,11 +12,16 @@ const inter = Inter({
   variable: '--font-sans',
 })
 
-/* Heading font — editorial serif for visual impact */
-const playfair = Playfair_Display({
+/*
+ * Heading font. The style gate rejected the editorial serif that used to sit
+ * here: a warm cream ground plus a serif display plus a terracotta accent is
+ * the recognisable look of a generated template, and the site had all three.
+ * Inter Tight at a tight negative tracking replaces it.
+ */
+const interTight = Inter_Tight({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-serif',
+  variable: '--font-display',
 })
 
 /*
@@ -42,7 +47,7 @@ export default function RootLayout({
      * onto <html> before React hydrates, so server and client markup differ
      * here by design.
      */
-    <html lang="en" className={`${inter.variable} ${playfair.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} ${interTight.variable}`} suppressHydrationWarning>
       <body className="min-h-screen bg-[var(--background)] text-[var(--foreground)] antialiased">
         <Providers>
           <Navbar />

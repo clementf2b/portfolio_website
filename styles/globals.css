@@ -107,44 +107,36 @@
   }
 
   /* ═══════════════════════════════════════════════════════════════════════
-   * LEGACY TOKENS — still in use by every component.
-   * Superseded by the S3 tokens above; removed one region at a time by the
-   * 「視覺改版套用」 epic. --shadow and --card-border have no S3 equivalent
-   * on purpose and disappear when their last usage does.
+   * LEGACY TOKEN ALIASES
+   *
+   * These names are still read by every component. Rather than rewriting each
+   * var() call site, each legacy name now points at its S3 equivalent, so the
+   * whole site adopts the approved palette from one place. Call sites migrate
+   * to the --color-* names region by region; when the last one moves, the
+   * alias it used disappears from this block.
+   *
+   * One block, not two: next-themes puts .dark on <html>, which is :root
+   * itself, so --color-* has already resolved to its dark value by the time
+   * these aliases are substituted. A separate .dark block would be dead code.
    * ═══════════════════════════════════════════════════════════════════════ */
-
-  /*
-   * Color tokens — used as var(--token-name) throughout components.
-   * Palette: warm oatmeal background, caramel accent, khaki surfaces.
-   */
   :root {
-    --background: #faf5ed;
-    --foreground: #2d2418;
-    --muted: #8b7e6f;
-    --surface: rgba(240, 235, 227, 0.8);
-    --surface-strong: rgba(232, 225, 214, 0.95);
-    --card-border: rgba(139, 126, 111, 0.18);
-    --accent: #d4782a;
-    --accent-strong: #b85e18;
-    --accent-soft: rgba(212, 120, 42, 0.12);
-    --shadow: 0 30px 80px rgba(45, 36, 24, 0.1);
-  }
+    --background:      var(--color-bg);
+    --foreground:      var(--color-ink);
+    --muted:           var(--color-muted);
+    --surface:         var(--color-surface);
+    --surface-strong:  var(--color-surface-raised);
+    --card-border:     var(--color-line);
+    --accent:          var(--color-accent);
+    --accent-strong:   var(--color-accent-ink);
+    --accent-soft:     var(--color-accent-soft);
 
-  /*
-   * Dark mode — more contrast between background and surface
-   * so cards, shells, and sections stand out clearly.
-   */
-  .dark {
-    --background: #141010;
-    --foreground: #f0ebe3;
-    --muted: #b0a594;
-    --surface: rgba(42, 34, 26, 0.9);
-    --surface-strong: rgba(55, 44, 34, 0.95);
-    --card-border: rgba(176, 165, 148, 0.2);
-    --accent: #e07830;
-    --accent-strong: #f0a060;
-    --accent-soft: rgba(224, 120, 48, 0.15);
-    --shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+    /*
+     * The approved direction has no shadows at all — depth comes from surface
+     * colour banding. Neutralised here so every var(--shadow) call site goes
+     * flat at once; the call sites themselves are removed as each region is
+     * migrated.
+     */
+    --shadow: none;
   }
 
   html {
@@ -171,7 +163,7 @@
   h2,
   h3,
   h4 {
-    font-family: var(--font-serif), serif;
+    font-family: var(--font-display), 'PingFang TC', system-ui, sans-serif;
     letter-spacing: -0.02em;
     font-weight: 700;
   }
@@ -206,8 +198,12 @@
   .primary-button {
     @apply inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition duration-300;
     background: var(--accent);
-    color: #ffffff;
-    box-shadow: 0 18px 40px rgba(212, 120, 42, 0.24);
+    /*
+     * The old orange glow is gone with the rest of the shadows, and the text
+     * colour is now the token rather than a hardcoded white — on the dark
+     * theme's lighter copper, white sat below AA.
+     */
+    color: var(--color-on-accent);
   }
 
   .primary-button:hover {

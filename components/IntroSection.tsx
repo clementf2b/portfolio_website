@@ -96,9 +96,19 @@ const IntroSection = () => {
 
           <div className="order-1 lg:order-2">
             <div className="mx-auto max-w-sm">
-              <div className="relative mx-auto flex w-fit items-center justify-center rounded-full border border-[var(--card-border)] bg-[var(--surface-strong)] p-2 shadow-[var(--shadow)]">
-                <div className="absolute inset-x-8 top-4 h-20 rounded-full bg-amber-500/20 blur-3xl" />
-                <div className="relative rounded-full border border-white/20 bg-white/40 p-2 dark:bg-slate-950/30">
+              {/*
+               * The amber glow and the drop shadow are both gone: the approved
+               * direction has no shadows, and the glow was a hardcoded colour
+               * outside the token set.
+               */}
+              <div className="relative mx-auto flex w-fit items-center justify-center rounded-full bg-[var(--surface)] p-2">
+                {/*
+                 * The inner ring used hardcoded white/slate values, which read
+                 * as a halo once the glow behind it was removed. It now uses
+                 * the raised surface token, so it reads as one quiet step up
+                 * from the ring around it in both themes.
+                 */}
+                <div className="relative rounded-full bg-[var(--surface-strong)] p-2">
                   <Image
                     src="/avatar.png"
                     alt="Portrait of Clement Ng"

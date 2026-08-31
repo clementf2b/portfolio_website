@@ -2,7 +2,7 @@
  * Navbar.tsx
  * ─────────────────────────────────────────────────────────────────────────────
  * Fixed top navigation bar with:
- *   - Logo (script font, scrolls to #home on click)
+ *   - Logo (display sans, scrolls to #home on click)
  *   - Desktop nav pills (Home / About / Projects) — pill highlights the active section
  *   - Light/Dark theme toggle (sun/moon icon)
  *   - Mobile hamburger menu (collapses into a vertical list)
@@ -21,13 +21,6 @@ import { useEffect, useState, useCallback } from 'react'
 import { useTheme } from 'next-themes'
 import { RiMoonFill, RiSunLine } from 'react-icons/ri'
 import { IoMdMenu, IoMdClose } from 'react-icons/io'
-import { Dancing_Script } from 'next/font/google'
-
-/*
- * Dancing Script — loaded via next/font so it is self-hosted (no Google CDN
- * call at runtime) and automatically inserted as a CSS variable.
- */
-const dancingScript = Dancing_Script({ subsets: ['latin'] })
 
 interface NavItem {
     label: string   // text shown in the button, e.g. "Home"
@@ -51,9 +44,12 @@ const NavItems: Array<NavItem> = [
  * Defined at module level (outside the component) so it is never
  * re-created on each render — it's just a pure function.
  *
- * Active state  → filled surface + visible border
- * Inactive state → transparent border (reserves space so layout never shifts
- *                  when the border appears on hover)
+ * Active state  → filled surface
+ * Inactive state → transparent
+ *
+ * The border is kept transparent in both states rather than removed: it still
+ * reserves its 1px so the pill never shifts, but it is never painted, which is
+ * what the no-borders direction asks for.
  *
  * extraClass — optional classes added to the end, used by the mobile menu
  *              to add "text-left" so the text aligns to the left edge.
@@ -61,8 +57,8 @@ const NavItems: Array<NavItem> = [
 const navBtnClass = (isActive: boolean, extraClass = '') =>
     `cursor-pointer rounded-full border px-5 py-2 text-sm font-semibold uppercase tracking-[0.16em] outline-none transition hover:-translate-y-1 ${extraClass} ${
         isActive
-            ? 'border-[var(--card-border)] bg-[var(--surface-strong)] text-[var(--foreground)]'
-            : 'border-transparent text-[var(--muted)] hover:border-[var(--card-border)] hover:bg-[var(--surface)] hover:text-[var(--foreground)]'
+            ? 'border-transparent bg-[var(--surface-strong)] text-[var(--foreground)]'
+            : 'border-transparent text-[var(--muted)] hover:bg-[var(--surface)] hover:text-[var(--foreground)]'
     }`
 
 const Navbar = () => {
@@ -156,7 +152,8 @@ const Navbar = () => {
              * backdrop-blur-xl blurs the page content visible behind the semi-transparent
              * surface, creating a frosted-glass effect.
              */}
-            <div className="mx-auto max-w-7xl rounded-full border border-[var(--card-border)] bg-[var(--surface)] px-5 shadow-lg backdrop-blur-xl">
+            {/* No shadow: the approved direction separates the pill from the page with surface colour alone. */}
+            <div className="mx-auto max-w-7xl rounded-full bg-[var(--surface)] px-5 backdrop-blur-xl">
                 <div className="flex items-center justify-between py-2 md:py-4">
 
                     {/*
@@ -166,12 +163,11 @@ const Navbar = () => {
                      * site against a CV, LinkedIn and GitHub that all carry the
                      * full name, and a lone first name makes them infer the link.
                      *
-                     * The typeface stays Dancing Script for now. Swapping it for
-                     * the display sans agreed in the style gate belongs to the
-                     * visual revamp Epic, not to this content card.
+                     * The script face that used to sit here was one of the three
+                     * tells the style gate rejected. It is now the display sans.
                      */}
                     <a href="#home">
-                        <h2 className={`text-3xl font-bold text-[var(--foreground)] transition-transform hover:-translate-y-1 ${dancingScript.className}`}>
+                        <h2 className="font-display text-2xl font-semibold tracking-[-0.025em] text-[var(--foreground)] transition-transform hover:-translate-y-1">
                             Clement Ng
                         </h2>
                     </a>
