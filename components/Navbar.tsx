@@ -44,8 +44,12 @@ const NavItems: Array<NavItem> = [
  * Defined at module level (outside the component) so it is never
  * re-created on each render — it's just a pure function.
  *
- * Active state  → filled surface
- * Inactive state → transparent
+ * Active state  → ink text
+ * Inactive state → muted text
+ *
+ * The active pill used to be filled with --surface-strong, which made it the
+ * lightest thing on an otherwise warm-grey page — a lot of visual weight for
+ * "you are in this section". Colour and weight carry that on their own.
  *
  * The border is kept transparent in both states rather than removed: it still
  * reserves its 1px so the pill never shifts, but it is never painted, which is
@@ -57,7 +61,7 @@ const NavItems: Array<NavItem> = [
 const navBtnClass = (isActive: boolean, extraClass = '') =>
     `cursor-pointer rounded-full border px-5 py-2 text-sm font-semibold uppercase tracking-[0.16em] outline-none transition hover:-translate-y-1 ${extraClass} ${
         isActive
-            ? 'border-transparent bg-[var(--surface-strong)] text-[var(--foreground)]'
+            ? 'border-transparent text-[var(--foreground)]'
             : 'border-transparent text-[var(--muted)] hover:bg-[var(--surface)] hover:text-[var(--foreground)]'
     }`
 
@@ -85,6 +89,17 @@ const Navbar = () => {
 
     /* activeSection — the `page` string of whichever section is currently in view */
     const [activeSection, setActiveSection] = useState('home')
+
+    /*
+     * scrolled — false while the page is at the very top.
+     *
+     * The bar is transparent over the hero and only takes a background once
+     * the page moves, so the first viewport is nothing but the heading. A
+     * scroll listener rather than another IntersectionObserver: there is no
+     * element to observe at the top of the document, and a sentinel div added
+     * purely to be watched is more markup than this.
+     */
+    const [scrolled, setScrolled] = useState(false)
 
     /*
      * IntersectionObserver — active section detection
@@ -122,6 +137,15 @@ const Navbar = () => {
         return () => observers.forEach((o) => o.disconnect())
     }, [])
 
+    useEffect(() => {
+        /* passive: this listener never calls preventDefault, so the browser
+         * does not have to wait for it before scrolling. */
+        const onScroll = () => setScrolled(window.scrollY > 8)
+        onScroll()
+        window.addEventListener('scroll', onScroll, { passive: true })
+        return () => window.removeEventListener('scroll', onScroll)
+    }, [])
+
     /*
      * Navigation uses plain <a href="#section"> anchors.
      *
@@ -152,8 +176,16 @@ const Navbar = () => {
              * backdrop-blur-xl blurs the page content visible behind the semi-transparent
              * surface, creating a frosted-glass effect.
              */}
-            {/* No shadow: the approved direction separates the pill from the page with surface colour alone. */}
-            <div className="mx-auto max-w-7xl rounded-full bg-[var(--surface)] px-5 backdrop-blur-xl">
+            {/*
+             * No shadow: the approved direction separates the pill from the
+             * page with surface colour alone — and at the top of the page it
+             * does not separate at all.
+             */}
+            <div
+                className={`mx-auto max-w-7xl rounded-full px-5 transition-colors duration-300 ${
+                    scrolled ? 'bg-[var(--surface)] backdrop-blur-xl' : 'bg-transparent'
+                }`}
+            >
                 <div className="flex items-center justify-between py-2 md:py-4">
 
                     {/*
