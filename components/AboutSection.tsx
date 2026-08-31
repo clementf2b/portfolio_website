@@ -13,7 +13,7 @@
  */
 import React from 'react'
 import { sectionHeadingClassName } from '../lib/classNames'
-import { education, experiences, skillGroups } from '../lib/content'
+import { companies, education, skillGroups } from '../lib/content'
 import Image from 'next/image'
 
 
@@ -72,24 +72,29 @@ const AboutSection = () => {
              * <ol> because the entries are chronological — the order carries
              * meaning, so a list that says so is the honest markup.
              *
-             * The border-t on every <li> forms one continuous rule across the
-             * four columns on desktop, which is the connecting line the old
-             * image drew by hand. On mobile the columns stack and each rule
-             * becomes a plain separator. No pseudo-elements needed.
+             * The rule is drawn once on the <ol> and the nodes are positioned
+             * back up onto it, rather than a border-top per <li>. A per-item
+             * border breaks at every grid gap, which read as four separate
+             * columns instead of one timeline — the connecting line was the
+             * whole point of the image this replaces.
              *
-             * Styling uses the current token set. The revamp Epic drops borders
-             * in favour of surface bands and will restyle this block then.
+             * The line and nodes only appear at lg, where the four entries sit
+             * in a row. Stacked, a vertical run of dots down the left would be
+             * decoration, not a timeline.
              */}
-            <ol className="mt-6 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            <ol className="relative mt-6 grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-7 lg:pt-9 lg:before:absolute lg:before:inset-x-0 lg:before:top-0 lg:before:h-0.5 lg:before:bg-[var(--card-border)] lg:before:content-['']">
               {education.timeline.map((entry) => (
-                <li key={entry.period} className="border-t-2 border-[var(--card-border)] pt-4">
-                  <p className="text-sm font-semibold tracking-wide text-[var(--accent)]">
+                <li
+                  key={entry.period}
+                  className="relative border-t-2 border-[var(--card-border)] pt-4 lg:border-t-0 lg:pt-0 lg:before:absolute lg:before:-top-[2.4375rem] lg:before:left-0 lg:before:h-2.5 lg:before:w-2.5 lg:before:rounded-full lg:before:bg-[var(--accent)] lg:before:content-['']"
+                >
+                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--accent)]">
                     {entry.period}
                   </p>
-                  <p className="mt-2 font-semibold leading-snug text-[var(--foreground)]">
+                  <p className="mt-2.5 font-display text-lg font-semibold leading-snug tracking-[-0.02em] text-[var(--foreground)]">
                     {entry.school}
                   </p>
-                  <p className="mt-1 text-sm leading-6 text-[var(--muted)]">
+                  <p className="mt-1.5 text-sm leading-6 text-[var(--muted)]">
                     {entry.qualification}
                   </p>
                 </li>
@@ -105,67 +110,74 @@ const AboutSection = () => {
               </div>
 
               {/*
-               * Experience entries come from `experiences` in lib/content.tsx.
-               * Adding a role means adding one object there — this markup is
-               * written once and reused for every entry, replacing the three
-               * hand-copied blocks that used to live here.
+               * Two levels: company, then the roles held there.
                *
-               * mt-6 on every entry after the first reproduces the spacing the
-               * copied blocks had.
+               * The company header — logo, name, location, overall dates and
+               * the summary paragraph — prints once. Two of the three roles
+               * are at PremiumSoft, so the flat list used to repeat that whole
+               * paragraph verbatim, and the promotion from Software Developer
+               * to Senior Software Developer read as two unrelated jobs.
+               *
+               * Roles are indented under a left rule. The approved direction
+               * avoids borders, but the education timeline already uses the
+               * same token for its rule, and pure indentation did not make the
+               * nesting legible on its own.
                */}
-              {experiences.map((job, index) => (
-                <div key={`${job.company}-${job.period}`} className={index > 0 ? 'mt-6' : undefined}>
-                  <div className="flex flex-col gap-3">
-                    <h4 className="text-2xl">{job.title}</h4>
-
-                    {/*
-                     * Company meta row: logo + company name (linked) + location + dates.
-                     * normal-case / tracking-normal override the parent uppercase
-                     * styles so the company name renders in sentence case.
-                     */}
-                    <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[var(--muted)]">
-                      <span className="inline-flex items-center gap-3 normal-case tracking-normal">
-                        <Image
-                          src={job.logo.src}
-                          alt={job.logo.alt}
-                          width={job.logo.width}
-                          height={job.logo.height}
-                          className={job.logo.className}
-                        />
-                        <span className="text-sm font-semibold uppercase tracking-[0.16em] text-[var(--muted)]">
-                          {/* rel="noopener noreferrer" stops the new tab reaching window.opener */}
-                          <a
-                            href={job.companyUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="underline underline-offset-4"
-                          >
-                            {job.company}
-                          </a>{' '}
-                          | {job.location} | {job.period}
-                        </span>
-                      </span>
-                    </p>
-
-                    <p className="text-sm leading-7 text-[var(--muted)] sm:text-base">
-                      {job.summary}
-                    </p>
+              {companies.map((company, companyIndex) => (
+                <div key={company.name} className={companyIndex > 0 ? 'mt-14' : undefined}>
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+                    <Image
+                      src={company.logo.src}
+                      alt={company.logo.alt}
+                      width={company.logo.width}
+                      height={company.logo.height}
+                      className={company.logo.className}
+                    />
+                    {/* rel="noopener noreferrer" stops the new tab reaching window.opener */}
+                    <a
+                      href={company.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-display text-xl font-semibold tracking-[-0.025em] text-[var(--foreground)] transition-colors hover:text-[var(--accent)]"
+                    >
+                      {company.name}
+                    </a>
+                    <span className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--muted)]">
+                      {company.location} · {company.period}
+                    </span>
                   </div>
 
-                  {/*
-                   * Each <li> is a flex row so the dot and the text share a centre
-                   * line.  shrink-0 stops the 6px dot collapsing when text wraps.
-                   */}
-                  <ul className="mt-3 space-y-1 text-sm leading-6 text-[var(--muted)]">
-                    {job.bullets.map((bullet, bulletIndex) => (
-                      <li key={bulletIndex} className="flex items-center gap-2.5">
-                        <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--accent)]" />
-                        <span>{bullet}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  <p className="mt-3 max-w-[76ch] text-sm leading-7 text-[var(--muted)] sm:text-base">
+                    {company.summary}
+                  </p>
 
-                  <TagList tags={job.tags} />
+                  <div className="mt-7 border-l border-[var(--card-border)] pl-4 sm:pl-6">
+                    {company.roles.map((role, roleIndex) => (
+                      <div key={role.title} className={roleIndex > 0 ? 'mt-8' : undefined}>
+                        <h4 className="text-xl">{role.title}</h4>
+                        <p className="mt-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-[var(--accent)]">
+                          {role.period}
+                        </p>
+
+                        {/*
+                         * items-start, not items-center: on a bullet that wraps
+                         * to two lines the dot belongs beside the first line,
+                         * not floating in the middle of the block. mt-2 lines it
+                         * up with the cap height. shrink-0 stops it collapsing.
+                         */}
+                        <ul className="mt-4 space-y-2.5 text-sm leading-7 text-[var(--muted)]">
+                          {role.bullets.map((bullet, bulletIndex) => (
+                            <li key={bulletIndex} className="flex items-start gap-2.5">
+                              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--accent)]" />
+                              <span className="max-w-[76ch]">{bullet}</span>
+                            </li>
+                          ))}
+                        </ul>
+
+                        <TagList tags={role.tags} />
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
             </div>

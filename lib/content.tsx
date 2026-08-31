@@ -35,16 +35,32 @@ export const Em = ({ children }: { children: React.ReactNode }) => (
 const accordIconDataUrl =
   'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAZCAMAAAAVHr4VAAAAjVBMVEX////7+/vNzc3e3t5PS05dWlxcWVtVUVSura5bWFpnZGZoZWfz+/3R7/Z+fH5iX2GioKF4dnfs+fuV2uq85/Hp6elZVVfX1tbs7Oxmy+LEw8S8u7tXx+DF6vOFgYOL1ujf9Pl0z+T69fSCeHikoqOx4+/O5+7ByczP1tnF3OGY3/F+2/Br0umpn52LiYttCJRUAAABH0lEQVR4Aa2PVYKDQBBEB2mkkMHd43r/2yVBo3+7hXXxpo39gwRx0G8oyUSkqNJPqOkwAEUbjGmZb1VtcMfl3B2t5wcvMCREsUNQk4mm/ktVBSRkuhHlbJRflEvVisNmIYCKjaofqeYYShykDUeUsW6TpgErvSHOFaPfQiPo+cDatDWZVw+5jxQuMBbroOrxDdKi7rPK1hJYGOlR36wDX629oC3SjTlWr9vNdpevxX75/WFzTIt206cJI97Up1P9UJuez6dj0LBBI2TdJdsfrLK0rGafX1bJG8zkSL6OISKKsjd45aDpz5oMfmUv6jiAcIxjFUDyAsUI3J7bE8YqsxwyaD0bm+O1bgciVZxdrhJFz7qhs16vFxs+jBOyv+kOJucVEUwoH9QAAAAASUVORK5CYII='
 
-export type Experience = {
+/*
+ * Two levels, company then role, rather than one flat list of jobs.
+ *
+ * Two of the three roles are at the same company, so a flat list printed the
+ * same company name, logo and summary paragraph twice in a row — and, worse,
+ * hid the fact that the second one was a promotion. Grouping is how LinkedIn
+ * and every CV convention handle this, and it puts the progression from
+ * Software Developer to Senior Software Developer on one screen.
+ */
+export type Role = {
   title: string
-  company: string
-  companyUrl: string
+  period: string
+  bullets: React.ReactNode[]
+  tags: string[]
+}
+
+export type Company = {
+  name: string
+  url: string
   location: string
+  /* Spans every role below, so it reads as total tenure at the company. */
   period: string
   logo: { src: string; alt: string; width: number; height: number; className: string }
   summary: string
-  bullets: React.ReactNode[]
-  tags: string[]
+  /* Newest first. */
+  roles: Role[]
 }
 
 const navicatLogo = {
@@ -58,44 +74,43 @@ const navicatLogo = {
 const premiumsoftSummary =
   'A leading software company developing Navicat, a premier multi-connection database administration tool used by millions of enterprise professionals globally.'
 
-export const experiences: Experience[] = [
+export const companies: Company[] = [
   {
-    title: 'Senior Software Developer',
-    company: 'PremiumSoft CyberTech Ltd.',
-    companyUrl: 'https://www.navicat.com/en/',
+    name: 'PremiumSoft CyberTech Ltd.',
+    url: 'https://www.navicat.com/en/',
     location: 'Hong Kong',
-    period: '03/2021 - Now',
+    period: '06/2017 - Now',
     logo: navicatLogo,
     summary: premiumsoftSummary,
-    bullets: [
-      <>Led end-to-end development and maintenance of <Em>Navicat</Em> for MacOS and Linux environments.</>,
-      <>Designed backend architectures supporting multi-connection database integrations including <Em>Snowflake</Em> and <Em>PostgreSQL</Em>.</>,
-      <>Built a Data Generation feature with custom algorithms and UI to produce realistic sample datasets for testing and demos.</>,
-      <>Integrated <Em>C++</Em> libraries to enable Data Dictionary export, improving third-party interoperability by 25%.</>,
-      <>Delivered a BI workspace that transforms raw data into actionable insights to support data-driven decisions.</>,
-      <>Conducted code reviews to maintain high standards of quality and long-term maintainability.</>,
+    roles: [
+      {
+        title: 'Senior Software Developer',
+        period: '03/2021 - Now',
+        bullets: [
+          <>Led end-to-end development and maintenance of <Em>Navicat</Em> for MacOS and Linux environments.</>,
+          <>Designed backend architectures supporting multi-connection database integrations including <Em>Snowflake</Em> and <Em>PostgreSQL</Em>.</>,
+          <>Built a Data Generation feature with custom algorithms and UI to produce realistic sample datasets for testing and demos.</>,
+          <>Integrated <Em>C++</Em> libraries to enable Data Dictionary export, improving third-party interoperability by 25%.</>,
+          <>Delivered a BI workspace that transforms raw data into actionable insights to support data-driven decisions.</>,
+          <>Conducted code reviews to maintain high standards of quality and long-term maintainability.</>,
+        ],
+        tags: ['C++', 'Objective-C', 'Qt', 'MacOS', 'Linux', 'Snowflake', 'PostgreSQL'],
+      },
+      {
+        title: 'Software Developer',
+        period: '06/2017 - 02/2021',
+        bullets: [
+          <>Investigated and resolved complex customer-reported defects across <Em>MacOS</Em> and <Em>Linux</Em> platforms.</>,
+          <>Optimized application performance and refined database query execution pathways.</>,
+          <>Participated in agile development cycles, delivering incremental updates to improve product stability.</>,
+        ],
+        tags: ['C++', 'Objective-C', 'Qt', 'MacOS', 'Linux'],
+      },
     ],
-    tags: ['C++', 'Objective-C', 'Qt', 'MacOS', 'Linux', 'Snowflake', 'PostgreSQL'],
   },
   {
-    title: 'Software Developer',
-    company: 'PremiumSoft CyberTech Ltd.',
-    companyUrl: 'https://www.navicat.com/en/',
-    location: 'Hong Kong',
-    period: '06/2017 - 02/2021',
-    logo: navicatLogo,
-    summary: premiumsoftSummary,
-    bullets: [
-      <>Investigated and resolved complex customer-reported defects across <Em>MacOS</Em> and <Em>Linux</Em> platforms.</>,
-      <>Optimized application performance and refined database query execution pathways.</>,
-      <>Participated in agile development cycles, delivering incremental updates to improve product stability.</>,
-    ],
-    tags: ['C++', 'Objective-C', 'Qt', 'MacOS', 'Linux'],
-  },
-  {
-    title: 'Junior Mobile Application Developer',
-    company: 'Accord HK',
-    companyUrl: 'https://www.accordhk.com/zh-hant/',
+    name: 'Accord HK',
+    url: 'https://www.accordhk.com/zh-hant/',
     location: 'Hong Kong',
     period: '12/2016 - 02/2017',
     logo: {
@@ -107,13 +122,19 @@ export const experiences: Experience[] = [
     },
     summary:
       'A boutique technology agency specializing in custom mobile application development for retail and consumer-facing brands.',
-    bullets: [
-      <>Designed and built native mobile applications for <Em>Android</Em> and <Em>iOS</Em> using <Em>Java</Em> and <Em>Objective-C</Em>.</>,
-      <>Implemented local data storage solutions utilizing <Em>SQLite</Em> and native mobile SDKs.</>,
-      <>Managed end-to-end app packaging and submission to the <Em>Google Play Store</Em>.</>,
-      <>Collaborated directly with clients to translate business requirements into technical features.</>,
+    roles: [
+      {
+        title: 'Junior Mobile Application Developer',
+        period: '12/2016 - 02/2017',
+        bullets: [
+          <>Designed and built native mobile applications for <Em>Android</Em> and <Em>iOS</Em> using <Em>Java</Em> and <Em>Objective-C</Em>.</>,
+          <>Implemented local data storage solutions utilizing <Em>SQLite</Em> and native mobile SDKs.</>,
+          <>Managed end-to-end app packaging and submission to the <Em>Google Play Store</Em>.</>,
+          <>Collaborated directly with clients to translate business requirements into technical features.</>,
+        ],
+        tags: ['Java', 'Objective-C', 'Android', 'iOS', 'SQLite'],
+      },
     ],
-    tags: ['Java', 'Objective-C', 'Android', 'iOS', 'SQLite'],
   },
 ]
 
