@@ -18,86 +18,13 @@
 
 import React, { useEffect, useState } from 'react'
 import { sectionHeadingClassName } from '../lib/classNames'
+import { projects } from '../lib/content'
 import Image from 'next/image'
 import Link from 'next/link'
 import { BsArrowUpRight } from 'react-icons/bs'
 import { IoMdClose } from 'react-icons/io'
 import SlideUp from './SlideUp'
 
-
-/*
- * projects
- * ─────────
- * Static data array — one object per project card.
- * Keeping data here (rather than in a separate JSON file) avoids an extra
- * import step and is fine at this scale (3 projects).
- *
- * Fields:
- *   listIcon       – small square icon shown in the card header
- *   name           – project title
- *   image          – hero image shown on the left panel of the card
- *   link           – GitHub URL; empty string "" means a private/academic project
- *   subtitle       – short context label (e.g. "HKUST Final Year Project")
- *   description    – lead sentence shown in bold
- *   detail         – secondary paragraph in muted colour
- *   yearTag        – year badge rendered next to the title
- *   extraImageList – screenshots shown in the "Interface snapshots" gallery
- */
-const projects = [
-  {
-    listIcon: '/projects/hkust_fyp.png',
-    name: 'FaceT',
-    image: '/projects/faceTImg.png',
-    link: 'https://github.com/clementf2b/FaceT',
-    subtitle: 'HKUST Final Year Project',
-    description:
-      'A cosmetic discovery mobile app that helps users understand product fit, compare effects, and make more confident shopping decisions.',
-    detail:
-      'The goal was to reduce the friction involved in choosing suitable cosmetic products. The app combined recommendation flows, product contribution, effect previewing, store lookup, and community feedback into one mobile experience.',
-    yearTag: '2017',
-    extraImageList: [
-      { image: '/projects/faceT/mainPage.png', title: 'Main page with quick access to core flows' },
-      { image: '/projects/faceT/predictColor.png', title: 'Skin tone prediction experience' },
-      { image: '/projects/faceT/recommedation.png', title: 'Personalized product recommendation screen' },
-      { image: '/projects/faceT/applyResult.png', title: 'Product effect preview before purchase' },
-    ],
-  },
-  {
-    listIcon: '/projects/ecare.png',
-    name: 'E-Care',
-    image: '/projects/ecareImg.png',
-    link: 'https://github.com/ysoseerius/e_care_new',
-    subtitle: 'HKUST Mobile Application Design Contest',
-    description:
-      'A care coordination platform for appointment handling, medicine reminders, and patient communication.',
-    detail:
-      'E-Care focused on making healthcare interactions less fragmented for patients and care groups. It introduced account onboarding, appointment flow support, secure record handling, medication reminders, and side-effect reporting.',
-    yearTag: '2016',
-    extraImageList: [
-      { image: '/projects/ecare/ecare1.png', title: 'Medication report shared with doctors' },
-      { image: '/projects/ecare/ecare2.png', title: 'Medication reminder and alarm flow' },
-      { image: '/projects/ecare/ecare3.png', title: 'Urgent side-effect reporting screen' },
-    ],
-  },
-  {
-    listIcon: '/projects/cccu_fyp.png',
-    name: '耆樂寶',
-    image: '/projects/cccufypImg.png',
-    link: '',
-    subtitle: 'CCCU Final Year Project',
-    description:
-      'A communication and entertainment platform designed to help elderly residents stay connected, informed, and engaged.',
-    detail:
-      'This project supported event sharing, chat, games, media browsing, and family communication for elderly residents in nursing homes. The product aimed to improve connection, reduce isolation, and give caregivers better visibility into daily life.',
-    yearTag: '2014',
-    extraImageList: [
-      { image: '/projects/cccufyp/photo3.png', title: 'Built for nursing home usage scenarios' },
-      { image: '/projects/cccufyp/photo1.png', title: 'Account information view' },
-      { image: '/projects/cccufyp/photo5.png', title: 'Login page for users' },
-      { image: '/projects/cccufyp/photo4.png', title: 'Photo upload and sharing flow' },
-    ],
-  },
-]
 
 const ProjectsSection = () => {
   /*

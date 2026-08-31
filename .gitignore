@@ -36,3 +36,35 @@ yarn-error.log*
 next-env.d.ts
 
 package-lock.json
+
+# local node version manager copy
+/.nvm/
+
+# ─── AI agent workspace (local only, not part of the published site) ───
+# Everything below is tooling for AI coding agents. It is deliberately kept
+# out of the repo so the public portfolio stays just the site.
+
+# Claude Code
+#   CLAUDE.md        entrypoint / project instructions
+#   .claude/skills   skills, .claude/agents  subagents
+#   (.claude/launch.json and settings.local.json stay tracked)
+/CLAUDE.md
+/.claude/skills/
+/.claude/agents/
+
+# Codex
+#   AGENTS.md  entrypoint
+#   .codex/    skills + local config
+/AGENTS.md
+/.codex/
+
+# Shared by both agents (Monstrare governance kit, MIT (c) PJ Wang)
+#   Monstrare-main/  vendored upstream copy
+#   ai/              process, skills, templates, context, artifacts
+#   tools/kanban/    governance board (cards + epics)
+/Monstrare-main/
+/ai/
+/tools/kanban/
+/scripts/check-governance.sh
+/.github/pull_request_template.md
+/.github/ISSUE_TEMPLATE/

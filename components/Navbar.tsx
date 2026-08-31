@@ -16,7 +16,6 @@
  *   - Uses next-themes (which only works in the browser)
  */
 "use client"
-import '../styles/globals.css'
 import React from "react"
 import { useEffect, useState, useCallback } from 'react'
 import { useTheme } from 'next-themes'
@@ -128,34 +127,17 @@ const Navbar = () => {
     }, [])
 
     /*
-     * scrollToSection — smooth-scrolls the page to a section by its id.
+     * Navigation uses plain <a href="#section"> anchors.
      *
-     * Why not use <a href="#section">?
-     *   Anchor links trigger a URL change (#hash) and can cause the page to
-     *   jump instantly.  Using scrollTo with behavior:'smooth' gives a
-     *   controlled animation and keeps the URL clean.
+     * The smooth animation comes from `html { scroll-behavior: smooth }` and
+     * the fixed navbar is cleared by `scroll-margin-top` on each section —
+     * both in globals.css.  That replaces the previous hand-rolled
+     * window.scrollTo with its hard-coded 80px offset.
      *
-     * navbarHeight offset (80px):
-     *   The navbar is fixed at the top.  Without the offset, the section
-     *   heading would scroll behind the navbar.  We subtract 80px from the
-     *   target scroll position to leave enough room.
-     *
-     * useCallback with [] deps:
-     *   The function body doesn't depend on any state or props, so it never
-     *   needs to be re-created between renders.
+     * The only thing still needed in JS is closing the mobile menu after a
+     * link is followed.
      */
-    const scrollToSection = useCallback((sectionId: string) => {
-        const element = document.getElementById(sectionId)
-        if (element) {
-            const navbarHeight = 80
-            const elementPosition = element.getBoundingClientRect().top + window.scrollY
-            window.scrollTo({
-                top: elementPosition - navbarHeight,
-                behavior: 'smooth'
-            })
-        }
-        setNavbar(false)   // close mobile menu after navigating
-    }, [])
+    const closeMenu = useCallback(() => setNavbar(false), [])
 
     /* Toggles between light and dark, inverting whatever is currently resolved */
     const toggleTheme = () => {
@@ -177,22 +159,19 @@ const Navbar = () => {
             <div className="mx-auto max-w-7xl rounded-full border border-[var(--card-border)] bg-[var(--surface)] px-5 shadow-lg backdrop-blur-xl">
                 <div className="flex items-center justify-between py-2 md:py-4">
 
-                    {/* Logo — scrolls to #home; hover lifts slightly like the nav pills */}
-                    <button
-                        onClick={() => scrollToSection('home')}
-                        className="cursor-pointer"
-                    >
+                    {/* Logo — links to #home; hover lifts slightly like the nav pills */}
+                    <a href="#home">
                         <h2 className={`text-4xl font-bold text-[var(--foreground)] transition-transform hover:-translate-y-1 ${dancingScript.className}`}>
                             Clement
                         </h2>
-                    </button>
+                    </a>
 
                     {/* Desktop navigation — hidden on mobile (md:flex) */}
                     <nav className="hidden items-center gap-1 md:flex">
                         {NavItems.map((item, index) => (
-                            <button
+                            <a
                                 key={index}
-                                onClick={() => scrollToSection(item.page)}
+                                href={`#${item.page}`}
                                 /*
                                  * navBtnClass compares activeSection to item.page.
                                  * When they match, the pill gets the filled/active style.
@@ -200,7 +179,7 @@ const Navbar = () => {
                                 className={navBtnClass(activeSection === item.page)}
                             >
                                 {item.label}
-                            </button>
+                            </a>
                         ))}
 
                         {/*
@@ -244,14 +223,15 @@ const Navbar = () => {
                     <div className="pb-4 md:hidden">
                         <div className="flex flex-col gap-2">
                             {NavItems.map((item, index) => (
-                                <button
+                                <a
                                     key={index}
-                                    onClick={() => scrollToSection(item.page)}
+                                    href={`#${item.page}`}
+                                    onClick={closeMenu}
                                     /* text-left aligns the label in the full-width button */
                                     className={navBtnClass(activeSection === item.page, 'text-left')}
                                 >
                                     {item.label}
-                                </button>
+                                </a>
                             ))}
 
                             {/* Mobile theme toggle — text label instead of icon-only */}

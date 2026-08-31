@@ -2,7 +2,6 @@
 
 import React from 'react'
 import Image from 'next/image'
-import { Link } from 'react-scroll/modules'
 import { HiArrowDown } from 'react-icons/hi'
 import { BsGithub, BsLinkedin } from 'react-icons/bs'
 import { HiOutlineDocumentText } from 'react-icons/hi2'
@@ -38,23 +37,16 @@ const IntroSection = () => {
 
             <div className="mt-8 flex flex-wrap items-center gap-4">
               {/*
-               * "Explore projects" uses react-scroll Link to smooth-scroll.
-               * The <a> tag around it would break scrolling, so we use
-               * Link directly with cursor-pointer for the hand cursor.
+               * Native anchor. Smooth scrolling comes from
+               * `html { scroll-behavior: smooth }` in globals.css, and the
+               * fixed navbar is cleared by `scroll-margin-top` on the target
+               * section — no scrolling library needed.
                */}
-              <Link
-                to="projects"
-                className="primary-button cursor-pointer"
-                activeClass="active"
-                spy={true}
-                smooth={true}
-                offset={-100}
-                duration={500}
-              >
+              <a href="#projects" className="primary-button">
                 Explore projects
-              </Link>
+              </a>
               <a
-                href="/CV.pdf"
+                href="/cv.pdf"
                 download="CV.pdf"
                 className="secondary-button gap-2"
               >
@@ -103,20 +95,12 @@ const IntroSection = () => {
       </div>
 
       <div className="mt-4 flex justify-center">
-        <Link
-          to="about"
-          activeClass="active"
-          spy={true}
-          smooth={true}
-          offset={-100}
-          duration={500}
-          className="group cursor-pointer p-3"
-        >
+        <a href="#about" aria-label="Scroll to about section" className="group p-3">
           <HiArrowDown
             size={26}
             className="animate-bounce text-[var(--accent)] transition-transform duration-300 group-hover:translate-y-1"
           />
-        </Link>
+        </a>
       </div>
     </section>
   )

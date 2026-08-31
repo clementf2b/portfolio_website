@@ -1,9 +1,8 @@
-"use client" // this is a client component
+import type { Metadata } from 'next'
 import '../styles/globals.css'
-import { ThemeProvider } from 'next-themes'
 import { Inter, Playfair_Display } from 'next/font/google'
 
-import Header from './header'
+import Providers from './providers'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 
@@ -20,20 +19,36 @@ const playfair = Playfair_Display({
   variable: '--font-serif',
 })
 
+/*
+ * Metadata API — replaces the old app/header.tsx, which used the abandoned
+ * Next 13-beta `head.tsx` convention and was rendered as a sibling of <body>.
+ * Title and description are carried over verbatim.
+ */
+export const metadata: Metadata = {
+  title: 'Clement Ng | Senior Software Engineer',
+  description:
+    'Portfolio of Clement Ng, a senior software engineer building desktop, mobile, and product-focused software experiences.',
+  icons: { icon: '/favicon.png' },
+}
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
   return (
+    /*
+     * suppressHydrationWarning is required: next-themes writes the theme class
+     * onto <html> before React hydrates, so server and client markup differ
+     * here by design.
+     */
     <html lang="en" className={`${inter.variable} ${playfair.variable}`} suppressHydrationWarning>
-      <Header />
       <body className="min-h-screen bg-[var(--background)] text-[var(--foreground)] antialiased">
-        <ThemeProvider enableSystem={true} attribute="class">
+        <Providers>
           <Navbar />
           {children}
           <Footer />
-        </ThemeProvider>
+        </Providers>
       </body>
     </html>
   )

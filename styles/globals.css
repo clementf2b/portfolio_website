@@ -3,6 +3,116 @@
 @tailwind utilities;
 
 @layer base {
+  /* ═══════════════════════════════════════════════════════════════════════
+   * S3 DESIGN TOKENS — Epic 0 · UI 設計系統
+   * Direction: Apple structure × warm palette, light default.
+   * Decision record: ai/artifacts/專案設置/mockup-decision-style-direction.md
+   *
+   * DEFINED HERE, NOT YET APPLIED. Components still read the legacy tokens
+   * further down; the 「視覺改版套用」 epic migrates them across. Adding
+   * these must not change a single pixel — that is the acceptance test.
+   *
+   * No shadow tokens exist by design: the chosen direction separates
+   * regions with surface colour, never with shadows or borders.
+   * ═══════════════════════════════════════════════════════════════════════ */
+  :root {
+    /* ── primitive · warm neutral ─────────────────────────────────────
+     * Warm-biased greys (r > g > b throughout) so the neutrals read as
+     * chosen rather than inherited. Two pairs in the approved palette were
+     * imperceptibly close and are merged onto one step each:
+     *   light surface / dark ink  → 200
+     *   light ink / dark surface  → 900
+     */
+    --warm-0:   #ffffff;
+    --warm-50:  #faf9f7;
+    --warm-100: #f6f4f1;  /* light bg */
+    --warm-200: #edeae5;  /* light surface · dark ink */
+    --warm-300: #e0dcd5;  /* light line */
+    --warm-400: #c9c3ba;
+    --warm-500: #a29b91;
+    --warm-600: #8e887e;  /* dark muted */
+    --warm-700: #6a645d;  /* light muted */
+    --warm-800: #4a4540;
+    --warm-850: #262320;  /* dark line */
+    --warm-900: #171514;  /* light ink · dark surface */
+    --warm-950: #0d0c0b;  /* dark bg */
+
+    /* ── primitive · copper accent ──────────────────────────────────── */
+    --copper-50:  #faf4ec;
+    --copper-100: #efe3d5;  /* light accent-soft */
+    --copper-200: #e5cdaf;
+    --copper-300: #dda86e;  /* dark accent-ink */
+    --copper-400: #c9863f;  /* dark accent */
+    --copper-500: #a9691f;
+    --copper-600: #8f5518;  /* light accent */
+    --copper-700: #7a4713;  /* light accent-ink */
+    --copper-800: #5a340e;
+    --copper-900: #241c14;  /* dark accent-soft */
+
+    /* ── semantic · light (the default mode) ─────────────────────────── */
+    --color-bg:             var(--warm-100);
+    --color-surface:        var(--warm-200);
+    --color-surface-raised: var(--warm-50);
+    --color-ink:            var(--warm-900);
+    --color-muted:          var(--warm-700);
+    --color-line:           var(--warm-300);
+    --color-accent:         var(--copper-600);
+    --color-on-accent:      var(--warm-0);
+    --color-accent-soft:    var(--copper-100);
+    --color-accent-ink:     var(--copper-700);
+    --color-focus:          var(--copper-600);
+    /*
+     * scrim — added during S4. A modal needs one and S3 had no equivalent.
+     * Flagged for approval as an S3 extension rather than added silently.
+     */
+    --color-scrim:          rgb(23 21 20 / 0.55);
+
+    /* ── radius ──────────────────────────────────────────────────────── */
+    --radius-none: 0px;
+    --radius-sm:   4px;
+    --radius-md:   8px;
+    --radius-lg:   12px;
+    --radius-card: 18px;
+    --radius-full: 999px;
+
+    /* ── z-index ─────────────────────────────────────────────────────── */
+    --z-base:    0;
+    --z-sticky:  100;
+    --z-nav:     200;
+    --z-overlay: 800;
+    --z-modal:   900;
+
+    /* ── motion ──────────────────────────────────────────────────────── */
+    --dur-fast: 150ms;
+    --dur-base: 250ms;
+    --dur-slow: 400ms;
+    --ease-out:    cubic-bezier(0.2, 0, 0, 1);
+    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* ── semantic · dark. Primitives are shared; only roles are remapped. ── */
+  .dark {
+    --color-bg:             var(--warm-950);
+    --color-surface:        var(--warm-900);
+    --color-surface-raised: var(--warm-850);
+    --color-ink:            var(--warm-200);
+    --color-muted:          var(--warm-600);
+    --color-line:           var(--warm-850);
+    --color-accent:         var(--copper-400);
+    --color-on-accent:      var(--warm-950);
+    --color-accent-soft:    var(--copper-900);
+    --color-accent-ink:     var(--copper-300);
+    --color-focus:          var(--copper-400);
+    --color-scrim:          rgb(13 12 11 / 0.72);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════
+   * LEGACY TOKENS — still in use by every component.
+   * Superseded by the S3 tokens above; removed one region at a time by the
+   * 「視覺改版套用」 epic. --shadow and --card-border have no S3 equivalent
+   * on purpose and disappear when their last usage does.
+   * ═══════════════════════════════════════════════════════════════════════ */
+
   /*
    * Color tokens — used as var(--token-name) throughout components.
    * Palette: warm oatmeal background, caramel accent, khaki surfaces.
@@ -41,6 +151,15 @@
     scroll-behavior: smooth;
   }
 
+  /*
+   * The navbar is fixed at the top, so an anchor target would otherwise
+   * scroll underneath it.  5rem (80px) matches the navbar's height and
+   * replaces the offset that used to be hard-coded in Navbar.tsx.
+   */
+  section[id] {
+    scroll-margin-top: 5rem;
+  }
+
   body {
     font-family: var(--font-sans), sans-serif;
     background: var(--background);
@@ -63,6 +182,20 @@
 }
 
 @layer components {
+  /*
+   * ── S4 · focus ring ──────────────────────────────────────────────────
+   * Opt-in class, not a global :focus-visible rule. Rolling it out across
+   * every existing element belongs to the 「可及性與互動品質」 epic; applying
+   * it globally here would change how the current page behaves on focus.
+   *
+   * offset keeps the ring clear of the element on both light and dark
+   * grounds without needing a second colour.
+   */
+  .focus-ring:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+
   /* Used in IntroSection for the about-me paragraph text */
   .section-copy {
     @apply text-base leading-8 sm:text-lg;
