@@ -159,10 +159,20 @@ const Navbar = () => {
             <div className="mx-auto max-w-7xl rounded-full border border-[var(--card-border)] bg-[var(--surface)] px-5 shadow-lg backdrop-blur-xl">
                 <div className="flex items-center justify-between py-2 md:py-4">
 
-                    {/* Logo — links to #home; hover lifts slightly like the nav pills */}
+                    {/*
+                     * Logo — links to #home; hover lifts slightly like the nav pills.
+                     *
+                     * Full name rather than "Clement": recruiters cross-check the
+                     * site against a CV, LinkedIn and GitHub that all carry the
+                     * full name, and a lone first name makes them infer the link.
+                     *
+                     * The typeface stays Dancing Script for now. Swapping it for
+                     * the display sans agreed in the style gate belongs to the
+                     * visual revamp Epic, not to this content card.
+                     */}
                     <a href="#home">
-                        <h2 className={`text-4xl font-bold text-[var(--foreground)] transition-transform hover:-translate-y-1 ${dancingScript.className}`}>
-                            Clement
+                        <h2 className={`text-3xl font-bold text-[var(--foreground)] transition-transform hover:-translate-y-1 ${dancingScript.className}`}>
+                            Clement Ng
                         </h2>
                     </a>
 

@@ -12,27 +12,47 @@ const IntroSection = () => {
       <div>
         <div className="grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr]">
           <div className="order-2 pt-2 lg:order-1 lg:-translate-y-6 lg:pt-4">
-            <span className="mb-6 block font-sans text-3xl font-semibold leading-none tracking-[-0.04em] text-[var(--foreground)] dark:text-white sm:text-4xl lg:text-5xl">
-              About me
-            </span>
+            {/*
+             * Two-line statement replacing the old "About me", which collided
+             * with the #about section heading further down the page.
+             *
+             * Every claim here already existed in the bio below — the years,
+             * the discipline, the AI-assisted workflow — so this is a
+             * restructure, not a new assertion. The second line carries the
+             * accent so the AI half reads as the emphasis without any extra
+             * decoration.
+             *
+             * <h1> because this is the page's title. The old markup used a
+             * <span>, which left the document with no h1 at all.
+             *
+             * The 52px display treatment agreed in the mockup belongs to the
+             * visual revamp Epic; this keeps the current type scale.
+             */}
+            <h1 className="mb-6 font-sans text-3xl font-semibold leading-[1.08] tracking-[-0.033em] text-[var(--foreground)] dark:text-white sm:text-4xl lg:text-5xl">
+              <span className="block">9+ years of cross-platform engineering,</span>
+              <span className="block text-[var(--accent)]">with AI-assisted coding in my workflow.</span>
+            </h1>
 
             {/*
              * Description text — only 2-3 key phrases are highlighted
              * in accent color for a cleaner, more professional look.
+             *
+             * Shorter than before: the years and the AI clause moved up into
+             * the title, so repeating them four lines apart read as padding.
+             * "global teams" became "an overseas team" at the owner's
+             * instruction — the engineering team spans two countries, which
+             * "global" overstated.
              */}
             <p className="section-copy mt-2 max-w-2xl">
-              I&apos;m Ng Kai Hong, Clement, and I enjoy building software that is
+              I&apos;m Ng Kai Hong (Clement), and I enjoy building software that is
               stable, practical, and thoughtfully crafted. My background spans
-              C++, Swift, Objective-C, and modern web tooling. I also actively
-              incorporate AI-assisted coding into my workflow to prototype faster,
-              refine ideas, and deliver maintainable solutions with high standards.
-              Over the past{' '}
-              <span className="font-semibold text-[var(--accent)]">9+ years</span>,
-              I have focused on{' '}
+              C++, Swift, Objective-C, and modern web tooling. I also incorporate
+              AI-assisted coding into my workflow to prototype faster and refine
+              ideas. I focus on{' '}
               <span className="font-semibold text-[var(--accent)]">cross-platform engineering</span>{' '}
-              across desktop and mobile products while collaborating with{' '}
-              <span className="font-semibold text-[var(--accent)]">global teams</span>{' '}
-              from Hong Kong.
+              across desktop and mobile products, working from{' '}
+              <span className="font-semibold text-[var(--accent)]">Hong Kong</span>{' '}
+              with an overseas team.
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-4">
