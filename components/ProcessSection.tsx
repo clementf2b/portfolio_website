@@ -53,7 +53,7 @@ const ProcessSection = () => {
             <h3 className="mt-2.5 font-display text-lg font-semibold leading-snug tracking-[-0.02em] text-[var(--foreground)]">
               {moment.title}
             </h3>
-            <p className="mt-3 flex-1 text-[13px] leading-[1.7] text-[var(--muted)]">{moment.body}</p>
+            <p className="mt-3 flex-1 text-sm leading-7 text-[var(--muted)]">{moment.body}</p>
             {moment.link && (
               <a
                 href={moment.link.href}

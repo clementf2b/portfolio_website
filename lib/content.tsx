@@ -163,18 +163,18 @@ export const process = {
     {
       kicker: 'The agent was overruled',
       title: 'A card layout that fell apart on contact with real writing',
-      body: 'The plan was to promote each achievement into its own project card. Rendered with the actual six-sentence bullets rather than placeholder headlines, the cards read worse than the plain list: the frame added weight, not information, and the grid came out ragged. The card format was rejected and the list kept.',
+      body: 'The plan was to promote each achievement into its own card. Rendered with the real six-sentence bullets, the frame added weight but no information. The format was rejected and the list kept.',
       link: { label: 'Compare the three variants', href: '/process/experience-variants.html' },
     },
     {
       kicker: 'A mistake the process caught',
       title: 'Fake copy produced a confident, wrong recommendation',
-      body: 'An early mockup used invented placeholder text. Against short fake headlines one layout looked clearly best. With the real long-form sentences restored, that same layout became the worst of the three and the ranking reversed. Evaluating a layout on content it will never carry is worse than not evaluating it at all.',
+      body: 'An early mockup used invented placeholder copy. One layout won against short fake headlines and came last against the real sentences. The ranking reversed.',
     },
     {
       kicker: 'Defects that predated the rebuild',
       title: 'Two bugs surfaced by verification, not by reading the code',
-      body: 'The build had been failing on a key that no longer existed, and a Tailwind content glob silently dropped every class written in one directory, leaving company logos rendering at their intrinsic 128px instead of the 28px their class asked for. Both had been in the repository before this work started.',
+      body: 'The build had been failing on a missing key, and a Tailwind content glob silently dropped every class written in one directory — company logos rendered at 128px instead of 28px. Both predated the rebuild.',
       link: { label: 'Read the commits', href: 'https://github.com/clementf2b/portfolio_website/commits/main' },
     },
   ] as DecisionMoment[],
