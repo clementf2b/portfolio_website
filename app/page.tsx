@@ -1,6 +1,7 @@
 import IntroSection from '../components/IntroSection'
 import AboutSection from '../components/AboutSection'
 import ProjectsSection from '../components/ProjectsSection'
+import ProcessSection from '../components/ProcessSection'
 
 export default function Home() {
   return (
@@ -8,6 +9,7 @@ export default function Home() {
       <IntroSection />
       <AboutSection />
       <ProjectsSection />
+      <ProcessSection />
     </main>
   )
 }

@@ -139,6 +139,72 @@ export const companies: Company[] = [
 ]
 
 /*
+ * process
+ * ───────
+ * The "How this site was built" section. Every claim here is checkable: the
+ * variants are served from /process/, the commit hash is in the public
+ * history, and the house rules are the ones in the repo's agent instructions.
+ *
+ * Written as data rather than markup so the wording sits with the rest of the
+ * site's copy, in one file.
+ */
+export type DecisionMoment = {
+  kicker: string
+  title: string
+  body: string
+  link?: { label: string; href: string }
+}
+
+export const process = {
+  lede:
+    'This site was rebuilt with an AI agent under a gated workflow: every UI change produced several variants and waited for a decision before any code was written. What follows is not a claim that the agent built it. These are three points where the process changed the outcome.',
+
+  moments: [
+    {
+      kicker: 'The agent was overruled',
+      title: 'A card layout that fell apart on contact with real writing',
+      body: 'The plan was to promote each achievement into its own project card. Rendered with the actual six-sentence bullets rather than placeholder headlines, the cards read worse than the plain list: the frame added weight, not information, and the grid came out ragged. The card format was rejected and the list kept.',
+      link: { label: 'Compare the three variants', href: '/process/experience-variants.html' },
+    },
+    {
+      kicker: 'A mistake the process caught',
+      title: 'Fake copy produced a confident, wrong recommendation',
+      body: 'An early mockup used invented placeholder text. Against short fake headlines one layout looked clearly best. With the real long-form sentences restored, that same layout became the worst of the three and the ranking reversed. Evaluating a layout on content it will never carry is worse than not evaluating it at all.',
+    },
+    {
+      kicker: 'Defects that predated the rebuild',
+      title: 'Two bugs surfaced by verification, not by reading the code',
+      body: 'The build had been failing on a key that no longer existed, and a Tailwind content glob silently dropped every class written in one directory, leaving company logos rendering at their intrinsic 128px instead of the 28px their class asked for. Both had been in the repository before this work started.',
+      link: { label: 'Read the commits', href: 'https://github.com/clementf2b/portfolio_website/commits/main' },
+    },
+  ] as DecisionMoment[],
+
+  /* The loop. Two of the four steps are the owner's, and it stops at both. */
+  loop: [
+    { lane: 'agent', title: 'Proposes options', note: 'built with the real content' },
+    { lane: 'you', title: 'You pick one', note: 'the agent waits here' },
+    { lane: 'agent', title: 'Builds one card', note: 'then brings the evidence' },
+    { lane: 'you', title: 'You review', note: 'and move the card' },
+  ] as { lane: 'agent' | 'you'; title: string; note: string }[],
+
+  /* Verbatim from the repository's agent instructions. */
+  rules: [
+    'One branch per card, named after the card',
+    'One commit per card. English. [Function] what changed',
+    "No commit until the card's verification contract passes",
+    'Screenshot every finished section for review',
+    'Pushing needs a separate instruction. Committing is not pushing',
+  ],
+
+  credit: {
+    text: 'Workflow: an open-source agent governance kit — ',
+    linkLabel: 'Monstrare',
+    href: 'https://github.com/pjwang2022/Monstrare',
+    tail: ', used as-is.',
+  },
+}
+
+/*
  * education
  * ─────────
  * Transcribed verbatim from the former edu.png / edu-dm.png pair. The spelling

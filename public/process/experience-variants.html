@@ -1,0 +1,118 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Experience layout — three variants</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  
+  :root {
+    --bg: #f6f4f1; --surface: #edeae5; --surface-raised: #faf9f7;
+    --ink: #171514; --muted: #6a645d; --line: #e0dcd5;
+    --accent: #8f5518; --on-accent: #ffffff;
+    --accent-soft: #efe3d5; --accent-ink: #7a4713;
+    --radius-card: 18px; --radius-full: 999px;
+    --dur-base: 250ms; --ease-out: cubic-bezier(0.2, 0, 0, 1);
+  }
+
+  body {
+    background: var(--bg); color: var(--ink);
+    font-family: Inter, -apple-system, 'PingFang TC', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .display { font-family: 'Inter Tight', Inter, sans-serif; }
+
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 0 32px; }
+
+  
+  .variant-head { border-top: 1px solid var(--line); margin-top: 72px; padding-top: 24px; }
+  .variant-head:first-of-type { margin-top: 40px; border-top: 0; }
+  .variant-tag {
+    display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: .06em;
+    text-transform: uppercase; color: var(--accent); background: var(--accent-soft);
+    padding: 4px 12px; border-radius: var(--radius-full);
+  }
+  .variant-name { font-family: 'Inter Tight', sans-serif; font-size: 28px; font-weight: 600; letter-spacing: -.03em; margin-top: 12px; }
+  .variant-note { font-size: 14px; line-height: 1.6; color: var(--muted); margin-top: 8px; max-width: 62ch; }
+  .demo { margin-top: 36px; }
+
+  
+  .job-title { font-family: 'Inter Tight', sans-serif; font-size: 24px; font-weight: 600; letter-spacing: -.025em; }
+  .job-meta {
+    margin-top: 8px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted);
+  }
+  .job-meta a { color: var(--muted); }
+  .job-summary { margin-top: 16px; font-size: 15px; line-height: 1.7; color: var(--muted); max-width: 70ch; }
+  .tags { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag {
+    font-size: 12px; font-weight: 600; color: var(--accent);
+    background: var(--accent-soft); padding: 5px 12px; border-radius: var(--radius-full);
+  }
+  em.hl { font-style: normal; font-weight: 600; color: var(--ink); }
+
+  
+  .bullets { margin-top: 20px; list-style: none; }
+  .bullets li {
+    position: relative; padding-left: 20px; margin-top: 10px;
+    font-size: 15px; line-height: 1.7; color: var(--muted); max-width: 78ch;
+  }
+  .bullets li::before {
+    content: ''; position: absolute; left: 2px; top: 11px;
+    width: 5px; height: 5px; border-radius: 50%; background: var(--accent);
+  }
+
+  
+  .cards { margin-top: 24px; display: grid; gap: 16px; grid-template-columns: repeat(2, 1fr); }
+  .card {
+    background: var(--surface); border-radius: var(--radius-card); padding: 24px;
+    transition: background var(--dur-base) var(--ease-out);
+  }
+  .card:hover { background: var(--surface-raised); }
+  .card p { font-size: 15px; line-height: 1.65; color: var(--muted); }
+  .card p em.hl { color: var(--ink); }
+
+  .rest-label {
+    margin-top: 28px; font-size: 11px; font-weight: 600; letter-spacing: .06em;
+    text-transform: uppercase; color: var(--muted);
+  }
+
+  @media (max-width: 760px) {
+    .cards { grid-template-columns: 1fr; }
+  }
+</style>
+
+<div class="wrap">
+
+  
+  <div class="variant-head"><span class="variant-tag">Variant A</span><div class="variant-name">Keep the bullet list</div><p class="variant-note">Same structure as the live site. Six long-form bullets, full width, kept word for word.</p></div>
+  
+
+  
+  <div class="variant-head"><span class="variant-tag">Variant B</span><div class="variant-name">Promote two, keep the rest as a list</div><p class="variant-note">Two bullets become cards, four stay in the list. Nothing is lost, but somebody has to decide which two matter.</p></div>
+  
+
+    <div class="rest-label">Also</div>
+    <ul class="bullets">
+      <li>Designed backend architectures supporting multi-connection database integrations including <em class="hl">Snowflake</em> and <em class="hl">PostgreSQL</em>.</li>
+      <li>Built a Data Generation feature with custom algorithms and UI to produce realistic sample datasets for testing and demos.</li>
+      <li>Delivered a BI workspace that transforms raw data into actionable insights to support data-driven decisions.</li>
+      <li>Conducted code reviews to maintain high standards of quality and long-term maintainability.</li>
+    </ul>
+    <div class="tags">
+      <span class="tag">C++</span><span class="tag">Objective-C</span><span class="tag">Qt</span><span class="tag">MacOS</span><span class="tag">Linux</span><span class="tag">Snowflake</span><span class="tag">PostgreSQL</span>
+    </div>
+  </div>
+
+  
+  <div class="variant-tag-wrap"><div class="variant-head"><span class="variant-tag">Variant C</span><div class="variant-name">Promote all six into cards</div><p class="variant-note">The literal reading of "promote the work history into project cards". Rendered with the real sentences, the frame adds weight rather than information.</p></div></div>
+  
+    <div class="tags">
+      <span class="tag">C++</span><span class="tag">Objective-C</span><span class="tag">Qt</span><span class="tag">MacOS</span><span class="tag">Linux</span><span class="tag">Snowflake</span><span class="tag">PostgreSQL</span>
+    </div>
+  </div>
+
+  <div style="height:80px"></div>
+</div>
