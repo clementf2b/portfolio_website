@@ -7,7 +7,7 @@
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  
+  /* */
   :root {
     --bg: #f6f4f1; --surface: #edeae5; --surface-raised: #faf9f7;
     --ink: #171514; --muted: #6a645d; --line: #e0dcd5;
@@ -26,7 +26,7 @@
 
   .wrap { max-width: 1000px; margin: 0 auto; padding: 0 32px; }
 
-  
+  /* */
   .variant-head { border-top: 1px solid var(--line); margin-top: 72px; padding-top: 24px; }
   .variant-head:first-of-type { margin-top: 40px; border-top: 0; }
   .variant-tag {
@@ -38,7 +38,7 @@
   .variant-note { font-size: 14px; line-height: 1.6; color: var(--muted); margin-top: 8px; max-width: 62ch; }
   .demo { margin-top: 36px; }
 
-  
+  /* */
   .job-title { font-family: 'Inter Tight', sans-serif; font-size: 24px; font-weight: 600; letter-spacing: -.025em; }
   .job-meta {
     margin-top: 8px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
@@ -53,7 +53,7 @@
   }
   em.hl { font-style: normal; font-weight: 600; color: var(--ink); }
 
-  
+  /* */
   .bullets { margin-top: 20px; list-style: none; }
   .bullets li {
     position: relative; padding-left: 20px; margin-top: 10px;
@@ -64,7 +64,7 @@
     width: 5px; height: 5px; border-radius: 50%; background: var(--accent);
   }
 
-  
+  /* */
   .cards { margin-top: 24px; display: grid; gap: 16px; grid-template-columns: repeat(2, 1fr); }
   .card {
     background: var(--surface); border-radius: var(--radius-card); padding: 24px;
@@ -87,12 +87,56 @@
 <div class="wrap">
 
   
-  <div class="variant-head"><span class="variant-tag">Variant A</span><div class="variant-name">Keep the bullet list</div><p class="variant-note">Same structure as the live site. Six long-form bullets, full width, kept word for word.</p></div>
-  
+  <div class="variant-head">
+    <span class="variant-tag">Variant A</span>
+    <div class="variant-name">Keep the bullet list</div>
+    <p class="variant-note">
+      The structure the live site already uses. Six long-form bullets, full width, kept word
+      for word. Reading long sentences on one line is why this layout was chosen in the first place.
+    </p>
+  </div>
+
+  <div class="demo">
+    <div class="job-title display">Senior Software Developer</div>
+    <div class="job-meta">
+      <a href="#">PremiumSoft CyberTech Ltd.</a><span>·</span><span>Hong Kong</span><span>·</span><span>03/2021 – Now</span>
+    </div>
+    <p class="job-summary">A leading software company developing Navicat, a premier multi-connection database administration tool used by millions of enterprise professionals globally.</p>
+    <ul class="bullets">
+      <li>Led end-to-end development and maintenance of <em class="hl">Navicat</em> for MacOS and Linux environments.</li>
+      <li>Designed backend architectures supporting multi-connection database integrations including <em class="hl">Snowflake</em> and <em class="hl">PostgreSQL</em>.</li>
+      <li>Built a Data Generation feature with custom algorithms and UI to produce realistic sample datasets for testing and demos.</li>
+      <li>Integrated <em class="hl">C++</em> libraries to enable Data Dictionary export, improving third-party interoperability by 25%.</li>
+      <li>Delivered a BI workspace that transforms raw data into actionable insights to support data-driven decisions.</li>
+      <li>Conducted code reviews to maintain high standards of quality and long-term maintainability.</li>
+    </ul>
+    <div class="tags">
+      <span class="tag">C++</span><span class="tag">Objective-C</span><span class="tag">Qt</span><span class="tag">MacOS</span><span class="tag">Linux</span><span class="tag">Snowflake</span><span class="tag">PostgreSQL</span>
+    </div>
+  </div>
 
   
-  <div class="variant-head"><span class="variant-tag">Variant B</span><div class="variant-name">Promote two, keep the rest as a list</div><p class="variant-note">Two bullets become cards, four stay in the list. Nothing is lost, but somebody has to decide which two matter.</p></div>
-  
+  <div class="variant-head">
+    <span class="variant-tag">Variant B</span>
+    <div class="variant-name">Promote two, keep the rest as a list</div>
+    <p class="variant-note">
+      Two bullets become cards, four stay in the list. Nothing is lost and the eye gets somewhere
+      to land. <strong>But deciding which two matter is an editorial call. The first two are shown
+      here purely as an example, not as a recommendation.</strong>
+    </p>
+  </div>
+
+  <div class="demo">
+    <div class="job-title display">Senior Software Developer</div>
+    <div class="job-meta">
+      <a href="#">PremiumSoft CyberTech Ltd.</a><span>·</span><span>Hong Kong</span><span>·</span><span>03/2021 – Now</span>
+    </div>
+    <p class="job-summary">A leading software company developing Navicat, a premier multi-connection database administration tool used by millions of enterprise professionals globally.</p>
+
+    <div class="cards">
+      <div class="card"><p>Led end-to-end development and maintenance of <em class="hl">Navicat</em> for MacOS and Linux environments.</p></div>
+      <div class="card"><p>Integrated <em class="hl">C++</em> libraries to enable Data Dictionary export, improving third-party interoperability by 25%.</p></div>
+    </div>
 
     <div class="rest-label">Also</div>
     <ul class="bullets">
@@ -107,8 +151,31 @@
   </div>
 
   
-  <div class="variant-tag-wrap"><div class="variant-head"><span class="variant-tag">Variant C</span><div class="variant-name">Promote all six into cards</div><p class="variant-note">The literal reading of "promote the work history into project cards". Rendered with the real sentences, the frame adds weight rather than information.</p></div></div>
-  
+  <div class="variant-head">
+    <span class="variant-tag">Variant C</span>
+    <div class="variant-name">Promote all six into cards</div>
+    <p class="variant-note">
+      All six become cards &mdash; the literal reading of &ldquo;promote the work history into
+      project cards&rdquo;. Rendered, the problem shows: the card format is built for short
+      headlines, and this content is six long sentences.
+    </p>
+  </div>
+
+  <div class="demo">
+    <div class="job-title display">Senior Software Developer</div>
+    <div class="job-meta">
+      <a href="#">PremiumSoft CyberTech Ltd.</a><span>·</span><span>Hong Kong</span><span>·</span><span>03/2021 – Now</span>
+    </div>
+    <p class="job-summary">A leading software company developing Navicat, a premier multi-connection database administration tool used by millions of enterprise professionals globally.</p>
+
+    <div class="cards">
+      <div class="card"><p>Led end-to-end development and maintenance of <em class="hl">Navicat</em> for MacOS and Linux environments.</p></div>
+      <div class="card"><p>Designed backend architectures supporting multi-connection database integrations including <em class="hl">Snowflake</em> and <em class="hl">PostgreSQL</em>.</p></div>
+      <div class="card"><p>Built a Data Generation feature with custom algorithms and UI to produce realistic sample datasets for testing and demos.</p></div>
+      <div class="card"><p>Integrated <em class="hl">C++</em> libraries to enable Data Dictionary export, improving third-party interoperability by 25%.</p></div>
+      <div class="card"><p>Delivered a BI workspace that transforms raw data into actionable insights to support data-driven decisions.</p></div>
+      <div class="card"><p>Conducted code reviews to maintain high standards of quality and long-term maintainability.</p></div>
+    </div>
     <div class="tags">
       <span class="tag">C++</span><span class="tag">Objective-C</span><span class="tag">Qt</span><span class="tag">MacOS</span><span class="tag">Linux</span><span class="tag">Snowflake</span><span class="tag">PostgreSQL</span>
     </div>
