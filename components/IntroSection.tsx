@@ -103,12 +103,14 @@ const IntroSection = () => {
           </div>
 
           {/*
-           * lg:pt-6 drops the portrait a little below the bio's first line, so
-           * it reads as sitting alongside the paragraph rather than racing the
-           * heading that now spans above both.
+           * lg:pt-2 drops the portrait just clear of the bio's first line, so
+           * it sits alongside the paragraph rather than racing the heading
+           * that spans above both columns. It was pt-6 while the portrait was
+           * larger; at this size that offset pushed it visibly too low.
            */}
-          <div className="order-1 lg:order-2 lg:pt-6">
-            <div className="mx-auto max-w-xs sm:max-w-sm">
+          <div className="order-1 lg:order-2 lg:pt-2">
+            {/* 20% down from the previous 20rem / 24rem. */}
+            <div className="mx-auto max-w-[16rem] sm:max-w-[19rem]">
               {/*
                * The amber glow and the drop shadow are both gone: the approved
                * direction has no shadows, and the glow was a hardcoded colour
