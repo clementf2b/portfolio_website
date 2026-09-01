@@ -57,6 +57,15 @@ const ProjectsSection = () => {
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [])
 
+  /*
+   * One project carries the full card; the rest are compact rows.
+   * The split is driven by the `featured` flag in lib/content.tsx rather than
+   * by array position, so re-ordering the data cannot silently change which
+   * project is the flagship.
+   */
+  const featured = projects.filter((project) => project.featured)
+  const archive = projects.filter((project) => !project.featured)
+
   return (
     <>
       {/*
@@ -80,7 +89,7 @@ const ProjectsSection = () => {
            * (fade + translate-y) as the card enters the viewport.
            */}
           <div className="space-y-6">
-            {projects.map((project) => (
+            {featured.map((project) => (
               <SlideUp key={project.name} offset="-150px 0px -100px 0px">
                 {/*
                  * Card shell — rounded corners and a subtle border.
@@ -255,6 +264,61 @@ const ProjectsSection = () => {
               </SlideUp>
             ))}
           </div>
+
+          {/* ── Earlier work ─────────────────────────────────────────────
+           * Student projects, one row each. They still say what was built
+           * and link to the repository, but they no longer occupy a
+           * full-height card apiece above the fold of the section.
+           */}
+          {archive.length > 0 ? (
+            <div className="mt-10">
+              <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--muted)]">
+                Earlier work
+              </h3>
+              <ul className="mt-4 divide-y divide-[var(--card-border)] border-t border-[var(--card-border)]">
+                {archive.map((project) => (
+                  <li key={project.name} className="flex items-start gap-4 py-5">
+                    <Image
+                      src={project.listIcon}
+                      alt=""
+                      width={32}
+                      height={32}
+                      className="mt-0.5 h-8 w-8 shrink-0 rounded-lg"
+                    />
+                    <div className="min-w-0">
+                      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                        <h4 className="font-sans text-lg font-semibold tracking-[-0.03em] text-[var(--foreground)]">
+                          {project.name}
+                        </h4>
+                        <span className="text-xs font-semibold tracking-[0.14em] text-[var(--accent)]">
+                          {project.yearTag}
+                        </span>
+                        <span className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--muted)]">
+                          {project.subtitle}
+                        </span>
+                      </div>
+                      <p className="mt-1.5 text-sm leading-6 text-[var(--muted)]">
+                        {project.description}
+                      </p>
+                      {project.link ? (
+                        <Link
+                          href={project.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="mt-2 inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--accent)] hover:underline"
+                        >
+                          View repository
+                          <BsArrowUpRight size={12} />
+                        </Link>
+                      ) : (
+                        <p className="mt-2 text-sm text-[var(--muted)]">Private academic project</p>
+                      )}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
         </div>
       </section>
 

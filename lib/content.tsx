@@ -305,6 +305,13 @@ export type Project = {
   detail: string
   yearTag: string
   extraImageList: { image: string; title: string }[]
+  /*
+   * featured — true for the one project that keeps the full card (hero image,
+   * both paragraphs, screenshot gallery). Everything else renders as a compact
+   * archive row. Student work from 2014–2016 was pushing the nine years of
+   * professional experience below three full-height cards.
+   */
+  featured?: boolean
 }
 
 /*
@@ -337,6 +344,7 @@ export const projects: Project[] = [
     detail:
       'The goal was to reduce the friction involved in choosing suitable cosmetic products. The app combined recommendation flows, product contribution, effect previewing, store lookup, and community feedback into one mobile experience.',
     yearTag: '2017',
+    featured: true,
     extraImageList: [
       { image: '/projects/faceT/mainPage.png', title: 'Main page with quick access to core flows' },
       { image: '/projects/faceT/predictColor.png', title: 'Skin tone prediction experience' },
