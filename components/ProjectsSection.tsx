@@ -2,11 +2,10 @@
  * ProjectsSection.tsx
  * ─────────────────────────────────────────────────────────────────────────────
  * Renders the #projects section: a vertical list of project cards, each with:
- *   - A clickable main image (opens the full-screen zoom viewer)
- *   - A header row: icon, title, year badge, subtitle
- *   - A short description + detail paragraph
- *   - A "View repository" / "Private" button
- *   - An "Interface snapshots" gallery of thumbnail screens
+ *   - An always-visible header: hero image (opens the full-screen zoom
+ *     viewer), icon, title, year badge, subtitle, copy, repository link
+ *   - A collapsible "Interface snapshots" gallery of thumbnail screens,
+ *     closed by default
  *
  * A global Escape key listener dismisses the zoom overlay without needing
  * a close button click.
@@ -21,7 +20,7 @@ import { sectionHeadingClassName } from '../lib/classNames'
 import { projects } from '../lib/content'
 import Image from 'next/image'
 import Link from 'next/link'
-import { BsArrowUpRight } from 'react-icons/bs'
+import { BsArrowUpRight, BsChevronDown } from 'react-icons/bs'
 import { IoMdClose } from 'react-icons/io'
 import SlideUp from './SlideUp'
 
@@ -75,110 +74,91 @@ const ProjectsSection = () => {
           </div>
 
           {/*
-           * Project cards — space-y-6 adds vertical gap between cards.
+           * Project cards — the same gap the Workflow cards use.
            * Each card is wrapped in <SlideUp> which applies a CSS animation
            * (fade + translate-y) as the card enters the viewport.
            */}
-          <div className="space-y-6">
+          <div className="space-y-4">
             {projects.map((project) => (
               <SlideUp key={project.name} offset="-150px 0px -100px 0px">
                 {/*
-                 * Card shell — rounded corners and a subtle border.
-                 * overflow-hidden clips the image corners to match the card radius.
-                 * No background colour: inherits from the page background so it
-                 * looks seamless in both light and dark mode.
+                 * Card shell — surface colour, no border. The rest of the app
+                 * (ProcessSection, About) separates regions the same way, per
+                 * the S3 direction: "surface colour, never shadows or borders".
                  */}
-                <article className="overflow-hidden rounded-[2rem] border border-[var(--card-border)]">
+                <article className="overflow-hidden rounded-card bg-[var(--surface)]">
 
                   {/*
-                   * Two-column grid on large screens:
-                   *   Left  (1.1fr) — hero image panel
-                   *   Right (0.9fr) — text content panel
-                   * On smaller screens this collapses to a single column.
+                   * Always-visible header. Two columns on large screens:
+                   *   Left  (1.1fr) — hero image
+                   *   Right (0.9fr) — icon, name, year, context, copy, link
+                   * Everything a visitor needs to judge the project without
+                   * expanding anything; only the screen gallery hides.
                    */}
-                  <div className="grid gap-0 lg:grid-cols-[1.1fr_0.9fr]">
+                  <div className="grid gap-0 p-5 sm:p-6 lg:grid-cols-[1.1fr_0.9fr] lg:gap-6">
 
-                    {/* ── Hero image (left panel) ─────────────────────────── */}
-                    <div className="relative p-5 lg:p-6">
-                      {/*
-                       * Wrapping the image in a <button> makes the entire image
-                       * clickable (and keyboard-accessible) to open the zoom overlay.
-                       * The `group` class lets child elements respond to the button's
-                       * hover state — here, the image scales slightly on hover.
-                       */}
-                      <button
-                        type="button"
-                        onClick={() =>
-                          setZoomedImage({
-                            src: project.image,
-                            alt: `${project.name} project preview`,
-                          })
-                        }
-                        className="group block w-full overflow-hidden rounded-[1.5rem]"
-                      >
-                        <Image
-                          src={project.image}
-                          alt={`${project.name} project preview`}
-                          width={1200}
-                          height={900}
-                          className="h-full w-full rounded-[1.5rem] object-cover transition duration-300 group-hover:scale-[1.02]"
-                        />
-                      </button>
-                    </div>
+                    {/* ── Hero image ──────────────────────────────────────── */}
+                    {/*
+                     * A <button> wrapper makes the whole image clickable and
+                     * keyboard-reachable for the zoom overlay.
+                     */}
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setZoomedImage({
+                          src: project.image,
+                          alt: `${project.name} project preview`,
+                        })
+                      }
+                      className="group block w-full self-start overflow-hidden rounded-card bg-[var(--surface-strong)]"
+                    >
+                      <Image
+                        src={project.image}
+                        alt={`${project.name} project preview`}
+                        width={1200}
+                        height={900}
+                        className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]"
+                      />
+                    </button>
 
-                    {/* ── Text content (right panel) ──────────────────────── */}
-                    <div className="flex flex-col p-6 sm:p-8">
-
-                      {/* Header row: icon + title + year badge + subtitle */}
+                    {/* ── Text column ─────────────────────────────────────── */}
+                    <div className="flex flex-col justify-center gap-3 p-3 sm:p-4 lg:p-2">
                       <div className="flex items-start gap-3">
-                        {/* Square app icon — rounded-xl matches iOS/macOS icon style */}
                         <Image
                           src={project.listIcon}
                           alt={`${project.name} icon`}
                           width={40}
                           height={40}
-                          className="mt-0.5 shrink-0 rounded-xl"
+                          className="mt-0.5 h-10 w-10 shrink-0 rounded-xl"
                         />
-                        <div>
-                          {/* Title + year badge on the same line, no wrapping */}
-                          <div className="flex items-center gap-2">
-                            <h3 className="font-sans text-2xl font-semibold leading-none tracking-[-0.04em] text-[var(--foreground)]">
+                        <div className="min-w-0">
+                          <div className="flex flex-wrap items-center gap-2">
+                            <h3 className="font-display text-2xl font-semibold leading-none tracking-[-0.02em] text-[var(--foreground)]">
                               {project.name}
                             </h3>
-                            {/*
-                             * Year badge — soft accent background so it reads as
-                             * a secondary label rather than a primary action.
-                             */}
-                            <span className="inline-flex items-center rounded-full bg-[var(--accent-soft)] px-4 py-1 text-sm font-semibold tracking-[0.14em] text-[var(--accent)]">
+                            {/* Year badge — soft accent, reads as a label not an action */}
+                            <span className="inline-flex items-center rounded-full bg-[var(--accent-soft)] px-3 py-1 text-xs font-semibold tracking-[0.14em] text-[var(--accent)]">
                               {project.yearTag}
                             </span>
                           </div>
-                          {/* Subtitle — small caps style via uppercase + tracking */}
-                          <p className="mt-1 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--muted)]">
+                          <p className="mt-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-[var(--muted)]">
                             {project.subtitle}
                           </p>
                         </div>
                       </div>
 
-                      {/* Description paragraphs — mt-5 creates breathing room below header */}
-                      <div className="mt-5">
-                        {/* Lead sentence — slightly bolder to draw the eye first */}
-                        <p className="text-sm font-medium leading-6 text-[var(--foreground)]">
-                          {project.description}
-                        </p>
-                        {/* Detail sentence — muted colour signals secondary information */}
-                        <p className="mt-1.5 text-sm leading-6 text-[var(--muted)]">
-                          {project.detail}
-                        </p>
-                      </div>
+                      <p className="text-sm font-medium leading-6 text-[var(--foreground)]">
+                        {project.description}
+                      </p>
+                      <p className="text-sm leading-7 text-[var(--muted)]">
+                        {project.detail}
+                      </p>
 
-                      {/* Action button — "View repository" or "Private academic project" */}
-                      <div className="mt-4 flex flex-wrap gap-3">
+                      <div className="mt-1 flex flex-wrap gap-3">
                         {project.link ? (
                           /*
-                           * Next.js <Link> with target="_blank" opens GitHub in a new tab.
-                           * rel="noopener noreferrer" prevents the new tab from accessing
-                           * window.opener and stops the Referer header from being sent.
+                           * target="_blank" + rel="noopener noreferrer": the new
+                           * tab cannot reach window.opener and sends no Referer.
                            */
                           <Link href={project.link} target="_blank" rel="noopener noreferrer" className="secondary-button gap-2">
                             View repository
@@ -192,31 +172,40 @@ const ProjectsSection = () => {
                     </div>
                   </div>
 
-                  {/* ── Interface snapshots gallery ────────────────────────── */}
                   {/*
-                   * Sits below the two-column grid, spanning the full card width.
-                   * A top border visually separates it from the main card content.
+                   * ── Interface snapshots (the disclosure) ─────────────────
+                   * A native <details>, so open/close, keyboard support and
+                   * find-in-page expansion all come from the browser. Every
+                   * gallery starts closed: the header alone already says what
+                   * the project is, and three open galleries pushed the rest
+                   * of the page off the screen.
+                   *
+                   * The disclosure holds only the gallery — no interactive
+                   * element sits inside <summary>, which would otherwise
+                   * toggle the card on every click.
                    */}
-                  <div className="border-t border-[var(--card-border)] p-6 sm:p-8">
-                    <div className="mb-4 flex items-center justify-between gap-4">
-                      <h4 className="font-sans text-sm font-semibold uppercase tracking-[0.16em] text-[var(--foreground)]">
+                  <details className="group bg-[var(--surface-strong)]">
+                    {/* list-none + the webkit rule drop the default triangle */}
+                    <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 transition-colors hover:bg-[var(--surface)] sm:px-6 [&::-webkit-details-marker]:hidden">
+                      <h4 className="font-display text-sm font-semibold uppercase tracking-[0.16em] text-[var(--foreground)]">
                         Interface snapshots
                       </h4>
-                      {/* Screen count badge — accent colour matches the year badge style */}
-                      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--accent)]">
+                      <span className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--accent)]">
                         {project.extraImageList.length} screens
-                      </p>
-                    </div>
+                        {/* Chevron flips when the card is open (group-open) */}
+                        <BsChevronDown
+                          size={14}
+                          className="transition-transform duration-300 group-open:rotate-180"
+                        />
+                      </span>
+                    </summary>
 
                     {/*
                      * Thumbnail grid:
-                     *   mobile   – 1 column (grid default)
-                     *   sm+      – 2 columns
-                     *   xl+      – 3 columns
-                     * max-w-[22rem] keeps portrait screenshots from becoming too wide.
-                     * Each thumbnail is also a button that opens the zoom overlay.
+                     *   mobile – 1 column · sm+ – 2 · xl+ – 3
+                     * max-w-[22rem] keeps portrait screenshots from going wide.
                      */}
-                    <div className="grid justify-center gap-6 sm:grid-cols-2 xl:grid-cols-3">
+                    <div className="grid justify-center gap-6 px-5 pb-6 sm:grid-cols-2 sm:px-6 xl:grid-cols-3">
                       {project.extraImageList.map((imageItem) => (
                         <button
                           key={imageItem.image}
@@ -227,14 +216,13 @@ const ProjectsSection = () => {
                               alt: imageItem.title,
                             })
                           }
-                          className="mx-auto w-full max-w-[22rem] overflow-hidden rounded-[1.5rem] bg-white/30 text-left transition duration-300 hover:-translate-y-1 dark:bg-white/5"
+                          className="mx-auto w-full max-w-[22rem] overflow-hidden rounded-card bg-[var(--background)] text-left transition duration-300 hover:-translate-y-1"
                         >
                           {/*
                            * Fixed-height container (28rem) centres the screenshot
-                           * vertically regardless of its actual aspect ratio.
-                           * object-contain inside max-h/max-w preserves proportions.
+                           * vertically whatever its aspect ratio.
                            */}
-                          <div className="flex h-[28rem] items-center justify-center bg-black/5 p-4 dark:bg-white/5">
+                          <div className="flex h-[28rem] items-center justify-center p-4">
                             <Image
                               src={imageItem.image}
                               alt={imageItem.title}
@@ -243,14 +231,13 @@ const ProjectsSection = () => {
                               className="max-h-full w-auto max-w-full object-contain"
                             />
                           </div>
-                          {/* Caption below the screenshot */}
-                          <div className="p-4">
+                          <div className="p-4 pt-0">
                             <p className="text-sm leading-6 text-[var(--muted)]">{imageItem.title}</p>
                           </div>
                         </button>
                       ))}
                     </div>
-                  </div>
+                  </details>
                 </article>
               </SlideUp>
             ))}
@@ -288,7 +275,7 @@ const ProjectsSection = () => {
 
           {/* Image container — stopPropagation prevents backdrop click-through */}
           <div
-            className="relative max-h-[90vh] max-w-6xl overflow-hidden rounded-[1.5rem]"
+            className="relative max-h-[90vh] max-w-6xl overflow-hidden rounded-card"
             onClick={(event) => event.stopPropagation()}
           >
             <Image
