@@ -8,7 +8,7 @@ import { HiOutlineDocumentText } from 'react-icons/hi2'
 
 const IntroSection = () => {
   return (
-    <section id="home" className="pb-4 pt-12 sm:pb-6 sm:pt-16">
+    <section id="home" className="pb-1 pt-12 sm:pb-2 sm:pt-16">
       <div>
         {/*
          * The heading sits outside the grid so it spans the full width. Inside
@@ -139,8 +139,9 @@ const IntroSection = () => {
         </div>
       </div>
 
-      <div className="mt-4 flex justify-center">
-        <a href="#about" aria-label="Scroll to about section" className="group p-3">
+      {/* The gap under the buttons was a third larger than it needed to be. */}
+      <div className="flex justify-center">
+        <a href="#about" aria-label="Scroll to about section" className="group p-2">
           <HiArrowDown
             size={26}
             className="animate-bounce text-[var(--accent)] transition-transform duration-300 group-hover:translate-y-1"
