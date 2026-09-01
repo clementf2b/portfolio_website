@@ -31,6 +31,14 @@ const ImageCarousel = ({ images }: { images: CarouselImage[] }) => {
   const [zoomed, setZoomed] = useState<number | null>(null)
 
   /*
+   * Inside the viewer the screenshot is scaled to fit by default, which on a
+   * 2400px-wide desktop capture leaves the UI text too small to read. Clicking
+   * it switches to natural size; the container then scrolls, so the image can
+   * be panned. Changing slide or closing goes back to fit.
+   */
+  const [actualSize, setActualSize] = useState(false)
+
+  /*
    * The slides are exactly one track-width wide, so the visible index is
    * scrollLeft divided by that width. A swipe or a trackpad flick moves the
    * strip without going through goTo, and this is what keeps the dots honest
@@ -57,14 +65,26 @@ const ImageCarousel = ({ images }: { images: CarouselImage[] }) => {
   }
 
   const stepZoom = useCallback(
-    (delta: number) =>
+    (delta: number) => {
+      setActualSize(false)
       setZoomed((current) =>
         current === null
           ? current
           : Math.min(images.length - 1, Math.max(0, current + delta))
-      ),
+      )
+    },
     [images.length]
   )
+
+  const openViewer = (at: number) => {
+    setActualSize(false)
+    setZoomed(at)
+  }
+
+  const closeViewer = () => {
+    setActualSize(false)
+    setZoomed(null)
+  }
 
   /*
    * Escape closes the viewer, the arrow keys page it. The listener stays
@@ -74,7 +94,7 @@ const ImageCarousel = ({ images }: { images: CarouselImage[] }) => {
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (zoomed === null) return
-      if (event.key === 'Escape') setZoomed(null)
+      if (event.key === 'Escape') closeViewer()
       if (event.key === 'ArrowRight') stepZoom(1)
       if (event.key === 'ArrowLeft') stepZoom(-1)
     }
@@ -99,7 +119,7 @@ const ImageCarousel = ({ images }: { images: CarouselImage[] }) => {
             <button
               key={item.image}
               type="button"
-              onClick={() => setZoomed(itemIndex)}
+              onClick={() => openViewer(itemIndex)}
               className="w-full shrink-0 snap-center p-4"
               aria-label={`Enlarge: ${item.title}`}
             >
@@ -165,12 +185,12 @@ const ImageCarousel = ({ images }: { images: CarouselImage[] }) => {
       {zoomed !== null ? (
         <div
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm"
-          onClick={() => setZoomed(null)}
+          onClick={closeViewer}
         >
           <button
             type="button"
-            onClick={() => setZoomed(null)}
-            className="absolute right-4 top-4 rounded-full bg-white/10 p-2 text-white transition hover:bg-white/20"
+            onClick={closeViewer}
+            className="absolute right-4 top-4 z-10 rounded-full bg-white/10 p-2 text-white transition hover:bg-white/20"
             aria-label="Close image viewer"
           >
             <IoMdClose size={28} />
@@ -184,7 +204,7 @@ const ImageCarousel = ({ images }: { images: CarouselImage[] }) => {
             }}
             disabled={zoomed === 0}
             aria-label="Previous screenshot"
-            className="absolute left-4 rounded-full bg-white/10 p-3 text-white transition hover:bg-white/20 disabled:cursor-default disabled:opacity-30"
+            className="absolute left-4 z-10 rounded-full bg-white/10 p-3 text-white transition hover:bg-white/20 disabled:cursor-default disabled:opacity-30"
           >
             <BsChevronLeft size={22} />
           </button>
@@ -196,13 +216,18 @@ const ImageCarousel = ({ images }: { images: CarouselImage[] }) => {
             }}
             disabled={zoomed === images.length - 1}
             aria-label="Next screenshot"
-            className="absolute right-4 rounded-full bg-white/10 p-3 text-white transition hover:bg-white/20 disabled:cursor-default disabled:opacity-30"
+            className="absolute right-4 z-10 rounded-full bg-white/10 p-3 text-white transition hover:bg-white/20 disabled:cursor-default disabled:opacity-30"
           >
             <BsChevronRight size={22} />
           </button>
 
+          {/*
+           * The box is what scrolls once the image is bigger than it. Clicking
+           * the image toggles between fitting and natural size rather than
+           * closing, so the backdrop stays the only click that dismisses.
+           */}
           <div
-            className="relative max-h-[90vh] max-w-6xl overflow-auto rounded-card"
+            className="relative max-h-[90vh] max-w-[92vw] overflow-auto rounded-card"
             onClick={(event) => event.stopPropagation()}
           >
             <Image
@@ -210,12 +235,26 @@ const ImageCarousel = ({ images }: { images: CarouselImage[] }) => {
               alt={images[zoomed].title}
               width={2400}
               height={1440}
-              className="max-h-[90vh] w-auto max-w-full object-contain"
+              /*
+               * next/image lazy-loads by default, which in a modal means the
+               * viewer can open on an empty box until the observer catches up.
+               * The image is on screen the moment it renders, so load it now.
+               */
+              loading="eager"
+              onClick={() => setActualSize((current) => !current)}
+              className={
+                actualSize
+                  ? 'max-w-none cursor-zoom-out'
+                  : 'max-h-[86vh] w-auto max-w-full cursor-zoom-in object-contain'
+              }
             />
           </div>
 
-          <p className="absolute bottom-6 left-1/2 -translate-x-1/2 text-sm text-white/80">
+          <p className="absolute bottom-6 left-1/2 -translate-x-1/2 px-4 text-center text-sm text-white/80">
             {zoomed + 1} / {images.length} · {images[zoomed].title}
+            <span className="ml-2 text-white/50">
+              {actualSize ? 'Click to fit · scroll to pan' : 'Click to zoom'}
+            </span>
           </p>
         </div>
       ) : null}
