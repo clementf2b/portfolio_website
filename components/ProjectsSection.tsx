@@ -74,11 +74,11 @@ const ProjectsSection = () => {
           </div>
 
           {/*
-           * Project cards — space-y-6 adds vertical gap between cards.
+           * Project cards — the same gap the Workflow cards use.
            * Each card is wrapped in <SlideUp> which applies a CSS animation
            * (fade + translate-y) as the card enters the viewport.
            */}
-          <div className="space-y-6">
+          <div className="space-y-4">
             {projects.map((project) => (
               <SlideUp key={project.name} offset="-150px 0px -100px 0px">
                 {/*
@@ -133,7 +133,7 @@ const ProjectsSection = () => {
                         />
                         <div className="min-w-0">
                           <div className="flex flex-wrap items-center gap-2">
-                            <h3 className="font-sans text-2xl font-semibold leading-none tracking-[-0.04em] text-[var(--foreground)]">
+                            <h3 className="font-display text-2xl font-semibold leading-none tracking-[-0.02em] text-[var(--foreground)]">
                               {project.name}
                             </h3>
                             {/* Year badge — soft accent, reads as a label not an action */}
@@ -141,7 +141,7 @@ const ProjectsSection = () => {
                               {project.yearTag}
                             </span>
                           </div>
-                          <p className="mt-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--muted)]">
+                          <p className="mt-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-[var(--muted)]">
                             {project.subtitle}
                           </p>
                         </div>
@@ -150,7 +150,7 @@ const ProjectsSection = () => {
                       <p className="text-sm font-medium leading-6 text-[var(--foreground)]">
                         {project.description}
                       </p>
-                      <p className="text-sm leading-6 text-[var(--muted)]">
+                      <p className="text-sm leading-7 text-[var(--muted)]">
                         {project.detail}
                       </p>
 
@@ -187,7 +187,7 @@ const ProjectsSection = () => {
                   <details className="group bg-[var(--surface-strong)]">
                     {/* list-none + the webkit rule drop the default triangle */}
                     <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 transition-colors hover:bg-[var(--surface)] sm:px-6 [&::-webkit-details-marker]:hidden">
-                      <h4 className="font-sans text-sm font-semibold uppercase tracking-[0.16em] text-[var(--foreground)]">
+                      <h4 className="font-display text-sm font-semibold uppercase tracking-[0.16em] text-[var(--foreground)]">
                         Interface snapshots
                       </h4>
                       <span className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--accent)]">
@@ -275,7 +275,7 @@ const ProjectsSection = () => {
 
           {/* Image container — stopPropagation prevents backdrop click-through */}
           <div
-            className="relative max-h-[90vh] max-w-6xl overflow-hidden rounded-[1.5rem]"
+            className="relative max-h-[90vh] max-w-6xl overflow-hidden rounded-card"
             onClick={(event) => event.stopPropagation()}
           >
             <Image
