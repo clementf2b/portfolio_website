@@ -306,10 +306,9 @@ export type Project = {
   yearTag: string
   extraImageList: { image: string; title: string }[]
   /*
-   * featured — true for the one project that keeps the full card (hero image,
-   * both paragraphs, screenshot gallery). Everything else renders as a compact
-   * archive row. Student work from 2014–2016 was pushing the nine years of
-   * professional experience below three full-height cards.
+   * featured — the project whose card starts expanded. Every project is an
+   * expandable card; the others open on click. Three cards standing fully
+   * open pushed everything below them off the page.
    */
   featured?: boolean
 }

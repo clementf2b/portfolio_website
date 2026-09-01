@@ -21,7 +21,7 @@ import { sectionHeadingClassName } from '../lib/classNames'
 import { projects } from '../lib/content'
 import Image from 'next/image'
 import Link from 'next/link'
-import { BsArrowUpRight } from 'react-icons/bs'
+import { BsArrowUpRight, BsChevronDown } from 'react-icons/bs'
 import { IoMdClose } from 'react-icons/io'
 import SlideUp from './SlideUp'
 
@@ -57,15 +57,6 @@ const ProjectsSection = () => {
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [])
 
-  /*
-   * One project carries the full card; the rest are compact rows.
-   * The split is driven by the `featured` flag in lib/content.tsx rather than
-   * by array position, so re-ordering the data cannot silently change which
-   * project is the flagship.
-   */
-  const featured = projects.filter((project) => project.featured)
-  const archive = projects.filter((project) => !project.featured)
-
   return (
     <>
       {/*
@@ -89,15 +80,61 @@ const ProjectsSection = () => {
            * (fade + translate-y) as the card enters the viewport.
            */}
           <div className="space-y-6">
-            {featured.map((project) => (
+            {projects.map((project) => (
               <SlideUp key={project.name} offset="-150px 0px -100px 0px">
                 {/*
-                 * Card shell — rounded corners and a subtle border.
-                 * overflow-hidden clips the image corners to match the card radius.
-                 * No background colour: inherits from the page background so it
-                 * looks seamless in both light and dark mode.
+                 * Card shell — a native <details>, so open/close, keyboard
+                 * support and the collapsed state in print all come from the
+                 * browser. `open` is set from the `featured` flag in
+                 * lib/content.tsx: the flagship starts expanded, the rest
+                 * start collapsed. React only writes the attribute on first
+                 * render, so a visitor's own toggling is never overridden.
                  */}
-                <article className="overflow-hidden rounded-[2rem] border border-[var(--card-border)]">
+                <details
+                  open={project.featured}
+                  className="group overflow-hidden rounded-[2rem] border border-[var(--card-border)]"
+                >
+                  {/*
+                   * Summary — always visible: icon, name, year, context and
+                   * the lead sentence. list-none plus the webkit rule removes
+                   * the default disclosure triangle in favour of the chevron.
+                   */}
+                  <summary className="flex cursor-pointer list-none items-start gap-3 p-6 transition-colors hover:bg-[var(--surface)] sm:p-8 [&::-webkit-details-marker]:hidden">
+                    <Image
+                      src={project.listIcon}
+                      alt={`${project.name} icon`}
+                      width={40}
+                      height={40}
+                      className="mt-0.5 h-10 w-10 shrink-0 rounded-xl"
+                    />
+                    <div className="min-w-0 flex-1">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <h3 className="font-sans text-2xl font-semibold leading-none tracking-[-0.04em] text-[var(--foreground)]">
+                          {project.name}
+                        </h3>
+                        {/*
+                         * Year badge — soft accent background so it reads as
+                         * a secondary label rather than a primary action.
+                         */}
+                        <span className="inline-flex items-center rounded-full bg-[var(--accent-soft)] px-4 py-1 text-sm font-semibold tracking-[0.14em] text-[var(--accent)]">
+                          {project.yearTag}
+                        </span>
+                      </div>
+                      {/* Subtitle — small caps style via uppercase + tracking */}
+                      <p className="mt-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--muted)]">
+                        {project.subtitle}
+                      </p>
+                      {/* Lead sentence — the one line that survives collapsing */}
+                      <p className="mt-3 text-sm font-medium leading-6 text-[var(--foreground)]">
+                        {project.description}
+                      </p>
+                    </div>
+                    {/* Chevron flips when the card is open (group-open) */}
+                    <BsChevronDown
+                      size={16}
+                      className="mt-2 shrink-0 text-[var(--muted)] transition-transform duration-300 group-open:rotate-180"
+                    />
+                  </summary>
 
                   {/*
                    * Two-column grid on large screens:
@@ -105,7 +142,7 @@ const ProjectsSection = () => {
                    *   Right (0.9fr) — text content panel
                    * On smaller screens this collapses to a single column.
                    */}
-                  <div className="grid gap-0 lg:grid-cols-[1.1fr_0.9fr]">
+                  <div className="grid gap-0 border-t border-[var(--card-border)] lg:grid-cols-[1.1fr_0.9fr]">
 
                     {/* ── Hero image (left panel) ─────────────────────────── */}
                     <div className="relative p-5 lg:p-6">
@@ -136,50 +173,16 @@ const ProjectsSection = () => {
                     </div>
 
                     {/* ── Text content (right panel) ──────────────────────── */}
-                    <div className="flex flex-col p-6 sm:p-8">
+                    <div className="flex flex-col justify-center p-6 sm:p-8">
 
-                      {/* Header row: icon + title + year badge + subtitle */}
-                      <div className="flex items-start gap-3">
-                        {/* Square app icon — rounded-xl matches iOS/macOS icon style */}
-                        <Image
-                          src={project.listIcon}
-                          alt={`${project.name} icon`}
-                          width={40}
-                          height={40}
-                          className="mt-0.5 shrink-0 rounded-xl"
-                        />
-                        <div>
-                          {/* Title + year badge on the same line, no wrapping */}
-                          <div className="flex items-center gap-2">
-                            <h3 className="font-sans text-2xl font-semibold leading-none tracking-[-0.04em] text-[var(--foreground)]">
-                              {project.name}
-                            </h3>
-                            {/*
-                             * Year badge — soft accent background so it reads as
-                             * a secondary label rather than a primary action.
-                             */}
-                            <span className="inline-flex items-center rounded-full bg-[var(--accent-soft)] px-4 py-1 text-sm font-semibold tracking-[0.14em] text-[var(--accent)]">
-                              {project.yearTag}
-                            </span>
-                          </div>
-                          {/* Subtitle — small caps style via uppercase + tracking */}
-                          <p className="mt-1 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--muted)]">
-                            {project.subtitle}
-                          </p>
-                        </div>
-                      </div>
-
-                      {/* Description paragraphs — mt-5 creates breathing room below header */}
-                      <div className="mt-5">
-                        {/* Lead sentence — slightly bolder to draw the eye first */}
-                        <p className="text-sm font-medium leading-6 text-[var(--foreground)]">
-                          {project.description}
-                        </p>
-                        {/* Detail sentence — muted colour signals secondary information */}
-                        <p className="mt-1.5 text-sm leading-6 text-[var(--muted)]">
-                          {project.detail}
-                        </p>
-                      </div>
+                      {/*
+                       * Detail sentence — the header and lead sentence now live
+                       * in the <summary>, so the expanded panel carries only
+                       * what collapsing hides.
+                       */}
+                      <p className="text-sm leading-6 text-[var(--muted)]">
+                        {project.detail}
+                      </p>
 
                       {/* Action button — "View repository" or "Private academic project" */}
                       <div className="mt-4 flex flex-wrap gap-3">
@@ -260,65 +263,10 @@ const ProjectsSection = () => {
                       ))}
                     </div>
                   </div>
-                </article>
+                </details>
               </SlideUp>
             ))}
           </div>
-
-          {/* ── Earlier work ─────────────────────────────────────────────
-           * Student projects, one row each. They still say what was built
-           * and link to the repository, but they no longer occupy a
-           * full-height card apiece above the fold of the section.
-           */}
-          {archive.length > 0 ? (
-            <div className="mt-10">
-              <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--muted)]">
-                Earlier work
-              </h3>
-              <ul className="mt-4 divide-y divide-[var(--card-border)] border-t border-[var(--card-border)]">
-                {archive.map((project) => (
-                  <li key={project.name} className="flex items-start gap-4 py-5">
-                    <Image
-                      src={project.listIcon}
-                      alt=""
-                      width={32}
-                      height={32}
-                      className="mt-0.5 h-8 w-8 shrink-0 rounded-lg"
-                    />
-                    <div className="min-w-0">
-                      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                        <h4 className="font-sans text-lg font-semibold tracking-[-0.03em] text-[var(--foreground)]">
-                          {project.name}
-                        </h4>
-                        <span className="text-xs font-semibold tracking-[0.14em] text-[var(--accent)]">
-                          {project.yearTag}
-                        </span>
-                        <span className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--muted)]">
-                          {project.subtitle}
-                        </span>
-                      </div>
-                      <p className="mt-1.5 text-sm leading-6 text-[var(--muted)]">
-                        {project.description}
-                      </p>
-                      {project.link ? (
-                        <Link
-                          href={project.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="mt-2 inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--accent)] hover:underline"
-                        >
-                          View repository
-                          <BsArrowUpRight size={12} />
-                        </Link>
-                      ) : (
-                        <p className="mt-2 text-sm text-[var(--muted)]">Private academic project</p>
-                      )}
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : null}
         </div>
       </section>
 
