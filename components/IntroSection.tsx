@@ -103,12 +103,12 @@ const IntroSection = () => {
           </div>
 
           {/*
-           * lg:pt-2 drops the portrait just clear of the bio's first line, so
-           * it sits alongside the paragraph rather than racing the heading
-           * that spans above both columns. It was pt-6 while the portrait was
-           * larger; at this size that offset pushed it visibly too low.
+           * The portrait sits a little above the bio's first line rather than
+           * level with it: at this size, lining the two up left the portrait
+           * reading as though it had sunk. It was pt-6 while the portrait was
+           * larger, then pt-2, and is now lifted the other way.
            */}
-          <div className="order-1 lg:order-2 lg:pt-2">
+          <div className="order-1 lg:order-2 lg:-mt-3">
             {/* 20% down from the previous 20rem / 24rem. */}
             <div className="mx-auto max-w-[16rem] sm:max-w-[19rem]">
               {/*
