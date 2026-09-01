@@ -306,9 +306,9 @@ export type Project = {
   yearTag: string
   extraImageList: { image: string; title: string }[]
   /*
-   * featured — the project whose card starts expanded. Every project is an
-   * expandable card; the others open on click. Three cards standing fully
-   * open pushed everything below them off the page.
+   * featured — the project whose screen gallery starts expanded. Every card
+   * shows its header outright; only the snapshot gallery collapses, because
+   * three galleries standing open pushed everything below off the page.
    */
   featured?: boolean
 }
