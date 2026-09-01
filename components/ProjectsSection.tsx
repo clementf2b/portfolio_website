@@ -161,7 +161,7 @@ const ProjectsSection = () => {
                            * tab cannot reach window.opener and sends no Referer.
                            */
                           <Link href={project.link} target="_blank" rel="noopener noreferrer" className="secondary-button gap-2">
-                            View repository
+                            {project.linkLabel ?? 'View repository'}
                             <BsArrowUpRight size={14} />
                           </Link>
                         ) : (
@@ -205,7 +205,11 @@ const ProjectsSection = () => {
                      *   mobile – 1 column · sm+ – 2 · xl+ – 3
                      * max-w-[22rem] keeps portrait screenshots from going wide.
                      */}
-                    <div className="grid justify-center gap-6 px-5 pb-6 sm:grid-cols-2 sm:px-6 xl:grid-cols-3">
+                    <div
+                      className={`grid justify-center gap-6 px-5 pb-6 sm:grid-cols-2 sm:px-6 ${
+                        project.wideScreens ? '' : 'xl:grid-cols-3'
+                      }`}
+                    >
                       {project.extraImageList.map((imageItem) => (
                         <button
                           key={imageItem.image}
@@ -216,13 +220,19 @@ const ProjectsSection = () => {
                               alt: imageItem.title,
                             })
                           }
-                          className="mx-auto w-full max-w-[22rem] overflow-hidden rounded-card bg-[var(--background)] text-left transition duration-300 hover:-translate-y-1"
+                          className={`mx-auto w-full overflow-hidden rounded-card bg-[var(--background)] text-left transition duration-300 hover:-translate-y-1 ${
+                            project.wideScreens ? '' : 'max-w-[22rem]'
+                          }`}
                         >
                           {/*
                            * Fixed-height container (28rem) centres the screenshot
                            * vertically whatever its aspect ratio.
                            */}
-                          <div className="flex h-[28rem] items-center justify-center p-4">
+                          <div
+                            className={`flex items-center justify-center p-4 ${
+                              project.wideScreens ? 'h-[16rem]' : 'h-[28rem]'
+                            }`}
+                          >
                             <Image
                               src={imageItem.image}
                               alt={imageItem.title}
