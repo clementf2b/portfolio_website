@@ -5,7 +5,7 @@
  *   - An always-visible header: hero image (opens the full-screen zoom
  *     viewer), icon, title, year badge, subtitle, copy, repository link
  *   - A collapsible "Interface snapshots" gallery of thumbnail screens,
- *     open by default only on the `featured` project
+ *     closed by default
  *
  * A global Escape key listener dismisses the zoom overlay without needing
  * a close button click.
@@ -175,16 +175,16 @@ const ProjectsSection = () => {
                   {/*
                    * ── Interface snapshots (the disclosure) ─────────────────
                    * A native <details>, so open/close, keyboard support and
-                   * find-in-page expansion all come from the browser. `open`
-                   * follows the `featured` flag in lib/content.tsx; React only
-                   * writes the attribute on first render, so a visitor's own
-                   * toggling is never overridden.
+                   * find-in-page expansion all come from the browser. Every
+                   * gallery starts closed: the header alone already says what
+                   * the project is, and three open galleries pushed the rest
+                   * of the page off the screen.
                    *
                    * The disclosure holds only the gallery — no interactive
                    * element sits inside <summary>, which would otherwise
                    * toggle the card on every click.
                    */}
-                  <details open={project.featured} className="group bg-[var(--surface-strong)]">
+                  <details className="group bg-[var(--surface-strong)]">
                     {/* list-none + the webkit rule drop the default triangle */}
                     <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 transition-colors hover:bg-[var(--surface)] sm:px-6 [&::-webkit-details-marker]:hidden">
                       <h4 className="font-sans text-sm font-semibold uppercase tracking-[0.16em] text-[var(--foreground)]">

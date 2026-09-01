@@ -305,12 +305,6 @@ export type Project = {
   detail: string
   yearTag: string
   extraImageList: { image: string; title: string }[]
-  /*
-   * featured — the project whose screen gallery starts expanded. Every card
-   * shows its header outright; only the snapshot gallery collapses, because
-   * three galleries standing open pushed everything below off the page.
-   */
-  featured?: boolean
 }
 
 /*
@@ -343,7 +337,6 @@ export const projects: Project[] = [
     detail:
       'The goal was to reduce the friction involved in choosing suitable cosmetic products. The app combined recommendation flows, product contribution, effect previewing, store lookup, and community feedback into one mobile experience.',
     yearTag: '2017',
-    featured: true,
     extraImageList: [
       { image: '/projects/faceT/mainPage.png', title: 'Main page with quick access to core flows' },
       { image: '/projects/faceT/predictColor.png', title: 'Skin tone prediction experience' },
