@@ -23,6 +23,11 @@ import { process } from '../lib/content'
 /* Arrow marker id, referenced from the paths below. */
 const MARKER = 'process-arrow'
 
+/* The four verbs of the loop, lifted out of the caption prose. */
+const Verb = ({ children }: { children: React.ReactNode }) => (
+  <b className="font-semibold text-[var(--foreground)]">{children}</b>
+)
+
 const ProcessSection = () => {
   return (
     <section
@@ -125,13 +130,19 @@ const ProcessSection = () => {
           ))}
         </ol>
 
-        <p className="mt-5 max-w-[74ch] text-sm leading-7 text-[var(--muted)]">
-          The agent proposes and builds. I choose and review. It follows my rules and shows me the
-          mockup for each change.
+        {/*
+         * No max-w here, unlike the rest of the section's prose: these two
+         * lines are captions on the diagram above and each is meant to hold
+         * one line on a desktop width. They wrap on narrow screens like
+         * anything else.
+         */}
+        <p className="mt-5 text-sm leading-7 text-[var(--muted)]">
+          The agent <Verb>proposes</Verb> and <Verb>builds</Verb>. I <Verb>choose</Verb> and{' '}
+          <Verb>review</Verb>. It follows my rules and shows me the mockup for each change.
         </p>
-        <p className="mt-3 max-w-[74ch] text-sm leading-7 text-[var(--muted)]">
-          AI agent <b className="font-semibold text-[var(--foreground)]">waits</b> at both of my
-          steps. It cannot pick which option wins and cannot mark its own work done.
+        <p className="mt-3 text-sm leading-7 text-[var(--muted)]">
+          AI agent waits at both of my steps. It cannot pick which option wins and cannot mark its
+          own work done.
         </p>
       </div>
 
