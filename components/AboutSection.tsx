@@ -153,7 +153,15 @@ const AboutSection = () => {
                     <span className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--muted)]">
                       {company.location}
                     </span>
-                    <span className="text-base font-semibold tracking-[-0.01em] text-[var(--muted)]">
+                    {/*
+                     * A rule, not a middot: the two sides are 12px and 20px,
+                     * and a dot sized for either one floats against the
+                     * other. This is the one place the design direction's
+                     * "separate with surface colour, never lines" is broken
+                     * — a divider inside a line, not a region boundary.
+                     */}
+                    <span aria-hidden className="h-[18px] w-px bg-[var(--card-border)]" />
+                    <span className="text-xl font-semibold tracking-[-0.01em] text-[var(--muted)]">
                       {company.period}
                     </span>
                   </div>
