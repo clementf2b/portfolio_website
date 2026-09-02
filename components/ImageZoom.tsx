@@ -239,7 +239,8 @@ const ImageZoom = ({ images, index, onClose, onIndex }: Props) => {
         className="absolute inset-x-0 bottom-0 flex justify-center p-5"
         onClick={(event) => event.stopPropagation()}
       >
-        <div className="max-w-[86vw] rounded-card bg-black/50 px-5 py-3 text-center backdrop-blur-md">
+        {/* 86vw: the frame's own width, so the bar reads as the picture's foot. */}
+        <div className="w-[86vw] rounded-card bg-black/50 px-5 py-3 text-center backdrop-blur-md">
           <p className="text-sm font-semibold text-white">
             {many && (
               <span className="mr-2.5 font-normal tabular-nums text-white/50">
@@ -249,7 +250,7 @@ const ImageZoom = ({ images, index, onClose, onIndex }: Props) => {
             {image.alt}
           </p>
           {image.caption && (
-            <p className="mt-1 max-w-[70ch] text-[13px] leading-6 text-white/70">
+            <p className="mx-auto mt-1 max-w-[80ch] text-[13px] leading-6 text-white/70">
               {image.caption}
             </p>
           )}
