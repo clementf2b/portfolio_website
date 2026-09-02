@@ -49,7 +49,7 @@ const ScreenPicker = ({ screens, layout = 'grid', onZoom }: Props) => {
               alt={screen.title}
               width={720}
               height={1280}
-              className="w-full rounded-card bg-[var(--background)] object-contain"
+              className="w-full rounded-card bg-[var(--surface-strong)] object-contain"
             />
             <figcaption className="mt-2.5 text-sm leading-6 text-[var(--muted)]">
               {screen.title}
@@ -68,7 +68,7 @@ const ScreenPicker = ({ screens, layout = 'grid', onZoom }: Props) => {
           <button
             type="button"
             onClick={() => onZoom?.(active.image, active.title)}
-            className="focus-ring block w-full overflow-hidden rounded-card bg-[var(--background)]"
+            className="focus-ring block w-full overflow-hidden rounded-card bg-[var(--surface-strong)] p-4"
           >
             <Image
               src={active.image}
@@ -112,7 +112,7 @@ const ScreenPicker = ({ screens, layout = 'grid', onZoom }: Props) => {
               }`}
             >
               <span
-                className={`flex items-center justify-center bg-[var(--surface)] ${
+                className={`flex items-center justify-center bg-[var(--surface-strong)] ${
                   layout === 'rail' ? 'h-[3.5rem]' : 'h-[13.5rem]'
                 }`}
               >

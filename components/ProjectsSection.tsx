@@ -181,21 +181,18 @@ const ProjectsSection = () => {
                    * screen's height, so there is nothing left to hide behind a
                    * "3 screens" bar.
                    */}
-                  <div className="px-6 sm:px-8">
-                    {/*
-                     * A rule, not a change of surface. The two regions shared
-                     * one card and used to be told apart by the disclosure bar
-                     * between them; with the bar gone, a colour that changed
-                     * mid-card read as two cards stuck together. The rule is
-                     * inset to the content's own margins so it reads as part
-                     * of the card rather than a cut across it.
-                     */}
-                    <div className="border-t border-[var(--card-border)] pt-6">
-                      <ScreenPicker
-                        screens={project.extraImageList}
-                        onZoom={(src, alt) => setZoomedImage({ src, alt })}
-                      />
-                    </div>
+                  {/*
+                   * The gallery takes the dimmer surface while the header
+                   * keeps the raised one, so the card reads light at the top
+                   * and settles into the screenshots. No rule as well as the
+                   * colour: either divides the two regions, and both together
+                   * state it twice.
+                   */}
+                  <div className="bg-[var(--surface)] px-6 pt-6 sm:px-8 sm:pt-8">
+                    <ScreenPicker
+                      screens={project.extraImageList}
+                      onZoom={(src, alt) => setZoomedImage({ src, alt })}
+                    />
                   </div>
                 </article>
               </SlideUp>
