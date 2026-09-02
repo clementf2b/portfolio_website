@@ -126,9 +126,12 @@ const ProcessSection = () => {
         </ol>
 
         <p className="mt-5 max-w-[74ch] text-sm leading-7 text-[var(--muted)]">
-          The agent proposes and builds. I choose and I review. It{' '}
-          <b className="font-semibold text-[var(--foreground)]">waits</b> at both of my steps: it
-          cannot pick which option wins, and it cannot mark its own work done.
+          The agent proposes and builds. I choose and review. It follows my rules and shows me the
+          mockup for each change.
+        </p>
+        <p className="mt-3 max-w-[74ch] text-sm leading-7 text-[var(--muted)]">
+          AI agent <b className="font-semibold text-[var(--foreground)]">waits</b> at both of my
+          steps. It cannot pick which option wins and cannot mark its own work done.
         </p>
       </div>
 
