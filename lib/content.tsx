@@ -173,36 +173,10 @@ export const companies: Company[] = [
  * Written as data rather than markup so the wording sits with the rest of the
  * site's copy, in one file.
  */
-export type DecisionMoment = {
-  kicker: string
-  title: string
-  body: string
-  link?: { label: string; href: string }
-}
-
 export const process = {
   lede:
-    'This site was rebuilt with an AI agent under a gated workflow: every UI change produced several variants and waited for a decision before any code was written. What follows is not a claim that the agent built it. These are three points where the process changed the outcome.',
+    'This site was rebuilt with an AI agent under a gated workflow: every UI change produced several variants and waited for a decision before any code was written. What follows is not a claim that the agent built it — it is the shape of the loop, and one card carried through it end to end.',
 
-  moments: [
-    {
-      kicker: 'The agent was overruled',
-      title: 'A card layout that fell apart on contact with real writing',
-      body: 'The plan was to promote each achievement into its own card. Rendered with the real six-sentence bullets, the frame added weight but no information. The format was rejected and the list kept.',
-      link: { label: 'Compare the three variants', href: '/process/experience-variants.html' },
-    },
-    {
-      kicker: 'A mistake the process caught',
-      title: 'Fake copy produced a confident, wrong recommendation',
-      body: 'An early mockup used invented placeholder copy. One layout won against short fake headlines and came last against the real sentences. The ranking reversed.',
-    },
-    {
-      kicker: 'Defects that predated the rebuild',
-      title: 'Two bugs surfaced by verification, not by reading the code',
-      body: 'The build had been failing on a missing key, and a Tailwind content glob silently dropped every class written in one directory — company logos rendered at 128px instead of 28px. Both predated the rebuild.',
-      link: { label: 'Read the commits', href: 'https://github.com/clementf2b/portfolio_website/commits/main' },
-    },
-  ] as DecisionMoment[],
 
   /* The loop. Two of the four steps are the owner's, and it stops at both. */
   loop: [

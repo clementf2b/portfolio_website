@@ -4,14 +4,14 @@
  * "How this site was built" — the section behind the hero's claim about an
  * AI-assisted workflow.
  *
- * Three parts, in this order on purpose:
- *   1. Three decision moments  – judgement, which is the scarce part
- *   2. The loop                – the shape of the collaboration
- *   3. One card, end to end    – the artefacts, so none of it is only a claim
+ * Two parts:
+ *   1. The loop             – the shape of the collaboration
+ *   2. One card, end to end – the artefacts, so none of it is only a claim
  *
- * The moments come first because "I used AI" is not interesting; "I overruled
- * it, and here is the artefact" is. The diagram would read as process theatre
- * if it led.
+ * A third part led here once: three "decision moments", each a paragraph
+ * about a time the process changed the outcome. It was cut. Part 2 already
+ * walks one decision through the same loop with four real artefacts, so the
+ * moments were the same argument made in prose, and weaker for it.
  *
  * No "use client": this is static markup, so it renders on the server.
  */
@@ -32,49 +32,8 @@ const ProcessSection = () => {
       <h2 className={sectionHeadingClassName}>Workflow</h2>
       <p className="section-copy mt-4 max-w-[74ch]">{process.lede}</p>
 
-      {/*
-       * ── 1 · Decision moments ──────────────────────────────────────────
-       *
-       * Cards rather than a divided list. The first moment below is about a
-       * card layout that failed, so this is worth saying: that failure was
-       * six untitled sentences in a grid, where the frame carried no
-       * information. These three each have a label and a heading, which is
-       * the structure the card format is actually for.
-       */}
-      <div className="mt-10 grid gap-4 lg:grid-cols-3">
-        {process.moments.map((moment) => (
-          <div
-            key={moment.title}
-            className="flex flex-col rounded-card bg-[var(--surface)] p-6"
-          >
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--accent)]">
-              {moment.kicker}
-            </p>
-            <h3 className="mt-2.5 font-display text-lg font-semibold leading-snug tracking-[-0.02em] text-[var(--foreground)]">
-              {moment.title}
-            </h3>
-            <p className="mt-3 flex-1 text-sm leading-7 text-[var(--muted)]">{moment.body}</p>
-            {moment.link && (
-              <a
-                href={moment.link.href}
-                /*
-                 * The commit link leaves the site; the variants page does not.
-                 * Only the external one gets a new tab and the noopener guard.
-                 */
-                {...(moment.link.href.startsWith('http')
-                  ? { target: '_blank', rel: 'noopener noreferrer' }
-                  : {})}
-                className="focus-ring mt-4 inline-block rounded-sm text-sm font-semibold text-[var(--accent)] hover:underline"
-              >
-                {moment.link.label} →
-              </a>
-            )}
-          </div>
-        ))}
-      </div>
-
-      {/* ── 2 · The loop ─────────────────────────────────────────────────── */}
-      <div className="mt-14">
+      {/* ── 1 · The loop ─────────────────────────────────────────────────── */}
+      <div className="mt-10">
         <h3 className="font-display text-xl font-semibold tracking-[-0.02em] text-[var(--foreground)]">
           Same workflow, different collaborator
         </h3>
@@ -177,7 +136,7 @@ const ProcessSection = () => {
         </p>
       </div>
 
-      {/* ── 3 · One card, end to end ─────────────────────────────────────── */}
+      {/* ── 2 · One card, end to end ─────────────────────────────────────── */}
       <div className="mt-14">
         <h3 className="font-display text-xl font-semibold tracking-[-0.02em] text-[var(--foreground)]">
           What a single decision actually looked like
