@@ -227,7 +227,7 @@ const AboutSection = () => {
                          * to 2,416px and took the whole page into horizontal
                          * scroll.
                          */}
-                        <div className="mt-4 rounded-card bg-[var(--surface)] pt-6">
+                        <div className="mt-4 rounded-card bg-[var(--surface)] px-6 pt-6 sm:px-8 sm:pt-8">
                           <ScreenPicker screens={company.showcase.images} layout="rail" />
                         </div>
                       </div>
