@@ -94,7 +94,7 @@ const ScreenPicker = ({ screens, layout = 'grid', onZoom }: Props) => {
         <div
           className={
             layout === 'rail'
-              ? 'flex w-[5.5rem] shrink-0 flex-col gap-3'
+              ? 'flex w-[7.5rem] shrink-0 flex-col gap-3'
               : 'grid max-w-[34rem] flex-1 grid-cols-2 gap-4'
           }
         >
@@ -113,7 +113,7 @@ const ScreenPicker = ({ screens, layout = 'grid', onZoom }: Props) => {
             >
               <span
                 className={`flex items-center justify-center bg-[var(--surface-strong)] ${
-                  layout === 'rail' ? 'h-[3.5rem]' : 'h-[13.5rem]'
+                  layout === 'rail' ? 'h-[3.25rem]' : 'h-[13.5rem]'
                 }`}
               >
                 <Image
