@@ -143,8 +143,18 @@ const AboutSection = () => {
                     >
                       {company.name}
                     </a>
+                    {/*
+                     * Location and dates split apart. Run together as one
+                     * 12px muted line they were the quietest thing beside a
+                     * 24px company name — and the tenure is the number a
+                     * recruiter scans for. The dates carry the weight now;
+                     * the location stays small and sits ahead of them.
+                     */}
                     <span className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--muted)]">
-                      {company.location} · {company.period}
+                      {company.location}
+                    </span>
+                    <span className="text-base font-semibold tracking-[-0.01em] text-[var(--muted)]">
+                      {company.period}
                     </span>
                   </div>
 
