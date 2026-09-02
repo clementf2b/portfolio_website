@@ -139,7 +139,7 @@ const AboutSection = () => {
                       href={company.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-display text-xl font-semibold tracking-[-0.025em] text-[var(--foreground)] transition-colors hover:text-[var(--accent)]"
+                      className="font-display text-2xl font-semibold tracking-[-0.025em] text-[var(--foreground)] transition-colors hover:text-[var(--accent)]"
                     >
                       {company.name}
                     </a>
@@ -155,7 +155,12 @@ const AboutSection = () => {
                   <div className="mt-7 border-l border-[var(--card-border)] pl-4 sm:pl-6">
                     {company.roles.map((role, roleIndex) => (
                       <div key={role.title} className={roleIndex > 0 ? 'mt-8' : undefined}>
-                        <h4 className="text-xl">{role.title}</h4>
+                        {/*
+                         * 600, not the global h4 700: the 甲 variant's title
+                         * weight. It sits one step under the company name
+                         * above it, which carries the 24px.
+                         */}
+                        <h4 className="text-xl font-semibold tracking-[-0.025em]">{role.title}</h4>
                         <p className="mt-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-[var(--accent)]">
                           {role.period}
                         </p>
