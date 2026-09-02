@@ -20,8 +20,9 @@ import { sectionHeadingClassName } from '../lib/classNames'
 import { projects } from '../lib/content'
 import Image from 'next/image'
 import Link from 'next/link'
-import { BsArrowUpRight, BsChevronDown } from 'react-icons/bs'
+import { BsArrowUpRight } from 'react-icons/bs'
 import { IoMdClose } from 'react-icons/io'
+import ScreenPicker from './ScreenPicker'
 import SlideUp from './SlideUp'
 
 
@@ -86,7 +87,7 @@ const ProjectsSection = () => {
                  * (ProcessSection, About) separates regions the same way, per
                  * the S3 direction: "surface colour, never shadows or borders".
                  */}
-                <article className="overflow-hidden rounded-card bg-[var(--surface)]">
+                <article className="overflow-hidden rounded-card bg-[var(--surface-strong)]">
 
                   {/*
                    * Always-visible header. Two columns on large screens:
@@ -95,7 +96,7 @@ const ProjectsSection = () => {
                    * Everything a visitor needs to judge the project without
                    * expanding anything; only the screen gallery hides.
                    */}
-                  <div className="grid gap-0 p-5 sm:p-6 lg:grid-cols-[1.1fr_0.9fr] lg:gap-6">
+                  <div className="grid gap-0 p-6 sm:p-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-6">
 
                     {/* ── Hero image ──────────────────────────────────────── */}
                     {/*
@@ -110,7 +111,7 @@ const ProjectsSection = () => {
                           alt: `${project.name} project preview`,
                         })
                       }
-                      className="group block w-full self-start overflow-hidden rounded-card bg-[var(--surface-strong)]"
+                      className="group block w-full self-start overflow-hidden rounded-card bg-[var(--surface)]"
                     >
                       <Image
                         src={project.image}
@@ -173,71 +174,26 @@ const ProjectsSection = () => {
                   </div>
 
                   {/*
-                   * ── Interface snapshots (the disclosure) ─────────────────
-                   * A native <details>, so open/close, keyboard support and
-                   * find-in-page expansion all come from the browser. Every
-                   * gallery starts closed: the header alone already says what
-                   * the project is, and three open galleries pushed the rest
-                   * of the page off the screen.
-                   *
-                   * The disclosure holds only the gallery — no interactive
-                   * element sits inside <summary>, which would otherwise
-                   * toggle the card on every click.
+                   * ── Interface snapshots ──────────────────────────────────
+                   * No disclosure any more. The gallery was collapsed because
+                   * it rendered every screenshot at full size and ran the page
+                   * past 25,000px; the picker holds all of them in about one
+                   * screen's height, so there is nothing left to hide behind a
+                   * "3 screens" bar.
                    */}
-                  <details className="group bg-[var(--surface-strong)]">
-                    {/* list-none + the webkit rule drop the default triangle */}
-                    <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 transition-colors hover:bg-[var(--surface)] sm:px-6 [&::-webkit-details-marker]:hidden">
-                      <h4 className="font-display text-sm font-semibold uppercase tracking-[0.16em] text-[var(--foreground)]">
-                        Interface snapshots
-                      </h4>
-                      <span className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--accent)]">
-                        {project.extraImageList.length} screens
-                        {/* Chevron flips when the card is open (group-open) */}
-                        <BsChevronDown
-                          size={14}
-                          className="transition-transform duration-300 group-open:rotate-180"
-                        />
-                      </span>
-                    </summary>
-
-                    {/*
-                     * Thumbnail grid:
-                     *   mobile – 1 column · sm+ – 2 · xl+ – 3
-                     * max-w-[22rem] keeps portrait screenshots from going wide.
-                     */}
-                    <div className="grid justify-center gap-6 px-5 pb-6 sm:grid-cols-2 sm:px-6 xl:grid-cols-3">
-                      {project.extraImageList.map((imageItem) => (
-                        <button
-                          key={imageItem.image}
-                          type="button"
-                          onClick={() =>
-                            setZoomedImage({
-                              src: imageItem.image,
-                              alt: imageItem.title,
-                            })
-                          }
-                          className="mx-auto w-full max-w-[22rem] overflow-hidden rounded-card bg-[var(--background)] text-left transition duration-300 hover:-translate-y-1"
-                        >
-                          {/*
-                           * Fixed-height container (28rem) centres the screenshot
-                           * vertically whatever its aspect ratio.
-                           */}
-                          <div className="flex h-[28rem] items-center justify-center p-4">
-                            <Image
-                              src={imageItem.image}
-                              alt={imageItem.title}
-                              width={720}
-                              height={1280}
-                              className="max-h-full w-auto max-w-full object-contain"
-                            />
-                          </div>
-                          <div className="p-4 pt-0">
-                            <p className="text-sm leading-6 text-[var(--muted)]">{imageItem.title}</p>
-                          </div>
-                        </button>
-                      ))}
-                    </div>
-                  </details>
+                  {/*
+                   * The gallery takes the dimmer surface while the header
+                   * keeps the raised one, so the card reads light at the top
+                   * and settles into the screenshots. No rule as well as the
+                   * colour: either divides the two regions, and both together
+                   * state it twice.
+                   */}
+                  <div className="bg-[var(--surface)] px-6 pt-6 sm:px-8 sm:pt-8">
+                    <ScreenPicker
+                      screens={project.extraImageList}
+                      onZoom={(src, alt) => setZoomedImage({ src, alt })}
+                    />
+                  </div>
                 </article>
               </SlideUp>
             ))}
