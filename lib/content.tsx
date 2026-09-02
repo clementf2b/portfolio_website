@@ -349,7 +349,12 @@ const languages = [
   {
     parts: [{ icon: <BiLogoGoLang size={20} />, name: 'Go' }],
     level: 2,
-    use: 'Side projects and internal tooling',
+    use: (
+      <>
+        Side projects and internal tooling, and a small part of <Name>Navicat</Name>&apos;s
+        backend
+      </>
+    ),
   },
 ]
 
