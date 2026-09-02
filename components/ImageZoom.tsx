@@ -233,10 +233,30 @@ const ImageZoom = ({ images, index, onClose, onIndex }: Props) => {
           src={image.src}
           alt={image.alt}
           onLoad={(event) => measure(event.currentTarget)}
-          /* The picture itself is the one thing a click must not dismiss. */
-          onClick={(event) => event.stopPropagation()}
+          /*
+           * Click the picture to zoom in, right-click to zoom out — the
+           * same two steps as the buttons, without leaving the image.
+           *
+           * stopPropagation as well: the picture is the one thing a click
+           * must not dismiss.
+           *
+           * The cost is the browser's own context menu on this element,
+           * so "Save image as…" is gone from the viewer. The thumbnails
+           * behind it still have it.
+           */
+          onClick={(event) => {
+            event.stopPropagation()
+            stepZoom(1)
+          }}
+          onContextMenu={(event) => {
+            event.preventDefault()
+            event.stopPropagation()
+            stepZoom(-1)
+          }}
           style={fitWidth ? { width: fitWidth * zoom } : undefined}
-          className="m-auto block h-auto max-w-none"
+          className={`m-auto block h-auto max-w-none ${
+            zoom < MAX ? 'cursor-zoom-in' : 'cursor-zoom-out'
+          }`}
         />
       </div>
 
