@@ -272,50 +272,130 @@ export const education = {
 /*
  * languages / tools
  * ──────────────────
- * Each entry drives one skill bar row in the "Technical strengths" section.
- *   skill – display label inside the bar
- *   level – 0-100 integer; controls how wide the coloured fill renders
- *   icon  – React element shown to the left of the label inside the bar
+ * Each entry drives one row in the "Technical strengths" section.
+ *   parts – one { icon, name } per technology; a row with two of them
+ *           prints "icon name / icon name", so each mark sits with the
+ *           thing it names
+ *   level – 1-5; how many segments of the meter are filled
+ *   use   – what the skill was actually used to build
  *
  * Kept sorted by `level` descending so the strongest skill appears first.
- * The levels are the owner's own figures and are carried over unchanged.
+ *
+ * The old rows were 0-100 bars with no `use`. Two problems: nobody can
+ * defend the difference between 74 and 70, so the numbers read as
+ * self-scoring; and "Navicat's core since 2017" says far more about depth
+ * than any number does. Five steps is as fine a grain as the claim can
+ * honestly carry.
+ *
+ * Skills that describe one body of work share a row — Swift and
+ * Objective-C are both the Apple-platform side, React and Next.js are both
+ * the web side — because splitting them printed the same sentence twice.
  */
+
+/* Ink, not accent: names the work without competing with the meter. */
+const Name = ({ children }: { children: React.ReactNode }) => (
+  <b className="font-semibold text-[var(--foreground)]">{children}</b>
+)
+
 const languages = [
-  { skill: 'C++',         level: 90, icon: <BiLogoCPlusPlus size={20} /> },
-  { skill: 'Java',        level: 74, icon: <BiLogoJava size={20} /> },
-  { skill: 'Objective-C', level: 70, icon: <SiApple size={20} /> },
-  { skill: 'React',       level: 66, icon: <BiLogoReact size={20} /> },
-  { skill: 'Swift',       level: 64, icon: <SiSwift size={20} /> },
-  { skill: 'Next.js',     level: 60, icon: <SiNextdotjs size={20} /> },
-  { skill: 'Go',          level: 58, icon: <BiLogoGoLang size={20} /> },
+  {
+    parts: [{ icon: <BiLogoCPlusPlus size={20} />, name: 'C++' }],
+    level: 5,
+    use: (
+      <>
+        <Name>Navicat</Name>&apos;s Linux UI and shared backend, 2017 – now
+      </>
+    ),
+  },
+  {
+    /*
+     * react-icons carries no Objective-C mark — there is no widely used
+     * logo for it — so the Apple glyph stands in for the platform. Swift
+     * has its own.
+     */
+    parts: [
+      { icon: <SiSwift size={18} />, name: 'Swift' },
+      { icon: <SiApple size={18} />, name: 'Objective-C' },
+    ],
+    level: 4,
+    use: (
+      <>
+        <Name>Navicat</Name>&apos;s macOS UI, and native iOS apps at{' '}
+        <Name>Accord HK</Name>
+      </>
+    ),
+  },
+  {
+    parts: [{ icon: <BiLogoJava size={20} />, name: 'Java' }],
+    level: 4,
+    use: (
+      <>
+        Native Android apps, at <Name>Accord HK</Name> and on <Name>FaceT</Name>
+      </>
+    ),
+  },
+  {
+    parts: [
+      { icon: <BiLogoReact size={18} />, name: 'React' },
+      { icon: <SiNextdotjs size={16} />, name: 'Next.js' },
+    ],
+    level: 3,
+    use: (
+      <>
+        <Name>FaceT</Name>&apos;s internal management site, and this portfolio
+      </>
+    ),
+  },
+  {
+    parts: [{ icon: <BiLogoGoLang size={20} />, name: 'Go' }],
+    level: 2,
+    use: 'Side projects and internal tooling',
+  },
 ]
 
 const tools = [
-  { skill: 'Codex',  level: 88, icon: <SiOpenai size={18} /> },
   {
-    skill: 'Claude Code',
-    level: 80,
-    /*
-     * Claude Code has no dedicated react-icons entry, so we load the icon
-     * from an external PNG and apply a CSS filter to shift it to the warm
-     * caramel/orange accent colour that matches the site palette.
-     * The filter chain: desaturate → re-saturate → rotate hue → fine-tune.
-     */
-    icon: (
-      <Image
-        src="https://raw.githubusercontent.com/lobehub/lobe-icons/refs/heads/master/packages/static-png/dark/claudecode-color.png"
-        alt="Claude Code icon"
-        width={20}
-        height={20}
-        className="h-5 w-5 object-contain"
-        style={{
-          filter:
-            'brightness(0) saturate(100%) invert(58%) sepia(50%) saturate(500%) hue-rotate(350deg) brightness(95%) contrast(90%)',
-        }}
-      />
+    parts: [
+      {
+        /*
+         * Claude Code has no dedicated react-icons entry, so we load the icon
+         * from an external PNG and apply a CSS filter to shift it to the warm
+         * caramel/orange accent colour that matches the site palette.
+         * The filter chain: desaturate → re-saturate → rotate hue → fine-tune.
+         */
+        icon: (
+          <Image
+            src="https://raw.githubusercontent.com/lobehub/lobe-icons/refs/heads/master/packages/static-png/dark/claudecode-color.png"
+            alt=""
+            width={20}
+            height={20}
+            className="h-5 w-5 object-contain"
+            style={{
+              filter:
+                'brightness(0) saturate(100%) invert(58%) sepia(50%) saturate(500%) hue-rotate(350deg) brightness(95%) contrast(90%)',
+            }}
+          />
+        ),
+        name: 'Claude Code',
+      },
+    ],
+    level: 5,
+    use: (
+      <>
+        <Name>Navicat</Name> fixes, scheduled ticket triage, and this site
+      </>
     ),
   },
-  { skill: 'Docker', level: 62, icon: <BiLogoDocker size={20} /> },
+  {
+    parts: [{ icon: <SiOpenai size={18} />, name: 'Codex' }],
+    level: 4,
+    use: 'The same workflows, run as a second agent',
+  },
+  {
+    parts: [{ icon: <BiLogoDocker size={20} />, name: 'Docker' }],
+    level: 3,
+    use: 'Local database matrix for testing',
+  },
 ]
 
 /*
