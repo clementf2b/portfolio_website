@@ -146,8 +146,14 @@ const ImageZoom = ({ images, index, onClose, onIndex }: Props) => {
       className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm"
       onClick={onClose}
     >
+      {/*
+       * The zoom group sits in the middle of the top edge and the close
+       * button in the corner: one is a control you reach for repeatedly
+       * while reading, the other is the way out. Putting them in one
+       * cluster made × the fourth zoom button.
+       */}
       <div
-        className="absolute right-4 top-4 z-10 flex items-center gap-2"
+        className="absolute left-1/2 top-4 z-10 flex -translate-x-1/2 items-center gap-2"
         onClick={(event) => event.stopPropagation()}
       >
         <Round
@@ -185,6 +191,9 @@ const ImageZoom = ({ images, index, onClose, onIndex }: Props) => {
         <Round onClick={() => stepZoom(1)} disabled={zoom >= MAX} label="Zoom in">
           <BsZoomIn size={18} />
         </Round>
+      </div>
+
+      <div className="absolute right-4 top-4 z-10" onClick={(event) => event.stopPropagation()}>
         <Round onClick={onClose} label="Close image viewer">
           <IoMdClose size={22} />
         </Round>
@@ -205,12 +214,13 @@ const ImageZoom = ({ images, index, onClose, onIndex }: Props) => {
        * Fixed frame, so the measurement above has something stable to fit
        * into; m-auto rather than justify-center, which clips the top and
        * left of an overflowing child.
+       *
+       * No click handler on the frame — only on the image below. The frame
+       * is a fixed 86vw × 80vh while the image inside it is usually
+       * smaller, and swallowing clicks here made a wide band of apparently
+       * empty backdrop refuse to close the viewer.
        */}
-      <div
-        ref={frame}
-        className="flex h-[80vh] w-[86vw] overflow-auto rounded-card"
-        onClick={(event) => event.stopPropagation()}
-      >
+      <div ref={frame} className="flex h-[80vh] w-[86vw] overflow-auto rounded-card">
         {/*
          * A plain <img>, not next/image: the width is decided here, at run
          * time, from the file's own dimensions — next/image needs one pair
@@ -223,6 +233,8 @@ const ImageZoom = ({ images, index, onClose, onIndex }: Props) => {
           src={image.src}
           alt={image.alt}
           onLoad={(event) => measure(event.currentTarget)}
+          /* The picture itself is the one thing a click must not dismiss. */
+          onClick={(event) => event.stopPropagation()}
           style={fitWidth ? { width: fitWidth * zoom } : undefined}
           className="m-auto block h-auto max-w-none"
         />
@@ -249,8 +261,14 @@ const ImageZoom = ({ images, index, onClose, onIndex }: Props) => {
             )}
             {image.alt}
           </p>
+          {/*
+           * No measure cap on the description, unlike the section's prose:
+           * the bar is one or two sentences and already bounded by the
+           * frame, and an 80ch limit wrapped it a second time inside a bar
+           * wide enough to hold it.
+           */}
           {image.caption && (
-            <p className="mx-auto mt-1 max-w-[80ch] text-[13px] leading-6 text-white/70">
+            <p className="mt-1 text-[13px] leading-6 text-white/70">
               {image.caption}
             </p>
           )}
