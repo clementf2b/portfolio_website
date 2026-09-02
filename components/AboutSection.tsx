@@ -14,7 +14,7 @@
 import React from 'react'
 import { sectionHeadingClassName } from '../lib/classNames'
 import { companies, education, skillGroups } from '../lib/content'
-import ImageCarousel from './ui/ImageCarousel'
+import ScreenPicker from './ScreenPicker'
 import Image from 'next/image'
 
 
@@ -216,8 +216,19 @@ const AboutSection = () => {
                         <p className="mt-1.5 text-xs text-[var(--muted)]">
                           {company.showcase.note}
                         </p>
-                        <div className="mt-4">
-                          <ImageCarousel images={company.showcase.images} />
+                        {/*
+                         * The same picker the projects use, in its rail
+                         * layout: these screenshots are landscape, so the
+                         * main image already fills the row and the
+                         * thumbnails only need a narrow strip beside it.
+                         *
+                         * It replaced a carousel whose slides were not bound
+                         * by the viewport — on a 375px screen the track ran
+                         * to 2,416px and took the whole page into horizontal
+                         * scroll.
+                         */}
+                        <div className="mt-4 rounded-card bg-[var(--surface)] pt-6">
+                          <ScreenPicker screens={company.showcase.images} layout="rail" />
                         </div>
                       </div>
                     )}
