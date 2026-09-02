@@ -19,7 +19,6 @@ import Link from 'next/link'
 import { BsArrowUpRight } from 'react-icons/bs'
 import ImageZoom, { type ZoomTarget } from './ImageZoom'
 import ScreenPicker from './ScreenPicker'
-import SlideUp from './SlideUp'
 
 
 const ProjectsSection = () => {
@@ -49,18 +48,14 @@ const ProjectsSection = () => {
 
           {/*
            * Project cards — the same gap the Workflow cards use.
-           * Each card is wrapped in <SlideUp> which applies a CSS animation
-           * (fade + translate-y) as the card enters the viewport.
+           *
+           * Card shell — surface colour, no border. The rest of the app
+           * (ProcessSection, About) separates regions the same way, per
+           * the S3 direction: "surface colour, never shadows or borders".
            */}
           <div className="space-y-4">
             {projects.map((project) => (
-              <SlideUp key={project.name} offset="-150px 0px -100px 0px">
-                {/*
-                 * Card shell — surface colour, no border. The rest of the app
-                 * (ProcessSection, About) separates regions the same way, per
-                 * the S3 direction: "surface colour, never shadows or borders".
-                 */}
-                <article className="overflow-hidden rounded-card bg-[var(--surface-strong)]">
+              <article key={project.name} className="overflow-hidden rounded-card bg-[var(--surface-strong)]">
 
                   {/*
                    * Always-visible header. Two columns on large screens:
@@ -165,7 +160,6 @@ const ProjectsSection = () => {
                     <ScreenPicker screens={project.extraImageList} />
                   </div>
                 </article>
-              </SlideUp>
             ))}
           </div>
         </div>
