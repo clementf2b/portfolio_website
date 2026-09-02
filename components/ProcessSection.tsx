@@ -34,10 +34,6 @@ const ProcessSection = () => {
 
       {/* ── 1 · The loop ─────────────────────────────────────────────────── */}
       <div className="mt-10">
-        <h3 className="font-display text-xl font-semibold tracking-[-0.02em] text-[var(--foreground)]">
-          Same workflow, different collaborator
-        </h3>
-
         {/*
          * Inline SVG rather than an image so the strokes and fills read from
          * the tokens and follow the theme. currentColor is set per group; the
@@ -130,9 +126,9 @@ const ProcessSection = () => {
         </ol>
 
         <p className="mt-5 max-w-[74ch] text-sm leading-7 text-[var(--muted)]">
-          Two of the four steps are mine, and the loop{' '}
-          <b className="font-semibold text-[var(--foreground)]">stops</b> at both of them. The agent
-          brings options and evidence; it does not decide, and it does not move its own card.
+          The agent proposes and builds. I choose and I review. It{' '}
+          <b className="font-semibold text-[var(--foreground)]">waits</b> at both of my steps: it
+          cannot pick which option wins, and it cannot mark its own work done.
         </p>
       </div>
 
