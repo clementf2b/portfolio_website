@@ -132,37 +132,37 @@ export const companies: Company[] = [
           image: '/projects/navicat/Screenshot_Navicat_17_Premium_Mac_Main_screen.png',
           title: 'Navicat Premium on macOS',
           description:
-            "One window over every connection — Navicat Cloud projects, Snowflake, PostgreSQL, Oracle, Redis — with the selected table's rows and metadata beside the object list.",
+            'The main window in Navicat, where a single workspace connects to many types of database at once.',
         },
         {
-          image: '/projects/navicat/Screenshot_Navicat_BI_Mac_Dashboard.png',
-          title: 'BI dashboard built from live database queries',
+          image: '/projects/navicat/Screenshot_Navicat_BI_Mac_Main_Screen.png',
+          title: 'Navicat BI on macOS',
           description:
-            'A dashboard page assembled from saved charts: running totals, a target gauge, a revenue waterfall and paired bars, laid out on a 16:9 canvas.',
+            'Turns your data into effective visualizations, giving clear insight through charts and graphs.',
         },
         {
-          image: '/projects/navicat/Screenshot_Navicat_BI_Mac_Chart_Design.png',
-          title: 'Chart design workspace',
+          image: '/projects/navicat/Screenshot_Navicat_17_Premium_Mac_Modeling.png',
+          title: 'Data modeling',
           description:
-            'Building one chart from a data source — fields on the left, axis, group and value dropped into the query row, formatting on the right.',
+            'Construct data structures and visualize their relationships. Refine the structure to facilitate analysis.',
         },
         {
-          image: '/projects/navicat/Screenshot_Navicat_BI_Mac_Data_Source.png',
-          title: 'Data source setup across multiple connections',
+          image: '/projects/navicat/Screenshot_Navicat_17_Data_Dictionary.png',
+          title: 'Data Dictionary',
           description:
-            'Joining across connections: film, actor and film_actor linked in the canvas, with the resulting rows and the selected fields previewed underneath.',
+            'Create a document for every data element across databases on various server platforms, and automate exporting those documents as PDFs.',
         },
         {
-          image: '/projects/navicat/Screenshot_Navicat_BI_Mac_Data_Profiling.png',
-          title: 'Data profiling view',
+          image: '/projects/navicat/Screenshot_Navicat_17_Premium_Mac_AI.png',
+          title: 'AI Assistant',
           description:
-            'Column profiling over a 10,000-row sample — valid, null and error shares, the value distribution, and distinct counts for every field.',
+            'Get AI help directly within Navicat whenever you need it — ask a question and receive an instant answer.',
         },
         {
           image: '/projects/navicat/Screenshot_Navicat_17_Premium_Linux_Main_screen.png',
-          title: 'The same product on Linux',
+          title: 'Navicat on Linux',
           description:
-            'The same build on Linux — a native menu bar in place of the macOS chrome, and the same layout, objects and panels behind it.',
+            'Optimized multi-database workflows across native macOS and Linux, so moving between the two costs no environment friction.',
         },
       ],
     },

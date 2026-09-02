@@ -17,6 +17,7 @@
 
 import React, { useState } from 'react'
 import Image from 'next/image'
+import ImageZoom, { type ZoomTarget } from './ImageZoom'
 
 export type Screen = { image: string; title: string; description?: string }
 
@@ -29,11 +30,12 @@ type Props = {
    *        the main image is already wide enough to carry the row.
    */
   layout?: 'grid' | 'rail'
-  onZoom?: (src: string, alt: string) => void
 }
 
-const ScreenPicker = ({ screens, layout = 'grid', onZoom }: Props) => {
+const ScreenPicker = ({ screens, layout = 'grid' }: Props) => {
   const [current, setCurrent] = useState(0)
+  /* The viewer lives here so every gallery gets it, not only the projects. */
+  const [zoomed, setZoomed] = useState<ZoomTarget>(null)
   const active = screens[current]
 
   if (screens.length === 0) return null
@@ -68,15 +70,24 @@ const ScreenPicker = ({ screens, layout = 'grid', onZoom }: Props) => {
         <div className={layout === 'rail' ? 'min-w-0 flex-1' : 'w-[18rem] shrink-0'}>
           <button
             type="button"
-            onClick={() => onZoom?.(active.image, active.title)}
+            onClick={() => setZoomed({ src: active.image, alt: active.title })}
             className="focus-ring block w-full overflow-hidden rounded-card bg-[var(--surface-strong)] p-4"
           >
+            {/*
+             * rail: a height cap. The landscape screens are not all the same
+             * aspect — the AI Assistant shot is much squarer than the rest —
+             * so a width-driven height made one screen tower over the others
+             * and shifted the caption down with it. Capped, they all occupy
+             * the same block.
+             */}
             <Image
               src={active.image}
               alt={active.title}
               width={1440}
               height={1280}
-              className="h-auto w-full object-contain"
+              className={`h-auto w-full object-contain ${
+                layout === 'rail' ? 'max-h-[32rem]' : ''
+              }`}
             />
           </button>
           <p className="mt-3 text-xs font-semibold uppercase tracking-[0.16em] text-[var(--muted)]">
@@ -139,6 +150,8 @@ const ScreenPicker = ({ screens, layout = 'grid', onZoom }: Props) => {
           ))}
         </div>
       </div>
+
+      <ImageZoom image={zoomed} onClose={() => setZoomed(null)} />
     </div>
   )
 }
