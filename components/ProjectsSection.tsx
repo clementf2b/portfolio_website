@@ -4,24 +4,20 @@
  * Renders the #projects section: a vertical list of project cards, each with:
  *   - An always-visible header: hero image (opens the full-screen zoom
  *     viewer), icon, title, year badge, subtitle, copy, repository link
- *   - A collapsible "Interface snapshots" gallery of thumbnail screens,
- *     closed by default
+ *   - A <ScreenPicker> gallery of that project's screens
  *
- * A global Escape key listener dismisses the zoom overlay without needing
- * a close button click.
- *
- * "use client" is required because the component uses useState, useEffect,
- * and click/keyboard event handlers — all browser-only APIs.
+ * "use client" is required because the component holds the zoom target in
+ * state and handles clicks — browser-only APIs.
  */
 "use client"
 
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { sectionHeadingClassName } from '../lib/classNames'
 import { projects } from '../lib/content'
 import Image from 'next/image'
 import Link from 'next/link'
 import { BsArrowUpRight } from 'react-icons/bs'
-import { IoMdClose } from 'react-icons/io'
+import ImageZoom, { type ZoomTarget } from './ImageZoom'
 import ScreenPicker from './ScreenPicker'
 import SlideUp from './SlideUp'
 
@@ -32,30 +28,7 @@ const ProjectsSection = () => {
    * null  → overlay is hidden
    * { src, alt } → overlay is visible, showing that image
    */
-  const [zoomedImage, setZoomedImage] = useState<{
-    src: string
-    alt: string
-  } | null>(null)
-
-  /*
-   * Escape key listener — dismisses the zoom overlay without clicking the × button.
-   *
-   * Why [] dependency array?
-   *   setZoomedImage is a stable reference (React guarantees this for state setters),
-   *   so the effect never needs to re-run.  The guard `if (event.key === 'Escape')`
-   *   is inside the handler, which means the listener can safely stay attached
-   *   even when zoomedImage changes value.
-   *
-   * Cleanup: the listener is removed when the component unmounts to avoid
-   * a memory leak or stale handler.
-   */
-  useEffect(() => {
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setZoomedImage(null)
-    }
-    window.addEventListener('keydown', onKeyDown)
-    return () => window.removeEventListener('keydown', onKeyDown)
-  }, [])
+  const [zoomedImage, setZoomedImage] = useState<ZoomTarget>(null)
 
   return (
     <>
@@ -189,10 +162,7 @@ const ProjectsSection = () => {
                    * state it twice.
                    */}
                   <div className="bg-[var(--surface)] px-6 pt-6 sm:px-8 sm:pt-8">
-                    <ScreenPicker
-                      screens={project.extraImageList}
-                      onZoom={(src, alt) => setZoomedImage({ src, alt })}
-                    />
+                    <ScreenPicker screens={project.extraImageList} />
                   </div>
                 </article>
               </SlideUp>
@@ -201,49 +171,8 @@ const ProjectsSection = () => {
         </div>
       </section>
 
-      {/*
-       * Full-screen zoom overlay
-       * ─────────────────────────
-       * Rendered via a React portal-like conditional at the root of the fragment
-       * so it sits above everything else (z-[100]).
-       *
-       * Clicking the dark backdrop (the outer div) closes the overlay.
-       * Clicking the image itself does NOT close it — stopPropagation() on the
-       * inner div prevents the click from bubbling up to the backdrop.
-       *
-       * The × button in the top-right corner is an additional explicit close target.
-       * The Escape key handler (registered in useEffect above) also closes it.
-       */}
-      {zoomedImage ? (
-        <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm"
-          onClick={() => setZoomedImage(null)}
-        >
-          {/* Close button — top-right corner */}
-          <button
-            type="button"
-            onClick={() => setZoomedImage(null)}
-            className="absolute right-4 top-4 rounded-full bg-white/10 p-2 text-white transition hover:bg-white/20"
-            aria-label="Close image viewer"
-          >
-            <IoMdClose size={28} />
-          </button>
-
-          {/* Image container — stopPropagation prevents backdrop click-through */}
-          <div
-            className="relative max-h-[90vh] max-w-6xl overflow-hidden rounded-card"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <Image
-              src={zoomedImage.src}
-              alt={zoomedImage.alt}
-              width={1800}
-              height={1400}
-              className="max-h-[90vh] w-auto max-w-full object-contain"
-            />
-          </div>
-        </div>
-      ) : null}
+      {/* Hero images only — each gallery carries its own viewer. */}
+      <ImageZoom image={zoomedImage} onClose={() => setZoomedImage(null)} />
     </>
   )
 }
