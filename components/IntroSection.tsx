@@ -103,12 +103,12 @@ const IntroSection = () => {
           </div>
 
           {/*
-           * The portrait sits a little above the bio's first line rather than
-           * level with it: at this size, lining the two up left the portrait
+           * The portrait sits above the bio's first line rather than level
+           * with it: at this size, lining the two up left the portrait
            * reading as though it had sunk. It was pt-6 while the portrait was
-           * larger, then pt-2, and is now lifted the other way.
+           * larger, then pt-2, then -mt-3, and is now lifted further.
            */}
-          <div className="order-1 lg:order-2 lg:-mt-3">
+          <div className="order-1 lg:order-2 lg:-mt-9">
             {/* 20% down from the previous 20rem / 24rem. */}
             <div className="mx-auto max-w-[16rem] sm:max-w-[19rem]">
               {/*
