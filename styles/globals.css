@@ -8,9 +8,8 @@
    * Direction: Apple structure × warm palette, light default.
    * Decision record: ai/artifacts/專案設置/mockup-decision-style-direction.md
    *
-   * DEFINED HERE, NOT YET APPLIED. Components still read the legacy tokens
-   * further down; the 「視覺改版套用」 epic migrates them across. Adding
-   * these must not change a single pixel — that is the acceptance test.
+   * Components read the legacy aliases further down rather than these names
+   * directly; the 「視覺改版套用」 epic migrates the call sites across.
    *
    * No shadow tokens exist by design: the chosen direction separates
    * regions with surface colour, never with shadows or borders.
@@ -61,33 +60,15 @@
     --color-accent-soft:    var(--copper-100);
     --color-accent-ink:     var(--copper-700);
     --color-focus:          var(--copper-600);
+
     /*
-     * scrim — added during S4. A modal needs one and S3 had no equivalent.
-     * Flagged for approval as an S3 extension rather than added silently.
+     * radius / motion — the two steps anything renders with. The full S3
+     * sets (six radii, five z-index steps, three durations, two easings,
+     * a modal scrim) were read only by the unused Card and Modal
+     * components and went with them.
      */
-    --color-scrim:          rgb(23 21 20 / 0.55);
-
-    /* ── radius ──────────────────────────────────────────────────────── */
-    --radius-none: 0px;
-    --radius-sm:   4px;
-    --radius-md:   8px;
-    --radius-lg:   12px;
     --radius-card: 18px;
-    --radius-full: 999px;
-
-    /* ── z-index ─────────────────────────────────────────────────────── */
-    --z-base:    0;
-    --z-sticky:  100;
-    --z-nav:     200;
-    --z-overlay: 800;
-    --z-modal:   900;
-
-    /* ── motion ──────────────────────────────────────────────────────── */
-    --dur-fast: 150ms;
     --dur-base: 250ms;
-    --dur-slow: 400ms;
-    --ease-out:    cubic-bezier(0.2, 0, 0, 1);
-    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   /* ── semantic · dark. Primitives are shared; only roles are remapped. ── */
@@ -103,7 +84,6 @@
     --color-accent-soft:    var(--copper-900);
     --color-accent-ink:     var(--copper-300);
     --color-focus:          var(--copper-400);
-    --color-scrim:          rgb(13 12 11 / 0.72);
   }
 
   /* ═══════════════════════════════════════════════════════════════════════
@@ -129,14 +109,6 @@
     --accent:          var(--color-accent);
     --accent-strong:   var(--color-accent-ink);
     --accent-soft:     var(--color-accent-soft);
-
-    /*
-     * The approved direction has no shadows at all — depth comes from surface
-     * colour banding. Neutralised here so every var(--shadow) call site goes
-     * flat at once; the call sites themselves are removed as each region is
-     * migrated.
-     */
-    --shadow: none;
   }
 
   html {

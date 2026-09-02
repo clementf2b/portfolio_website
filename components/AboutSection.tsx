@@ -279,7 +279,13 @@ const AboutSection = () => {
                             </React.Fragment>
                           ))}
                         </span>
-                        {/* aria-hidden: the sentence beside it carries the meaning */}
+                        {/*
+                         * The meter is the only place the level exists, and
+                         * it encodes it in background colour alone, so the
+                         * segments are hidden and the number is spelled out
+                         * for anything not reading pixels.
+                         */}
+                        <span className="sr-only">{item.level} out of 5</span>
                         <span aria-hidden className="flex shrink-0 gap-1.5">
                           {[1, 2, 3, 4, 5].map((step) => (
                             <span

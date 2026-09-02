@@ -363,14 +363,17 @@ const tools = [
     parts: [
       {
         /*
-         * Claude Code has no dedicated react-icons entry, so we load the icon
-         * from an external PNG and apply a CSS filter to shift it to the warm
-         * caramel/orange accent colour that matches the site palette.
-         * The filter chain: desaturate → re-saturate → rotate hue → fine-tune.
+         * Claude Code has no react-icons entry, so the mark is a PNG. It was
+         * fetched from raw.githubusercontent.com, which put a third-party
+         * host in the render path and required an images.remotePatterns
+         * allowlist for one 1.4 KB file; it is now checked in.
+         *
+         * The filter recolours it to the accent: desaturate → re-saturate →
+         * rotate hue → fine-tune.
          */
         icon: (
           <Image
-            src="https://raw.githubusercontent.com/lobehub/lobe-icons/refs/heads/master/packages/static-png/dark/claudecode-color.png"
+            src="/icons/claude-code.png"
             alt=""
             width={20}
             height={20}

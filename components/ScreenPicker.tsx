@@ -17,7 +17,7 @@
 
 import React, { useState } from 'react'
 import Image from 'next/image'
-import ImageZoom, { type ZoomTarget } from './ImageZoom'
+import ImageZoom from './ImageZoom'
 
 export type Screen = { image: string; title: string; description?: string }
 
@@ -34,8 +34,12 @@ type Props = {
 
 const ScreenPicker = ({ screens, layout = 'grid' }: Props) => {
   const [current, setCurrent] = useState(0)
-  /* The viewer lives here so every gallery gets it, not only the projects. */
-  const [zoomed, setZoomed] = useState<ZoomTarget>(null)
+  /*
+   * The viewer lives here so every gallery gets it, not only the projects,
+   * and it drives `current` rather than keeping its own index — walking the
+   * set with the arrows leaves the picker on whatever you stopped at.
+   */
+  const [zoomOpen, setZoomOpen] = useState(false)
   const active = screens[current]
 
   if (screens.length === 0) return null
@@ -70,7 +74,7 @@ const ScreenPicker = ({ screens, layout = 'grid' }: Props) => {
         <div className={layout === 'rail' ? 'min-w-0 flex-1' : 'w-[18rem] shrink-0'}>
           <button
             type="button"
-            onClick={() => setZoomed({ src: active.image, alt: active.title })}
+            onClick={() => setZoomOpen(true)}
             className="focus-ring block w-full overflow-hidden rounded-card bg-[var(--surface-strong)] p-4"
           >
             {/*
@@ -151,7 +155,12 @@ const ScreenPicker = ({ screens, layout = 'grid' }: Props) => {
         </div>
       </div>
 
-      <ImageZoom image={zoomed} onClose={() => setZoomed(null)} />
+      <ImageZoom
+        images={screens.map((screen) => ({ src: screen.image, alt: screen.title }))}
+        index={zoomOpen ? current : null}
+        onClose={() => setZoomOpen(false)}
+        onIndex={setCurrent}
+      />
     </div>
   )
 }
