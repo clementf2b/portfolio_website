@@ -4,10 +4,10 @@
  * The full-screen image viewer, shared by the project hero images and the
  * screenshot galleries.
  *
- * The frame scrolls. Fitting a 2,200px-wide product screenshot into 90vh
- * makes its UI text unreadable, which defeats the point of enlarging it, so
- * the image is drawn at its own size and the frame scrolls in both
- * directions when that overflows.
+ * It opens at fit — the whole screen inside the frame — and zooms from
+ * there, because a 2,200px capture shown at its own size is mostly
+ * scrolling. Steps run 50% to 300% of fit; past the frame the image scrolls
+ * in both directions.
  *
  * It takes the whole set rather than one image, so the reader can walk the
  * gallery without closing and reopening: arrows either side, ← and →, and
@@ -17,11 +17,20 @@
  */
 "use client"
 
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { IoMdClose } from 'react-icons/io'
-import { BsChevronLeft, BsChevronRight } from 'react-icons/bs'
+import { BsChevronLeft, BsChevronRight, BsZoomIn, BsZoomOut } from 'react-icons/bs'
 
 export type ZoomTarget = { src: string; alt: string } | null
+
+/*
+ * Multiples of the fitted size. 1 is where every image opens, and the
+ * buttons walk this list; the percentage field takes anything between
+ * MIN and MAX, so the steps are a convenience, not the range.
+ */
+const STEPS = [0.5, 0.75, 1, 1.5, 2, 3]
+const MIN = 0.1
+const MAX = 5
 
 type Props = {
   images: { src: string; alt: string }[]
@@ -35,6 +44,54 @@ const ImageZoom = ({ images, index, onClose, onIndex }: Props) => {
   const open = index !== null && images.length > 0
   const many = images.length > 1
 
+  /* Fitted width in px, measured on load; null until the image arrives. */
+  const [fitWidth, setFitWidth] = useState<number | null>(null)
+  const [zoom, setZoom] = useState(1)
+  /* The field's text, kept apart from `zoom` so a half-typed "1" is not 1%. */
+  const [draft, setDraft] = useState('100')
+  const frame = useRef<HTMLDivElement>(null)
+
+  const setZoomTo = useCallback((next: number) => {
+    setZoom(Math.min(Math.max(next, MIN), MAX))
+  }, [])
+
+  /*
+   * Functional, so two clicks landing in one frame step twice — reading
+   * `zoom` from the closure made the second click recompute from the value
+   * the first one replaced.
+   */
+  const stepZoom = useCallback((direction: 1 | -1) => {
+    setZoom((prev) => Math.min(Math.max(nextStep(prev, direction), MIN), MAX))
+  }, [])
+
+  /* The field follows the zoom; typing into it is the only other writer. */
+  useEffect(() => setDraft(String(Math.round(zoom * 100))), [zoom])
+
+  /* A new screen starts fitted again. */
+  useEffect(() => {
+    setFitWidth(null)
+    setZoom(1)
+  }, [index])
+
+  /*
+   * Fit is computed from the natural size rather than left to CSS, because
+   * the zoom steps multiply it — object-contain would give the browser the
+   * fitted size but not this component.
+   *
+   * Never above 1: a 720px phone screenshot blown up to fill the frame is
+   * just blur, so small images open at their own size.
+   */
+  const measure = useCallback((img: HTMLImageElement) => {
+    const box = frame.current
+    if (!box || !img.naturalWidth) return
+    const scale = Math.min(
+      box.clientWidth / img.naturalWidth,
+      box.clientHeight / img.naturalHeight,
+      1
+    )
+    setFitWidth(img.naturalWidth * scale)
+  }, [])
+
   /*
    * Guarded on `open`, not just mounted: a page carries one of these per
    * gallery plus one for the project heroes, and an unguarded effect left
@@ -46,14 +103,15 @@ const ImageZoom = ({ images, index, onClose, onIndex }: Props) => {
   useEffect(() => {
     if (!open) return
 
-    const step = (delta: number) =>
-      onIndex((index! + delta + images.length) % images.length)
-
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') onClose()
+      /* While the percentage field has focus its keys belong to it. */
+      if (event.target instanceof HTMLInputElement) return
+      if (event.key === '+' || event.key === '=') stepZoom(1)
+      if (event.key === '-') stepZoom(-1)
       if (!many) return
-      if (event.key === 'ArrowLeft') step(-1)
-      if (event.key === 'ArrowRight') step(1)
+      if (event.key === 'ArrowLeft') onIndex((index! - 1 + images.length) % images.length)
+      if (event.key === 'ArrowRight') onIndex((index! + 1) % images.length)
     }
 
     const previousOverflow = document.body.style.overflow
@@ -64,7 +122,7 @@ const ImageZoom = ({ images, index, onClose, onIndex }: Props) => {
       window.removeEventListener('keydown', onKeyDown)
       document.body.style.overflow = previousOverflow
     }
-  }, [open, many, index, images.length, onClose, onIndex])
+  }, [open, many, index, images.length, onClose, onIndex, stepZoom])
 
   if (!open) return null
 
@@ -73,17 +131,52 @@ const ImageZoom = ({ images, index, onClose, onIndex }: Props) => {
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex flex-col items-center justify-center gap-4 bg-black/80 p-4 backdrop-blur-sm"
+      className="fixed inset-0 z-[100] flex flex-col items-center justify-center gap-3 bg-black/80 p-4 backdrop-blur-sm"
       onClick={onClose}
     >
-      <button
-        type="button"
-        onClick={onClose}
-        className="absolute right-4 top-4 z-10 rounded-full bg-white/10 p-2 text-white transition hover:bg-white/20"
-        aria-label="Close image viewer"
+      <div
+        className="absolute right-4 top-4 z-10 flex items-center gap-2"
+        onClick={(event) => event.stopPropagation()}
       >
-        <IoMdClose size={28} />
-      </button>
+        <Round
+          onClick={() => stepZoom(-1)}
+          disabled={zoom <= MIN}
+          label="Zoom out"
+        >
+          <BsZoomOut size={18} />
+        </Round>
+
+        {/*
+         * Typed, not just stepped: reading a screenshot at some particular
+         * size is a thing people want to ask for directly. The field holds
+         * text until it is committed, so a half-typed "1" does not render
+         * the image at 1%.
+         */}
+        <span className="flex items-center rounded-full bg-white/10 pr-2.5 text-xs font-semibold text-white">
+          <input
+            value={draft}
+            onChange={(event) => setDraft(event.target.value.replace(/[^\d]/g, ''))}
+            onBlur={() => commit(draft, zoom, setZoomTo)}
+            onKeyDown={(event) => {
+              if (event.key !== 'Enter') return
+              /* Commit here rather than leaning on blur() to do it. */
+              commit(draft, zoom, setZoomTo)
+              event.currentTarget.blur()
+            }}
+            inputMode="numeric"
+            aria-label="Zoom percentage"
+            className="w-12 bg-transparent py-2 pl-3 text-right tabular-nums outline-none"
+          />
+          %
+        </span>
+
+        <Round onClick={() => stepZoom(1)} disabled={zoom >= MAX} label="Zoom in">
+          <BsZoomIn size={18} />
+        </Round>
+        <Round onClick={onClose} label="Close image viewer">
+          <IoMdClose size={22} />
+        </Round>
+      </div>
 
       {/*
        * The arrows sit against the viewport edges rather than the image, so
@@ -96,19 +189,31 @@ const ImageZoom = ({ images, index, onClose, onIndex }: Props) => {
         </>
       )}
 
-      {/* stopPropagation so a click on the image itself does not dismiss */}
+      {/*
+       * Fixed frame, so the measurement above has something stable to fit
+       * into; m-auto rather than justify-center, which clips the top and
+       * left of an overflowing child.
+       */}
       <div
-        className="max-h-[82vh] max-w-[86vw] overflow-auto rounded-card"
+        ref={frame}
+        className="flex h-[80vh] w-[86vw] overflow-auto rounded-card"
         onClick={(event) => event.stopPropagation()}
       >
         {/*
-         * A plain <img>, not next/image: the viewer wants the file at its
-         * own intrinsic size, and next/image needs the dimensions declared
-         * up front — one pair of numbers cannot fit a 2,200px desktop
-         * capture and a 720px phone screen.
+         * A plain <img>, not next/image: the width is decided here, at run
+         * time, from the file's own dimensions — next/image needs one pair
+         * of numbers declared up front, and one pair cannot fit a 2,200px
+         * desktop capture and a 720px phone screen.
          */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={image.src} alt={image.alt} className="block max-w-none" />
+        <img
+          key={image.src}
+          src={image.src}
+          alt={image.alt}
+          onLoad={(event) => measure(event.currentTarget)}
+          style={fitWidth ? { width: fitWidth * zoom } : undefined}
+          className="m-auto block h-auto max-w-none"
+        />
       </div>
 
       <p
@@ -121,6 +226,40 @@ const ImageZoom = ({ images, index, onClose, onIndex }: Props) => {
     </div>
   )
 }
+
+/* The next preset above or below where the zoom currently sits. */
+const nextStep = (zoom: number, direction: 1 | -1) =>
+  direction === 1
+    ? STEPS.find((s) => s > zoom + 0.001) ?? MAX
+    : [...STEPS].reverse().find((s) => s < zoom - 0.001) ?? MIN
+
+/* Empty or nonsense in the field leaves the zoom where it was. */
+const commit = (draft: string, zoom: number, apply: (next: number) => void) => {
+  const percent = Number(draft)
+  apply(Number.isFinite(percent) && percent > 0 ? percent / 100 : zoom)
+}
+
+const Round = ({
+  onClick,
+  label,
+  disabled,
+  children,
+}: {
+  onClick: () => void
+  label: string
+  disabled?: boolean
+  children: React.ReactNode
+}) => (
+  <button
+    type="button"
+    aria-label={label}
+    disabled={disabled}
+    onClick={onClick}
+    className="rounded-full bg-white/10 p-2.5 text-white transition hover:bg-white/20 disabled:opacity-30 disabled:hover:bg-white/10"
+  >
+    {children}
+  </button>
+)
 
 const Arrow = ({
   side,
