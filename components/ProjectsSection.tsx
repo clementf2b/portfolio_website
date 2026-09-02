@@ -87,7 +87,7 @@ const ProjectsSection = () => {
                  * (ProcessSection, About) separates regions the same way, per
                  * the S3 direction: "surface colour, never shadows or borders".
                  */}
-                <article className="overflow-hidden rounded-card bg-[var(--surface)]">
+                <article className="overflow-hidden rounded-card bg-[var(--surface-strong)]">
 
                   {/*
                    * Always-visible header. Two columns on large screens:
@@ -96,7 +96,7 @@ const ProjectsSection = () => {
                    * Everything a visitor needs to judge the project without
                    * expanding anything; only the screen gallery hides.
                    */}
-                  <div className="grid gap-0 p-5 sm:p-6 lg:grid-cols-[1.1fr_0.9fr] lg:gap-6">
+                  <div className="grid gap-0 p-6 sm:p-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-6">
 
                     {/* ── Hero image ──────────────────────────────────────── */}
                     {/*
@@ -111,7 +111,7 @@ const ProjectsSection = () => {
                           alt: `${project.name} project preview`,
                         })
                       }
-                      className="group block w-full self-start overflow-hidden rounded-card bg-[var(--surface-strong)]"
+                      className="group block w-full self-start overflow-hidden rounded-card bg-[var(--surface)]"
                     >
                       <Image
                         src={project.image}
@@ -181,11 +181,21 @@ const ProjectsSection = () => {
                    * screen's height, so there is nothing left to hide behind a
                    * "3 screens" bar.
                    */}
-                  <div className="bg-[var(--surface-strong)] pt-5 sm:pt-6">
-                    <ScreenPicker
-                      screens={project.extraImageList}
-                      onZoom={(src, alt) => setZoomedImage({ src, alt })}
-                    />
+                  <div className="px-6 sm:px-8">
+                    {/*
+                     * A rule, not a change of surface. The two regions shared
+                     * one card and used to be told apart by the disclosure bar
+                     * between them; with the bar gone, a colour that changed
+                     * mid-card read as two cards stuck together. The rule is
+                     * inset to the content's own margins so it reads as part
+                     * of the card rather than a cut across it.
+                     */}
+                    <div className="border-t border-[var(--card-border)] pt-6">
+                      <ScreenPicker
+                        screens={project.extraImageList}
+                        onZoom={(src, alt) => setZoomedImage({ src, alt })}
+                      />
+                    </div>
                   </div>
                 </article>
               </SlideUp>

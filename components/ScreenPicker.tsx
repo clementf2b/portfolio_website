@@ -39,7 +39,7 @@ const ScreenPicker = ({ screens, layout = 'grid', onZoom }: Props) => {
   if (screens.length === 0) return null
 
   return (
-    <div className="px-5 pb-6 sm:px-6">
+    <div className="pb-6 sm:pb-8">
       {/* ── Phones: every screen, stacked ───────────────────────────────── */}
       <div className="grid gap-6 sm:hidden">
         {screens.map((screen) => (
