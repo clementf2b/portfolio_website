@@ -166,7 +166,12 @@ const ProjectsSection = () => {
       </section>
 
       {/* Hero images only — each gallery carries its own viewer. */}
-      <ImageZoom image={zoomedImage} onClose={() => setZoomedImage(null)} />
+      <ImageZoom
+        images={zoomedImage ? [zoomedImage] : []}
+        index={zoomedImage ? 0 : null}
+        onClose={() => setZoomedImage(null)}
+        onIndex={() => {}}
+      />
     </>
   )
 }
