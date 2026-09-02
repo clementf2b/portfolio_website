@@ -67,7 +67,11 @@ export type Company = {
    * with published screenshots; the Accord HK work is client apps that were
    * never public.
    */
-  showcase?: { title: string; note: string; images: { image: string; title: string }[] }
+  showcase?: {
+    title: string
+    note: string
+    images: { image: string; title: string; description: string }[]
+  }
 }
 
 const navicatLogo = {
@@ -124,12 +128,42 @@ export const companies: Company[] = [
       title: 'Navicat',
       note: "PremiumSoft's official product screenshots. Click any screen to enlarge.",
       images: [
-        { image: '/projects/navicat/Screenshot_Navicat_17_Premium_Mac_Main_screen.png', title: 'Navicat Premium on macOS' },
-        { image: '/projects/navicat/Screenshot_Navicat_BI_Mac_Dashboard.png', title: 'BI dashboard built from live database queries' },
-        { image: '/projects/navicat/Screenshot_Navicat_BI_Mac_Chart_Design.png', title: 'Chart design workspace' },
-        { image: '/projects/navicat/Screenshot_Navicat_BI_Mac_Data_Source.png', title: 'Data source setup across multiple connections' },
-        { image: '/projects/navicat/Screenshot_Navicat_BI_Mac_Data_Profiling.png', title: 'Data profiling view' },
-        { image: '/projects/navicat/Screenshot_Navicat_17_Premium_Linux_Main_screen.png', title: 'The same product on Linux' },
+        {
+          image: '/projects/navicat/Screenshot_Navicat_17_Premium_Mac_Main_screen.png',
+          title: 'Navicat Premium on macOS',
+          description:
+            "One window over every connection — Navicat Cloud projects, Snowflake, PostgreSQL, Oracle, Redis — with the selected table's rows and metadata beside the object list.",
+        },
+        {
+          image: '/projects/navicat/Screenshot_Navicat_BI_Mac_Dashboard.png',
+          title: 'BI dashboard built from live database queries',
+          description:
+            'A dashboard page assembled from saved charts: running totals, a target gauge, a revenue waterfall and paired bars, laid out on a 16:9 canvas.',
+        },
+        {
+          image: '/projects/navicat/Screenshot_Navicat_BI_Mac_Chart_Design.png',
+          title: 'Chart design workspace',
+          description:
+            'Building one chart from a data source — fields on the left, axis, group and value dropped into the query row, formatting on the right.',
+        },
+        {
+          image: '/projects/navicat/Screenshot_Navicat_BI_Mac_Data_Source.png',
+          title: 'Data source setup across multiple connections',
+          description:
+            'Joining across connections: film, actor and film_actor linked in the canvas, with the resulting rows and the selected fields previewed underneath.',
+        },
+        {
+          image: '/projects/navicat/Screenshot_Navicat_BI_Mac_Data_Profiling.png',
+          title: 'Data profiling view',
+          description:
+            'Column profiling over a 10,000-row sample — valid, null and error shares, the value distribution, and distinct counts for every field.',
+        },
+        {
+          image: '/projects/navicat/Screenshot_Navicat_17_Premium_Linux_Main_screen.png',
+          title: 'The same product on Linux',
+          description:
+            'The same build on Linux — a native menu bar in place of the macOS chrome, and the same layout, objects and panels behind it.',
+        },
       ],
     },
   },

@@ -18,7 +18,7 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 
-export type Screen = { image: string; title: string }
+export type Screen = { image: string; title: string; description?: string }
 
 type Props = {
   screens: Screen[]
@@ -52,7 +52,8 @@ const ScreenPicker = ({ screens, layout = 'grid', onZoom }: Props) => {
               className="w-full rounded-card bg-[var(--surface-strong)] object-contain"
             />
             <figcaption className="mt-2.5 text-sm leading-6 text-[var(--muted)]">
-              {screen.title}
+              <span className="font-semibold text-[var(--foreground)]">{screen.title}</span>
+              {screen.description && <span className="mt-1 block">{screen.description}</span>}
             </figcaption>
           </figure>
         ))}
@@ -84,6 +85,11 @@ const ScreenPicker = ({ screens, layout = 'grid', onZoom }: Props) => {
           <p className="mt-1.5 font-display text-lg font-semibold tracking-[-0.02em] text-[var(--foreground)]">
             {active.title}
           </p>
+          {active.description && (
+            <p className="mt-2 max-w-[68ch] text-sm leading-6 text-[var(--muted)]">
+              {active.description}
+            </p>
+          )}
         </div>
 
         {/*
