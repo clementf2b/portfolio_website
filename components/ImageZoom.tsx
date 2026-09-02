@@ -6,12 +6,13 @@
  *
  * It opens at fit — the whole screen inside the frame — and zooms from
  * there, because a 2,200px capture shown at its own size is mostly
- * scrolling. Steps run 50% to 300% of fit; past the frame the image scrolls
- * in both directions.
+ * scrolling. 25% a click, up to 150%; past the frame the image scrolls in
+ * both directions.
  *
  * It takes the whole set rather than one image, so the reader can walk the
  * gallery without closing and reopening: arrows either side, ← and →, and
- * the caption saying where they are. A set of one hides all of that.
+ * a caption bar over the foot of the image saying which screen this is.
+ * A set of one hides all of that.
  *
  * Dismissal: backdrop click, the × button, or Escape.
  */
@@ -24,16 +25,20 @@ import { BsChevronLeft, BsChevronRight, BsZoomIn, BsZoomOut } from 'react-icons/
 export type ZoomTarget = { src: string; alt: string } | null
 
 /*
- * Multiples of the fitted size. 1 is where every image opens, and the
- * buttons walk this list; the percentage field takes anything between
- * MIN and MAX, so the steps are a convenience, not the range.
+ * Multiples of the fitted size: 100% is the whole screen in the frame,
+ * and a click moves 25% either way.
+ *
+ * The ceiling is 150%. Past that the frame shows so little of the screen
+ * that finding your place costs more than the detail is worth — and the
+ * captures are not high-resolution enough to reward it.
  */
-const STEPS = [0.5, 0.75, 1, 1.5, 2, 3]
-const MIN = 0.1
-const MAX = 5
+const STEP = 0.25
+const MIN = 0.25
+const MAX = 1.5
 
 type Props = {
-  images: { src: string; alt: string }[]
+  /* caption: the screen's own description, shown under its title. */
+  images: { src: string; alt: string; caption?: string }[]
   /* null = closed. */
   index: number | null
   onClose: () => void
@@ -52,7 +57,14 @@ const ImageZoom = ({ images, index, onClose, onIndex }: Props) => {
   const frame = useRef<HTMLDivElement>(null)
 
   const setZoomTo = useCallback((next: number) => {
-    setZoom(Math.min(Math.max(next, MIN), MAX))
+    const clamped = Math.min(Math.max(next, MIN), MAX)
+    setZoom(clamped)
+    /*
+     * Written here as well as by the effect below: committing an empty or
+     * out-of-range field lands on the zoom it already had, so the effect
+     * never fires and the field would keep showing what was rejected.
+     */
+    setDraft(String(Math.round(clamped * 100)))
   }, [])
 
   /*
@@ -131,7 +143,7 @@ const ImageZoom = ({ images, index, onClose, onIndex }: Props) => {
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex flex-col items-center justify-center gap-3 bg-black/80 p-4 backdrop-blur-sm"
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm"
       onClick={onClose}
     >
       <div
@@ -216,22 +228,44 @@ const ImageZoom = ({ images, index, onClose, onIndex }: Props) => {
         />
       </div>
 
-      <p
-        className="max-w-[86vw] text-center text-sm text-white/70"
+      {/*
+       * The caption rides over the foot of the image rather than sitting
+       * under it: it belongs to the screen being read, and at 150% the
+       * image fills the frame, so a line below it would be off-screen.
+       * Translucent, so what it covers is still visible through it — and
+       * outside the frame, so zooming never touches the words.
+       */}
+      <div
+        className="absolute inset-x-0 bottom-0 flex justify-center p-5"
         onClick={(event) => event.stopPropagation()}
       >
-        {many && <span className="mr-2 text-white/50">{index! + 1} / {images.length}</span>}
-        {image.alt}
-      </p>
+        <div className="max-w-[86vw] rounded-card bg-black/50 px-5 py-3 text-center backdrop-blur-md">
+          <p className="text-sm font-semibold text-white">
+            {many && (
+              <span className="mr-2.5 font-normal tabular-nums text-white/50">
+                {index! + 1} / {images.length}
+              </span>
+            )}
+            {image.alt}
+          </p>
+          {image.caption && (
+            <p className="mt-1 max-w-[70ch] text-[13px] leading-6 text-white/70">
+              {image.caption}
+            </p>
+          )}
+        </div>
+      </div>
     </div>
   )
 }
 
-/* The next preset above or below where the zoom currently sits. */
+/*
+ * The next 25% mark past where the zoom sits — rounded onto the grid, so
+ * a typed 137% steps to 150 rather than 162.
+ */
 const nextStep = (zoom: number, direction: 1 | -1) =>
-  direction === 1
-    ? STEPS.find((s) => s > zoom + 0.001) ?? MAX
-    : [...STEPS].reverse().find((s) => s < zoom - 0.001) ?? MIN
+  (direction === 1 ? Math.floor(zoom / STEP + 0.001) + 1 : Math.ceil(zoom / STEP - 0.001) - 1) *
+  STEP
 
 /* Empty or nonsense in the field leaves the zoom where it was. */
 const commit = (draft: string, zoom: number, apply: (next: number) => void) => {

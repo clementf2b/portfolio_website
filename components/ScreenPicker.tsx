@@ -156,7 +156,11 @@ const ScreenPicker = ({ screens, layout = 'grid' }: Props) => {
       </div>
 
       <ImageZoom
-        images={screens.map((screen) => ({ src: screen.image, alt: screen.title }))}
+        images={screens.map((screen) => ({
+          src: screen.image,
+          alt: screen.title,
+          caption: screen.description,
+        }))}
         index={zoomOpen ? current : null}
         onClose={() => setZoomOpen(false)}
         onIndex={setCurrent}
