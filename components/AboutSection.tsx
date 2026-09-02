@@ -14,6 +14,7 @@
 import React from 'react'
 import { sectionHeadingClassName } from '../lib/classNames'
 import { companies, education, skillGroups } from '../lib/content'
+import ImageCarousel from './ui/ImageCarousel'
 import Image from 'next/image'
 
 
@@ -177,6 +178,26 @@ const AboutSection = () => {
                         <TagList tags={role.tags} />
                       </div>
                     ))}
+
+                    {/*
+                     * The product the roles are about, at the foot of the
+                     * company block. A carousel rather than a grid: these are
+                     * wide desktop screenshots, and one at a time is the only
+                     * size at which they can actually be read.
+                     */}
+                    {company.showcase && (
+                      <div className="mt-8">
+                        <h5 className="font-display text-sm font-semibold uppercase tracking-[0.16em] text-[var(--foreground)]">
+                          {company.showcase.title}
+                        </h5>
+                        <p className="mt-1.5 text-xs text-[var(--muted)]">
+                          {company.showcase.note}
+                        </p>
+                        <div className="mt-4">
+                          <ImageCarousel images={company.showcase.images} />
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               ))}

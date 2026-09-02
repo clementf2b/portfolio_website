@@ -61,6 +61,13 @@ export type Company = {
   summary: string
   /* Newest first. */
   roles: Role[]
+  /*
+   * Screenshots of the product the roles are about, shown as a carousel under
+   * the last role. Only PremiumSoft has one — Navicat is a shipping product
+   * with published screenshots; the Accord HK work is client apps that were
+   * never public.
+   */
+  showcase?: { title: string; note: string; images: { image: string; title: string }[] }
 }
 
 const navicatLogo = {
@@ -107,6 +114,24 @@ export const companies: Company[] = [
         tags: ['C++', 'Objective-C', 'Qt', 'MacOS', 'Linux'],
       },
     ],
+    /*
+     * Navicat is PremiumSoft's product, not a personal project, so it lives
+     * here under the roles rather than among the projects. Every image is the
+     * company's own published screenshot from navicat.com — nothing from a
+     * development machine.
+     */
+    showcase: {
+      title: 'Navicat',
+      note: "PremiumSoft's official product screenshots. Click any screen to enlarge.",
+      images: [
+        { image: '/projects/navicat/Screenshot_Navicat_17_Premium_Mac_Main_screen.png', title: 'Navicat Premium on macOS' },
+        { image: '/projects/navicat/Screenshot_Navicat_BI_Mac_Dashboard.png', title: 'BI dashboard built from live database queries' },
+        { image: '/projects/navicat/Screenshot_Navicat_BI_Mac_Chart_Design.png', title: 'Chart design workspace' },
+        { image: '/projects/navicat/Screenshot_Navicat_BI_Mac_Data_Source.png', title: 'Data source setup across multiple connections' },
+        { image: '/projects/navicat/Screenshot_Navicat_BI_Mac_Data_Profiling.png', title: 'Data profiling view' },
+        { image: '/projects/navicat/Screenshot_Navicat_17_Premium_Linux_Main_screen.png', title: 'The same product on Linux' },
+      ],
+    },
   },
   {
     name: 'Accord HK',
@@ -305,13 +330,6 @@ export type Project = {
   detail: string
   yearTag: string
   extraImageList: { image: string; title: string }[]
-  /* Defaults to "View repository" when the link is a repo. */
-  linkLabel?: string
-  /*
-   * Desktop screenshots are landscape; phone screenshots are portrait. One
-   * tile shape cannot flatter both, so the gallery switches on this.
-   */
-  wideScreens?: boolean
 }
 
 /*
@@ -333,33 +351,6 @@ export type Project = {
  *   extraImageList – screenshots shown in the "Interface snapshots" gallery
  */
 export const projects: Project[] = [
-  /*
-   * Navicat is PremiumSoft CyberTech's product, not a personal project. The
-   * copy and the screenshots both say so: the wording describes the work done
-   * on it, and the images are the company's own published screenshots from
-   * navicat.com rather than anything from a development machine.
-   */
-  {
-    listIcon: '/icons/navicat.png',
-    name: 'Navicat',
-    image: '/projects/navicat/Screenshot_Navicat_17_Premium_Mac_Main_screen.png',
-    link: 'https://www.navicat.com/en/products/navicat-premium',
-    linkLabel: 'Visit the product',
-    subtitle: 'Product work at PremiumSoft CyberTech',
-    description:
-      'A premier multi-connection database administration tool used by millions of enterprise professionals globally. I lead its development and maintenance on macOS and Linux.',
-    detail:
-      'The work spans backend architectures supporting multi-connection database integrations including Snowflake and PostgreSQL, a Data Generation feature with custom algorithms and UI to produce realistic sample datasets, C++ library integration for Data Dictionary export, and a BI workspace that transforms raw data into actionable insights. The screens below are PremiumSoft’s official product screenshots.',
-    yearTag: '2017 – Now',
-    wideScreens: true,
-    extraImageList: [
-      { image: '/projects/navicat/Screenshot_Navicat_BI_Mac_Dashboard.png', title: 'BI dashboard built from live database queries' },
-      { image: '/projects/navicat/Screenshot_Navicat_BI_Mac_Chart_Design.png', title: 'Chart design workspace' },
-      { image: '/projects/navicat/Screenshot_Navicat_BI_Mac_Data_Source.png', title: 'Data source setup across multiple connections' },
-      { image: '/projects/navicat/Screenshot_Navicat_BI_Mac_Data_Profiling.png', title: 'Data profiling view' },
-      { image: '/projects/navicat/Screenshot_Navicat_17_Premium_Linux_Main_screen.png', title: 'The same product on Linux' },
-    ],
-  },
   {
     listIcon: '/projects/hkust_fyp.png',
     name: 'FaceT',
