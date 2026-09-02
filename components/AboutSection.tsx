@@ -245,35 +245,56 @@ const AboutSection = () => {
 
               {/*
                * skillGroups maps to two labelled sub-sections: Languages + Tools.
-               * Each item renders as a horizontal bar:
-               *   - Outer div: grey track (bg-black/5 in light, bg-white/10 in dark)
-               *   - .skill-bar-fill div: coloured fill, width driven by item.level (%)
-               *     The gradient and colour are defined in globals.css via CSS
-               *     custom properties so they automatically update in dark mode.
-               *   - Inner div (absolute): icon + label overlaid on top of the fill
-               *     using white text with a subtle drop-shadow for legibility.
+               * One row each: name, a five-segment meter, and what the skill
+               * was used to build.
                *
-               * grid-cols-2 puts two bars side-by-side on all screen sizes.
+               * The meter sits beside the name rather than at the right edge.
+               * The two things a reader compares — which skill, how deep — are
+               * the two that have to be next to each other; parked at opposite
+               * ends of a 1,200px row they cannot be read as one fact.
+               *
+               * The prose wraps under the name on phones, where a three-column
+               * row has nowhere to go.
                */}
               {skillGroups.map((group) => (
                 <div key={group.label} className="mt-6">
-                  <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--muted)]">
+                  <p className="mb-1 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--muted)]">
                     {group.label}
                   </p>
-                  <div className="grid grid-cols-2 gap-x-6 gap-y-3">
+                  <div>
                     {group.items.map((item) => (
-                      /* Track — sets the max-width and clips the fill to rounded ends */
-                      <div key={item.skill} className="relative h-[32px] overflow-hidden rounded-full bg-black/5 dark:bg-white/10">
-                        {/* Coloured fill — width percentage = proficiency level */}
-                        <div
-                          className="skill-bar-fill absolute inset-y-0 left-0"
-                          style={{ width: `${item.level}%` }}
-                        />
-                        {/* Icon + label overlaid on the fill, always left-aligned */}
-                        <div className="absolute inset-y-0 left-3.5 flex items-center gap-2 text-white">
-                          <div className="opacity-90">{item.icon}</div>
-                          <span className="text-sm font-semibold tracking-wide drop-shadow-sm">{item.skill}</span>
-                        </div>
+                      <div
+                        key={item.parts.map((part) => part.name).join('/')}
+                        className="flex flex-col items-start gap-y-2 border-t border-[var(--card-border)] py-3 sm:flex-row sm:items-center sm:gap-x-5 sm:gap-y-0"
+                      >
+                        {/* Each mark sits with the name it belongs to. */}
+                        <span className="flex flex-wrap items-center gap-x-1.5 text-[15px] font-semibold tracking-[-0.01em] text-[var(--foreground)] sm:w-[14.5rem] sm:shrink-0">
+                          {item.parts.map((part, index) => (
+                            <React.Fragment key={part.name}>
+                              {index > 0 && <span className="text-[var(--muted)]">/</span>}
+                              <span className="flex items-center gap-1.5">
+                                <span className="text-[var(--accent)]">{part.icon}</span>
+                                {part.name}
+                              </span>
+                            </React.Fragment>
+                          ))}
+                        </span>
+                        {/* aria-hidden: the sentence beside it carries the meaning */}
+                        <span aria-hidden className="flex shrink-0 gap-1.5">
+                          {[1, 2, 3, 4, 5].map((step) => (
+                            <span
+                              key={step}
+                              className={`h-1.5 w-6 rounded-full ${
+                                step <= item.level
+                                  ? 'bg-[var(--accent)]'
+                                  : 'bg-[var(--card-border)]'
+                              }`}
+                            />
+                          ))}
+                        </span>
+                        <span className="min-w-0 flex-1 text-sm leading-6 text-[var(--muted)]">
+                          {item.use}
+                        </span>
                       </div>
                     ))}
                   </div>

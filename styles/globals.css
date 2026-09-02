@@ -223,10 +223,4 @@
     transform: translateY(-2px);
     background: var(--surface-strong);
   }
-
-  /* Skill bar fill — gradient expressed via accent token so colour changes propagate */
-  .skill-bar-fill {
-    @apply h-full rounded-full;
-    background: linear-gradient(to right, var(--accent-strong), var(--accent), #facc15);
-  }
 }
