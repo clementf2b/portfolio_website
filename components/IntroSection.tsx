@@ -37,7 +37,22 @@ const IntroSection = () => {
           </h1>
         </div>
 
-        <div className="grid items-start gap-10 lg:grid-cols-[1.15fr_0.85fr]">
+        {/*
+         * Two columns, but the right one is now sized to the portrait rather
+         * than to a share of the row.
+         *
+         * The portrait was a 304px circle in a 0.85fr column. Shrinking it
+         * inside that column left a band of empty space between the copy and
+         * a picture pinned to the far edge, which read as a layout fault
+         * rather than a placement. The column is a fixed 16rem, the picture
+         * 200px inside it, right-aligned with a margin so a little ground
+         * still shows past it.
+         *
+         * items-center: aligned to the copy's mid-line, not its first line,
+         * so the two halves balance instead of the picture hanging from the
+         * top.
+         */}
+        <div className="grid items-center gap-10 lg:grid-cols-[1fr_390px]">
           <div className="order-2 lg:order-1">
             {/*
              * Description text — only 2-3 key phrases are highlighted
@@ -101,36 +116,40 @@ const IntroSection = () => {
           </div>
 
           {/*
-           * The portrait sits above the bio's first line rather than level
-           * with it: at this size, lining the two up left the portrait
-           * reading as though it had sunk. It was pt-6 while the portrait was
-           * larger, then pt-2, then -mt-3, and is now lifted further.
+           * The column is 422px so that its left edge — where the picture
+           * starts — lands on the "i" of "engineering." in the heading above.
+           * The alignment is exact once the container reaches its 1280px
+           * maximum; below that the heading rewraps and the two stop being
+           * related, which is why the picture is centred rather than aligned
+           * on small screens.
+           *
+           * -mt-6 off the centre line: aligned dead centre the circle sat
+           * fractionally low against the copy, whose optical mass is in its
+           * first lines rather than the button row.
            */}
-          <div className="order-1 lg:order-2 lg:-mt-9">
-            {/* 20% down from the previous 20rem / 24rem. */}
-            <div className="mx-auto max-w-[16rem] sm:max-w-[19rem]">
+          <div className="order-1 flex justify-center lg:order-2 lg:-mt-6 lg:justify-start">
+            <div className="rounded-full bg-[var(--surface)] p-2">
               {/*
-               * The amber glow and the drop shadow are both gone: the approved
-               * direction has no shadows, and the glow was a hardcoded colour
-               * outside the token set.
+               * The inner ring is one step up from the outer, so the frame
+               * reads as two quiet bands rather than a halo. The amber glow
+               * and the drop shadow that used to sit here are gone with the
+               * rest of the shadows.
+               *
+               * Greyscale: at full colour the portrait was the most saturated
+               * thing on the page, which put the weight on the wrong half of
+               * the hero. Drained, the strongest colour goes back to the
+               * accent line in the title.
                */}
-              <div className="relative mx-auto flex w-fit items-center justify-center rounded-full bg-[var(--surface)] p-2">
-                {/*
-                 * The inner ring used hardcoded white/slate values, which read
-                 * as a halo once the glow behind it was removed. It now uses
-                 * the raised surface token, so it reads as one quiet step up
-                 * from the ring around it in both themes.
-                 */}
-                <div className="relative rounded-full bg-[var(--surface-strong)] p-2">
-                  <Image
-                    src="/avatar.png"
-                    alt="Portrait of Clement Ng"
-                    width={420}
-                    height={420}
-                    priority
-                    className="mx-auto rounded-[1.75rem] object-cover"
-                  />
-                </div>
+              <div className="rounded-full bg-[var(--surface-strong)] p-2">
+                <Image
+                  src="/avatar.png"
+                  alt="Portrait of Clement Ng"
+                  width={310}
+                  height={310}
+                  priority
+                  sizes="260px"
+                  className="h-[11.5rem] w-[11.5rem] rounded-full object-cover grayscale sm:h-[16.25rem] sm:w-[16.25rem]"
+                />
               </div>
             </div>
           </div>
