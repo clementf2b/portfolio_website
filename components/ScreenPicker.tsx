@@ -55,6 +55,8 @@ const ScreenPicker = ({ screens, layout = 'grid' }: Props) => {
               alt={screen.title}
               width={720}
               height={1280}
+              /* Only rendered below sm, where it spans the column. */
+              sizes="100vw"
               className="w-full rounded-card bg-[var(--surface-strong)] object-contain"
             />
             <figcaption className="mt-2.5 text-sm leading-6 text-[var(--muted)]">
@@ -89,6 +91,8 @@ const ScreenPicker = ({ screens, layout = 'grid' }: Props) => {
               alt={active.title}
               width={1440}
               height={1280}
+              /* rail takes most of the row; grid is a fixed 18rem column. */
+              sizes={layout === 'rail' ? '(min-width: 640px) 62vw, 100vw' : '288px'}
               className={`h-auto w-full object-contain ${
                 layout === 'rail' ? 'max-h-[32rem]' : ''
               }`}
