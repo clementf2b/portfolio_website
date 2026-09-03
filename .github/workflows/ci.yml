@@ -1,0 +1,28 @@
+# Runs the same three checks every task card's verification contract asks
+# for, so a push cannot land with a red build the way a missed local run
+# could. Nothing else: no deploy, no coverage gate, no matrix — one Node
+# version, because that is what this project is built and run on.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      # ci, not install: fails loudly if the lockfile and package.json disagree
+      - run: npm ci
+
+      - run: npx tsc --noEmit
+      - run: npm run lint
+      - run: npm run build

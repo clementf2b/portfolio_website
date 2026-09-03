@@ -169,6 +169,7 @@ const ProcessSection = () => {
                 alt="Three layout variants rendered with the real bullet text"
                 width={560}
                 height={1349}
+                sizes="(min-width: 1024px) 300px, (min-width: 640px) 50vw, 100vw"
                 className="h-[260px] w-full rounded-lg object-cover object-top"
               />
             </a>
