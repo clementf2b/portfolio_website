@@ -55,6 +55,7 @@ const ImageZoom = ({ images, index, onClose, onIndex }: Props) => {
   /* The field's text, kept apart from `zoom` so a half-typed "1" is not 1%. */
   const [draft, setDraft] = useState('100')
   const frame = useRef<HTMLDivElement>(null)
+  const panel = useRef<HTMLDivElement>(null)
 
   const setZoomTo = useCallback((next: number) => {
     const clamped = Math.min(Math.max(next, MIN), MAX)
@@ -117,6 +118,38 @@ const ImageZoom = ({ images, index, onClose, onIndex }: Props) => {
 
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') onClose()
+
+      /*
+       * Tab is trapped. The page behind is still in the document and
+       * still tabbable, so without this the third Tab took the reader out
+       * of a dialog they could see but were no longer inside.
+       *
+       * Queried on each press rather than cached: the zoom buttons
+       * disable at the ends of the range, and the arrows are absent on a
+       * set of one.
+       */
+      if (event.key === 'Tab' && panel.current) {
+        const stops = Array.from(
+          panel.current.querySelectorAll<HTMLElement>('button:not([disabled]), input')
+        )
+        if (stops.length === 0) return
+        const first = stops[0]
+        const last = stops[stops.length - 1]
+        const active = document.activeElement as HTMLElement | null
+
+        if (!active || !panel.current.contains(active)) {
+          event.preventDefault()
+          first.focus()
+        } else if (event.shiftKey && active === first) {
+          event.preventDefault()
+          last.focus()
+        } else if (!event.shiftKey && active === last) {
+          event.preventDefault()
+          first.focus()
+        }
+        return
+      }
+
       /* While the percentage field has focus its keys belong to it. */
       if (event.target instanceof HTMLInputElement) return
       if (event.key === '+' || event.key === '=') stepZoom(1)
@@ -136,6 +169,18 @@ const ImageZoom = ({ images, index, onClose, onIndex }: Props) => {
     }
   }, [open, many, index, images.length, onClose, onIndex, stepZoom])
 
+  /*
+   * Focus moves into the dialog on open and back to whatever opened it on
+   * close — otherwise closing dropped the caret at the top of the document
+   * and the reader had to tab back down to where they were.
+   */
+  useEffect(() => {
+    if (!open) return
+    const opener = document.activeElement as HTMLElement | null
+    panel.current?.querySelector<HTMLElement>('button')?.focus()
+    return () => opener?.focus?.()
+  }, [open])
+
   if (!open) return null
 
   const image = images[index!]
@@ -143,6 +188,10 @@ const ImageZoom = ({ images, index, onClose, onIndex }: Props) => {
 
   return (
     <div
+      ref={panel}
+      role="dialog"
+      aria-modal="true"
+      aria-label={image.alt}
       className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm"
       onClick={onClose}
     >
@@ -183,7 +232,7 @@ const ImageZoom = ({ images, index, onClose, onIndex }: Props) => {
             }}
             inputMode="numeric"
             aria-label="Zoom percentage"
-            className="w-12 bg-transparent py-2 pl-3 text-right tabular-nums outline-none"
+            className="focus-ring w-12 rounded-full bg-transparent py-2 pl-3 text-right tabular-nums outline-none"
           />
           %
         </span>
@@ -328,7 +377,7 @@ const Round = ({
     aria-label={label}
     disabled={disabled}
     onClick={onClick}
-    className="rounded-full bg-white/10 p-2.5 text-white transition hover:bg-white/20 disabled:opacity-30 disabled:hover:bg-white/10"
+    className="focus-ring rounded-full bg-white/10 p-2.5 text-white transition hover:bg-white/20 disabled:opacity-30 disabled:hover:bg-white/10"
   >
     {children}
   </button>
@@ -351,7 +400,7 @@ const Arrow = ({
       event.stopPropagation()
       onClick()
     }}
-    className={`absolute top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white transition hover:bg-white/20 ${
+    className={`focus-ring absolute top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white transition hover:bg-white/20 ${
       side === 'left' ? 'left-4' : 'right-4'
     }`}
   >
