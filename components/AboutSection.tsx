@@ -35,7 +35,7 @@ const TagList = ({ tags }: { tags: string[] }) => (
        * (defined in globals.css) so the pill tint adapts to light/dark mode
        * without any extra logic.
        */
-      <span key={tag} className="rounded-full bg-[var(--accent-soft)] px-3 py-1 text-xs font-semibold tracking-wide text-[var(--accent)]">
+      <span key={tag} className="rounded-full bg-[var(--accent-soft)] px-3 py-1 text-caption font-semibold tracking-wide text-[var(--accent)]">
         {tag}
       </span>
     ))}
@@ -61,7 +61,7 @@ const AboutSection = () => {
             <div className="mb-4 flex items-center justify-between gap-4">
               <div>
                 <h3 className={sectionHeadingClassName}>Education journey</h3>
-                <p className="mt-2 text-sm leading-6 text-[var(--muted)]">
+                <p className="mt-2 text-body-sm leading-6 text-[var(--muted)]">
                   {education.blurb}
                 </p>
               </div>
@@ -89,13 +89,13 @@ const AboutSection = () => {
                   key={entry.period}
                   className="relative border-t-2 border-[var(--card-border)] pt-4 lg:border-t-0 lg:pt-0 lg:before:absolute lg:before:-top-[2.4375rem] lg:before:left-0 lg:before:h-2.5 lg:before:w-2.5 lg:before:rounded-full lg:before:bg-[var(--accent)] lg:before:content-['']"
                 >
-                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--accent)]">
+                  <p className="text-caption font-semibold uppercase tracking-[0.16em] text-[var(--accent)]">
                     {entry.period}
                   </p>
-                  <p className="mt-2.5 font-display text-lg font-semibold leading-snug tracking-[-0.02em] text-[var(--foreground)]">
+                  <p className="mt-2.5 font-display text-body-lg font-semibold leading-snug tracking-[-0.02em] text-[var(--foreground)]">
                     {entry.school}
                   </p>
-                  <p className="mt-1.5 text-sm leading-6 text-[var(--muted)]">
+                  <p className="mt-1.5 text-body-sm leading-6 text-[var(--muted)]">
                     {entry.qualification}
                   </p>
                 </li>
@@ -139,7 +139,7 @@ const AboutSection = () => {
                       href={company.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-display text-2xl font-semibold tracking-[-0.025em] text-[var(--foreground)] transition-colors hover:text-[var(--accent)]"
+                      className="font-display text-title font-semibold tracking-[-0.025em] text-[var(--foreground)] transition-colors hover:text-[var(--accent)]"
                     >
                       {company.name}
                     </a>
@@ -150,7 +150,7 @@ const AboutSection = () => {
                      * recruiter scans for. The dates carry the weight now;
                      * the location stays small and sits ahead of them.
                      */}
-                    <span className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--muted)]">
+                    <span className="text-caption font-semibold uppercase tracking-[0.16em] text-[var(--muted)]">
                       {company.location}
                     </span>
                     {/*
@@ -161,12 +161,12 @@ const AboutSection = () => {
                      * — a divider inside a line, not a region boundary.
                      */}
                     <span aria-hidden className="h-[18px] w-px bg-[var(--card-border)]" />
-                    <span className="text-xl font-semibold tracking-[-0.01em] text-[var(--muted)]">
+                    <span className="text-title-sm font-semibold tracking-[-0.01em] text-[var(--muted)]">
                       {company.period}
                     </span>
                   </div>
 
-                  <p className="mt-3 max-w-[76ch] text-sm leading-7 text-[var(--muted)] sm:text-base">
+                  <p className="mt-3 max-w-[76ch] text-body-sm leading-7 text-[var(--muted)] sm:text-body">
                     {company.summary}
                   </p>
 
@@ -178,8 +178,8 @@ const AboutSection = () => {
                          * weight. It sits one step under the company name
                          * above it, which carries the 24px.
                          */}
-                        <h4 className="text-xl font-semibold tracking-[-0.025em]">{role.title}</h4>
-                        <p className="mt-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-[var(--accent)]">
+                        <h4 className="text-title-sm font-semibold tracking-[-0.025em]">{role.title}</h4>
+                        <p className="mt-1.5 text-caption font-semibold uppercase tracking-[0.16em] text-[var(--accent)]">
                           {role.period}
                         </p>
 
@@ -189,7 +189,7 @@ const AboutSection = () => {
                          * not floating in the middle of the block. mt-2 lines it
                          * up with the cap height. shrink-0 stops it collapsing.
                          */}
-                        <ul className="mt-4 space-y-2.5 text-sm leading-7 text-[var(--muted)]">
+                        <ul className="mt-4 space-y-2.5 text-body-sm leading-7 text-[var(--muted)]">
                           {role.bullets.map((bullet, bulletIndex) => (
                             <li key={bulletIndex} className="flex items-start gap-2.5">
                               <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--accent)]" />
@@ -210,10 +210,10 @@ const AboutSection = () => {
                      */}
                     {company.showcase && (
                       <div className="mt-8">
-                        <h5 className="font-display text-sm font-semibold uppercase tracking-[0.16em] text-[var(--foreground)]">
+                        <h5 className="font-display text-body-sm font-semibold uppercase tracking-[0.16em] text-[var(--foreground)]">
                           {company.showcase.title}
                         </h5>
-                        <p className="mt-1.5 text-xs text-[var(--muted)]">
+                        <p className="mt-1.5 text-caption text-[var(--muted)]">
                           {company.showcase.note}
                         </p>
                         {/*
@@ -258,7 +258,7 @@ const AboutSection = () => {
                */}
               {skillGroups.map((group) => (
                 <div key={group.label} className="mt-6">
-                  <p className="mb-1 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--muted)]">
+                  <p className="mb-1 text-caption font-semibold uppercase tracking-[0.18em] text-[var(--muted)]">
                     {group.label}
                   </p>
                   <div>
@@ -268,7 +268,7 @@ const AboutSection = () => {
                         className="flex flex-col items-start gap-y-2 border-t border-[var(--card-border)] py-3 sm:flex-row sm:items-center sm:gap-x-5 sm:gap-y-0"
                       >
                         {/* Each mark sits with the name it belongs to. */}
-                        <span className="flex flex-wrap items-center gap-x-1.5 text-[15px] font-semibold tracking-[-0.01em] text-[var(--foreground)] sm:w-[14.5rem] sm:shrink-0">
+                        <span className="flex flex-wrap items-center gap-x-1.5 text-body font-semibold tracking-[-0.01em] text-[var(--foreground)] sm:w-[14.5rem] sm:shrink-0">
                           {item.parts.map((part, index) => (
                             <React.Fragment key={part.name}>
                               {index > 0 && <span className="text-[var(--muted)]">/</span>}
@@ -298,7 +298,7 @@ const AboutSection = () => {
                             />
                           ))}
                         </span>
-                        <span className="min-w-0 flex-1 text-sm leading-6 text-[var(--muted)]">
+                        <span className="min-w-0 flex-1 text-body-sm leading-6 text-[var(--muted)]">
                           {item.use}
                         </span>
                       </div>

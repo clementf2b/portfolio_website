@@ -31,7 +31,7 @@ const IntroSection = () => {
              * The 52px display treatment agreed in the mockup belongs to the
              * visual revamp Epic; this keeps the current type scale.
              */}
-          <h1 className="mb-10 font-display text-3xl font-semibold leading-[1.06] tracking-[-0.033em] text-[var(--foreground)] sm:text-4xl lg:text-5xl xl:text-[4rem]">
+          <h1 className="mb-10 font-display text-title-lg font-semibold leading-[1.06] tracking-[-0.033em] text-[var(--foreground)] sm:text-display-sm lg:text-display xl:text-display-lg">
             <span className="block">9+ years of cross-platform engineering.</span>
             <span className="block text-[var(--accent)]">AI-assisted workflow.</span>
           </h1>

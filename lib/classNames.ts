@@ -19,9 +19,9 @@
  * font-sans        — uses Inter (the sans-serif variable font set in layout.tsx)
  *                    h1–h4 default to the serif font (Playfair Display) via
  *                    globals.css, so we explicitly override that here.
- * text-3xl → 4xl → 5xl — responsive size scale (mobile → tablet → desktop)
+ * text-title-lg → 4xl → 5xl — responsive size scale (mobile → tablet → desktop)
  * tracking-[-0.04em] — tight letter-spacing for a modern editorial look
  * dark:text-white  — ensures maximum contrast on dark backgrounds
  */
 export const sectionHeadingClassName =
-  'font-sans text-3xl font-semibold leading-none tracking-[-0.04em] text-[var(--foreground)] dark:text-white sm:text-4xl lg:text-5xl'
+  'font-sans text-title-lg font-semibold leading-none tracking-[-0.04em] text-[var(--foreground)] dark:text-white sm:text-display-sm lg:text-display'

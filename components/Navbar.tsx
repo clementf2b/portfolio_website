@@ -60,7 +60,7 @@ const NavItems: Array<NavItem> = [
  *              to add "text-left" so the text aligns to the left edge.
  */
 const navBtnClass = (isActive: boolean, extraClass = '') =>
-    `cursor-pointer rounded-full border px-5 py-2 text-sm font-semibold uppercase tracking-[0.16em] outline-none transition hover:-translate-y-1 ${extraClass} ${
+    `cursor-pointer rounded-full border px-5 py-2 text-body-sm font-semibold uppercase tracking-[0.16em] outline-none transition hover:-translate-y-1 ${extraClass} ${
         isActive
             ? 'border-transparent text-[var(--foreground)]'
             : 'border-transparent text-[var(--muted)] hover:bg-[var(--surface)] hover:text-[var(--foreground)]'
@@ -200,7 +200,7 @@ const Navbar = () => {
                      * tells the style gate rejected. It is now the display sans.
                      */}
                     <a href="#home">
-                        <h2 className="font-display text-2xl font-semibold tracking-[-0.025em] text-[var(--foreground)] transition-transform hover:-translate-y-1">
+                        <h2 className="font-display text-title font-semibold tracking-[-0.025em] text-[var(--foreground)] transition-transform hover:-translate-y-1">
                             Clement Ng
                         </h2>
                     </a>
@@ -277,7 +277,7 @@ const Navbar = () => {
                             {resolvedTheme && (
                                 <button
                                     onClick={toggleTheme}
-                                    className="flex cursor-pointer items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-[var(--foreground)]"
+                                    className="flex cursor-pointer items-center gap-2 rounded-full px-4 py-2 text-body-sm font-semibold text-[var(--foreground)]"
                                 >
                                     {resolvedTheme === "dark" ? <RiSunLine size={18} /> : <RiMoonFill size={18} />}
                                     {resolvedTheme === "dark" ? "Light mode" : "Dark mode"}

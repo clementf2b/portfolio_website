@@ -11,7 +11,7 @@ const Footer = () => {
     <footer className="w-full px-4 pb-6 pt-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl rounded-full border border-[var(--card-border)] bg-[var(--background)] px-6 py-3 dark:bg-[var(--surface)]">
         <div className="flex flex-col gap-3 text-center md:flex-row md:items-center md:justify-between md:text-left">
-          <p className="text-sm text-[var(--muted)]">
+          <p className="text-body-sm text-[var(--muted)]">
             © Clement Ng. Crafted for thoughtful product engineering and long-term software quality.
           </p>
           <div className="flex flex-row items-center justify-center gap-2 md:justify-end">
