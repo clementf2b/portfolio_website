@@ -12,7 +12,7 @@
  * ships no JavaScript.
  */
 import React from 'react'
-import { sectionHeadingClassName } from '../lib/classNames'
+import { sectionClassName, sectionHeadingClassName } from '../lib/classNames'
 import { companies, education, skillGroups } from '../lib/content'
 import ScreenPicker from './ScreenPicker'
 import Image from 'next/image'
@@ -52,7 +52,7 @@ const AboutSection = () => {
      * without requiring a standalone <hr> element.
      * mt-8 / sm:mt-10 — tighter on mobile, slightly looser on tablets+.
      */
-    <section id="about" className="mt-8 border-t border-[var(--card-border)] pt-10 pb-8 sm:mt-10 sm:pt-14 sm:pb-12">
+    <section id="about" className={`${sectionClassName} pb-8 sm:pb-12`}>
       <div>
         <div className="grid gap-12">
 
@@ -105,7 +105,7 @@ const AboutSection = () => {
 
           {/* ── Experiences ────────────────────────────────────────────────── */}
           <div className="grid gap-12">
-            <div className="mt-8 border-t border-[var(--card-border)] pt-10 sm:mt-10 sm:pt-12">
+            <div className={sectionClassName}>
               <div className="mb-6 flex items-center justify-between gap-4">
                 <h3 className={sectionHeadingClassName}>Experiences</h3>
               </div>
@@ -238,7 +238,7 @@ const AboutSection = () => {
             </div>
 
             {/* ── Technical Strengths ──────────────────────────────────────── */}
-            <div className="mt-8 border-t border-[var(--card-border)] pt-10 sm:mt-10 sm:pt-12">
+            <div className={sectionClassName}>
               <div className="flex items-center justify-between gap-4">
                 <h3 className={sectionHeadingClassName}>Technical strengths</h3>
               </div>

@@ -17,7 +17,7 @@
  */
 import React from 'react'
 import Image from 'next/image'
-import { sectionHeadingClassName } from '../lib/classNames'
+import { sectionClassName, sectionHeadingClassName } from '../lib/classNames'
 import { process } from '../lib/content'
 
 /* Arrow marker id, referenced from the paths below. */
@@ -32,7 +32,7 @@ const ProcessSection = () => {
   return (
     <section
       id="workflow"
-      className="mt-8 border-t border-[var(--card-border)] pt-10 pb-4 sm:mt-10 sm:pt-14 sm:pb-6"
+      className={`${sectionClassName} pb-4 sm:pb-6`}
     >
       <h2 className={sectionHeadingClassName}>Workflow</h2>
       <p className="section-copy mt-4 max-w-[74ch]">{process.lede}</p>
