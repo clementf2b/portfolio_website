@@ -68,6 +68,15 @@ const config: Config = {
       borderRadius: {
         card: 'var(--radius-card)',
       },
+      /*
+       * The two things that stack above the page, named so the order is
+       * stated rather than inferred from 50 < 100. Everything else stacks
+       * inside its own context and stays a plain z-10.
+       */
+      zIndex: {
+        nav: '50',
+        overlay: '100',
+      },
       screens: { sm: "480px", md: "768px", lg: "976px", xl: "1440px" },
       /* bounce is the scroll cue under the hero, and the only one left. */
       animation: {
