@@ -123,11 +123,11 @@ const IntroSection = () => {
            * related, which is why the picture is centred rather than aligned
            * on small screens.
            *
-           * -mt-6 off the centre line: aligned dead centre the circle sat
-           * fractionally low against the copy, whose optical mass is in its
-           * first lines rather than the button row.
+           * -mt-12 off the centre line: aligned dead centre the circle sat
+           * low against the copy, whose optical mass is in its first lines
+           * rather than the button row.
            */}
-          <div className="order-1 flex justify-center lg:order-2 lg:-mt-6 lg:justify-start">
+          <div className="order-1 flex justify-center lg:order-2 lg:-mt-12 lg:justify-start">
             <div className="rounded-full bg-[var(--surface)] p-1.5">
               {/*
                * The inner ring is one step up from the outer, so the frame
