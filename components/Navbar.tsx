@@ -167,11 +167,11 @@ const Navbar = () => {
 
     return (
         /*
-         * fixed top-0 z-50 — sits above all page content.
+         * fixed top-0 z-nav — sits above all page content.
          * px-4 / sm:px-6 / lg:px-8 — horizontal padding scales with viewport.
          * pt-4 — small gap between the browser top edge and the navbar pill.
          */
-        <header className="fixed top-0 z-50 w-full px-4 pt-4 sm:px-6 lg:px-8">
+        <header className="fixed top-0 z-nav w-full px-4 pt-4 sm:px-6 lg:px-8">
             {/*
              * Pill container — rounded-full gives the navbar its "floating pill" shape.
              * backdrop-blur-xl blurs the page content visible behind the semi-transparent
