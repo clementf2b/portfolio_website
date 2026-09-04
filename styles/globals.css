@@ -29,7 +29,13 @@
     --warm-300: #e0dcd5;  /* light line */
     --warm-400: #c9c3ba;
     --warm-500: #a29b91;
-    --warm-600: #8e887e;  /* dark muted */
+    /*
+     * Lifted from #8e887e, which sat at 4.45:1 against --warm-850 — the
+     * raised surface the project cards and the workflow panels use. Thirteen
+     * runs of muted text on those panels were below AA in dark mode, and
+     * only there; every other pair passed. #918b81 takes them to 4.62:1.
+     */
+    --warm-600: #918b81;  /* dark muted */
     --warm-700: #6a645d;  /* light muted */
     --warm-800: #4a4540;
     --warm-850: #262320;  /* dark line */
