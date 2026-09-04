@@ -52,7 +52,7 @@ const IntroSection = () => {
          * so the two halves balance instead of the picture hanging from the
          * top.
          */}
-        <div className="grid items-center gap-10 lg:grid-cols-[1fr_390px]">
+        <div className="grid items-center gap-10 lg:grid-cols-[1fr_425px]">
           <div className="order-2 lg:order-1">
             {/*
              * Description text — only 2-3 key phrases are highlighted
@@ -116,8 +116,8 @@ const IntroSection = () => {
           </div>
 
           {/*
-           * The column is 422px so that its left edge — where the picture
-           * starts — lands on the "i" of "engineering." in the heading above.
+           * The column is 425px so that its left edge — where the picture
+           * starts — lands on the "g" of "engineering." in the heading above.
            * The alignment is exact once the container reaches its 1280px
            * maximum; below that the heading rewraps and the two stop being
            * related, which is why the picture is centred rather than aligned
@@ -128,7 +128,7 @@ const IntroSection = () => {
            * first lines rather than the button row.
            */}
           <div className="order-1 flex justify-center lg:order-2 lg:-mt-6 lg:justify-start">
-            <div className="rounded-full bg-[var(--surface)] p-2">
+            <div className="rounded-full bg-[var(--surface)] p-1.5">
               {/*
                * The inner ring is one step up from the outer, so the frame
                * reads as two quiet bands rather than a halo. The amber glow
@@ -140,15 +140,15 @@ const IntroSection = () => {
                * the hero. Drained, the strongest colour goes back to the
                * accent line in the title.
                */}
-              <div className="rounded-full bg-[var(--surface-strong)] p-2">
+              <div className="rounded-full bg-[var(--surface-strong)] p-1.5">
                 <Image
                   src="/avatar.png"
                   alt="Portrait of Clement Ng"
                   width={310}
                   height={310}
                   priority
-                  sizes="260px"
-                  className="h-[11.5rem] w-[11.5rem] rounded-full object-cover grayscale sm:h-[16.25rem] sm:w-[16.25rem]"
+                  sizes="350px"
+                  className="h-[13rem] w-[13rem] rounded-full object-cover grayscale sm:h-[21.875rem] sm:w-[21.875rem]"
                 />
               </div>
             </div>
