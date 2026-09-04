@@ -12,7 +12,7 @@
 "use client"
 
 import React, { useState } from 'react'
-import { sectionHeadingClassName } from '../lib/classNames'
+import { sectionClassName, sectionHeadingClassName } from '../lib/classNames'
 import { projects } from '../lib/content'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -35,7 +35,7 @@ const ProjectsSection = () => {
        * id="projects" — watched by the IntersectionObserver in Navbar to
        * highlight the "Projects" nav pill when this section is in view.
        */}
-      <section id="projects" className="mt-8 border-t border-[var(--card-border)] pt-10 pb-0 sm:mt-10 sm:pt-14 sm:pb-2">
+      <section id="projects" className={`${sectionClassName} pb-0 sm:pb-2`}>
         <div>
           {/* Section heading + subtitle */}
           <div className="mb-8">
