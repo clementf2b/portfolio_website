@@ -59,7 +59,7 @@ const ScreenPicker = ({ screens, layout = 'grid' }: Props) => {
               sizes="100vw"
               className="w-full rounded-card bg-[var(--surface-strong)] object-contain"
             />
-            <figcaption className="mt-2.5 text-sm leading-6 text-[var(--muted)]">
+            <figcaption className="mt-2.5 text-body-sm leading-6 text-[var(--muted)]">
               <span className="font-semibold text-[var(--foreground)]">{screen.title}</span>
               {screen.description && <span className="mt-1 block">{screen.description}</span>}
             </figcaption>
@@ -98,14 +98,14 @@ const ScreenPicker = ({ screens, layout = 'grid' }: Props) => {
               }`}
             />
           </button>
-          <p className="mt-3 text-xs font-semibold uppercase tracking-[0.16em] text-[var(--muted)]">
+          <p className="mt-3 text-caption font-semibold uppercase tracking-[0.16em] text-[var(--muted)]">
             Screen {current + 1} of {screens.length}
           </p>
-          <p className="mt-1.5 font-display text-lg font-semibold tracking-[-0.02em] text-[var(--foreground)]">
+          <p className="mt-1.5 font-display text-body-lg font-semibold tracking-[-0.02em] text-[var(--foreground)]">
             {active.title}
           </p>
           {active.description && (
-            <p className="mt-2 max-w-[68ch] text-sm leading-6 text-[var(--muted)]">
+            <p className="mt-2 max-w-[68ch] text-body-sm leading-6 text-[var(--muted)]">
               {active.description}
             </p>
           )}
@@ -150,7 +150,7 @@ const ScreenPicker = ({ screens, layout = 'grid' }: Props) => {
                 />
               </span>
               {layout === 'grid' && (
-                <span className="block px-3 pb-3 pt-2.5 text-xs leading-5 text-[var(--muted)]">
+                <span className="block px-3 pb-3 pt-2.5 text-caption leading-5 text-[var(--muted)]">
                   {screen.title}
                 </span>
               )}

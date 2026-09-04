@@ -219,7 +219,7 @@ const ImageZoom = ({ images, index, onClose, onIndex }: Props) => {
          * text until it is committed, so a half-typed "1" does not render
          * the image at 1%.
          */}
-        <span className="flex items-center rounded-full bg-white/10 pr-2.5 text-xs font-semibold text-white">
+        <span className="flex items-center rounded-full bg-white/10 pr-2.5 text-caption font-semibold text-white">
           <input
             value={draft}
             onChange={(event) => setDraft(event.target.value.replace(/[^\d]/g, ''))}
@@ -322,7 +322,7 @@ const ImageZoom = ({ images, index, onClose, onIndex }: Props) => {
       >
         {/* 86vw: the frame's own width, so the bar reads as the picture's foot. */}
         <div className="w-[86vw] rounded-card bg-black/50 px-5 py-3 text-center backdrop-blur-md">
-          <p className="text-sm font-semibold text-white">
+          <p className="text-body-sm font-semibold text-white">
             {many && (
               <span className="mr-2.5 font-normal tabular-nums text-white/50">
                 {index! + 1} / {images.length}
@@ -337,7 +337,7 @@ const ImageZoom = ({ images, index, onClose, onIndex }: Props) => {
            * wide enough to hold it.
            */}
           {image.caption && (
-            <p className="mt-1 text-[13px] leading-6 text-white/70">
+            <p className="mt-1 text-body-sm leading-6 text-white/70">
               {image.caption}
             </p>
           )}

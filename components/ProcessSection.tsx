@@ -68,10 +68,10 @@ const ProcessSection = () => {
             </marker>
           </defs>
 
-          <text x="0" y="52" className="fill-[var(--accent)] text-[11px] font-semibold [letter-spacing:1.6px]">
+          <text x="0" y="52" className="fill-[var(--accent)] text-label font-semibold [letter-spacing:1.6px]">
             AGENT
           </text>
-          <text x="0" y="196" className="fill-[var(--muted)] text-[11px] font-semibold [letter-spacing:1.6px]">
+          <text x="0" y="196" className="fill-[var(--muted)] text-label font-semibold [letter-spacing:1.6px]">
             YOU
           </text>
 
@@ -85,7 +85,7 @@ const ProcessSection = () => {
               strokeDasharray="5 5"
             />
           </g>
-          <text x="480" y="322" textAnchor="middle" className="fill-[var(--muted)] text-[11.5px]">
+          <text x="480" y="322" textAnchor="middle" className="fill-[var(--muted)] text-label">
             next card
           </text>
 
@@ -97,10 +97,10 @@ const ProcessSection = () => {
             return (
               <g key={step.title}>
                 <rect x={x} y={y} width="178" height="60" rx="12" fill={fill} />
-                <text x={x + 19} y={y + 28} fill="var(--foreground)" className="text-[15px] font-semibold">
+                <text x={x + 19} y={y + 28} fill="var(--foreground)" className="text-body font-semibold">
                   {step.title}
                 </text>
-                <text x={x + 19} y={y + 46} fill={noteFill} className="text-[12px]">
+                <text x={x + 19} y={y + 46} fill={noteFill} className="text-caption">
                   {step.note}
                 </text>
               </g>
@@ -119,13 +119,13 @@ const ProcessSection = () => {
                   : 'bg-[var(--accent-soft)]'
               }`}
             >
-              <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--muted)]">
+              <p className="text-label font-semibold uppercase tracking-[0.16em] text-[var(--muted)]">
                 {step.lane === 'agent' ? 'Agent' : 'You'}
               </p>
               <p className="mt-1.5 font-display font-semibold text-[var(--foreground)]">
                 {step.title}
               </p>
-              <p className="mt-0.5 text-sm text-[var(--muted)]">{step.note}</p>
+              <p className="mt-0.5 text-body-sm text-[var(--muted)]">{step.note}</p>
             </li>
           ))}
         </ol>
@@ -136,11 +136,11 @@ const ProcessSection = () => {
          * one line on a desktop width. They wrap on narrow screens like
          * anything else.
          */}
-        <p className="mt-5 text-sm leading-7 text-[var(--muted)]">
+        <p className="mt-5 text-body-sm leading-7 text-[var(--muted)]">
           The agent <Verb>proposes</Verb> and <Verb>builds</Verb>. I <Verb>choose</Verb> and{' '}
           <Verb>review</Verb>. It follows my rules and shows me the mockup for each change.
         </p>
-        <p className="mt-3 text-sm leading-7 text-[var(--muted)]">
+        <p className="mt-3 text-body-sm leading-7 text-[var(--muted)]">
           AI agent waits at both of my steps. It cannot pick which option wins and cannot mark its
           own work done.
         </p>
@@ -148,10 +148,10 @@ const ProcessSection = () => {
 
       {/* ── 2 · One card, end to end ─────────────────────────────────────── */}
       <div className="mt-14">
-        <h3 className="font-display text-xl font-semibold tracking-[-0.02em] text-[var(--foreground)]">
+        <h3 className="font-display text-title-sm font-semibold tracking-[-0.02em] text-[var(--foreground)]">
           What a single decision actually looked like
         </h3>
-        <p className="mt-2.5 max-w-[74ch] text-sm leading-7 text-[var(--muted)]">
+        <p className="mt-2.5 max-w-[74ch] text-body-sm leading-7 text-[var(--muted)]">
           The card: should the work history be promoted into project cards? Four steps, four real
           artefacts — variants, decision, commit, board.
         </p>
@@ -176,9 +176,9 @@ const ProcessSection = () => {
           </Step>
 
           <Step who="You" title="Rejected two" caption="Recorded in the decision log">
-            <div className="p-4 text-sm leading-6 text-[var(--foreground)]">
+            <div className="p-4 text-body-sm leading-6 text-[var(--foreground)]">
               “Cards wrap six long sentences. The frame adds weight, not information.”
-              <span className="mt-2 block text-[13px] text-[var(--muted)]">
+              <span className="mt-2 block text-body-sm text-[var(--muted)]">
                 Variant A kept. The card format was dropped.
               </span>
             </div>
@@ -189,7 +189,7 @@ const ProcessSection = () => {
              * Verbatim from the commit, ellipsis where lines are omitted.
              * If the section says "this is the commit", it cannot be reworded.
              */}
-            <pre className="whitespace-pre-wrap p-4 font-mono text-[11px] leading-[1.55] text-[var(--muted)]">
+            <pre className="whitespace-pre-wrap p-4 font-mono text-label leading-[1.55] text-[var(--muted)]">
               <b className="font-medium text-[var(--foreground)]">4a1ab7c</b>
               {`
 [Experience] group roles
@@ -214,7 +214,7 @@ overflow at 390px.`}
 
           <Step who="You" title="Moved the card" caption="Dragged from Verify to Done">
             <div className="p-3">
-              <div className="flex items-center justify-between px-1 pb-2 text-[11px] font-semibold text-[var(--foreground)]">
+              <div className="flex items-center justify-between px-1 pb-2 text-label font-semibold text-[var(--foreground)]">
                 <span>Done</span>
                 <span className="text-[var(--muted)]">13</span>
               </div>
@@ -224,7 +224,7 @@ overflow at 390px.`}
           </Step>
         </div>
 
-        <p className="mt-5 max-w-[80ch] text-sm leading-7 text-[var(--muted)]">
+        <p className="mt-5 max-w-[80ch] text-body-sm leading-7 text-[var(--muted)]">
           The variants are live, and the commit text is verbatim from the public history. The board
           is redrawn rather than screenshotted — but the drag is real, and it is the one step in
           the loop the agent cannot do.
@@ -234,17 +234,17 @@ overflow at 390px.`}
       {/* ── House rules ──────────────────────────────────────────────────── */}
       <div className="mt-10 rounded-card bg-[var(--surface)] p-6">
         <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-          <h3 className="font-display text-base font-semibold tracking-[-0.02em] text-[var(--foreground)]">
+          <h3 className="font-display text-body font-semibold tracking-[-0.02em] text-[var(--foreground)]">
             The rules it works under
           </h3>
-          <p className="text-[13px] text-[var(--muted)]">
+          <p className="text-body-sm text-[var(--muted)]">
             written by me, in the repo, before any of this ran
           </p>
         </div>
         <ol className="mt-3.5 grid gap-2.5 sm:grid-cols-2 sm:gap-x-8">
           {process.rules.map((rule, index) => (
-            <li key={rule} className="flex gap-2.5 text-sm leading-6 text-[var(--muted)]">
-              <span className="pt-0.5 text-[10px] font-semibold tracking-[0.06em] text-[var(--accent)]">
+            <li key={rule} className="flex gap-2.5 text-body-sm leading-6 text-[var(--muted)]">
+              <span className="pt-0.5 text-label font-semibold tracking-[0.06em] text-[var(--accent)]">
                 {String(index + 1).padStart(2, '0')}
               </span>
               <span>{rule}</span>
@@ -253,7 +253,7 @@ overflow at 390px.`}
         </ol>
       </div>
 
-      <p className="mt-6 text-[13px] leading-6 text-[var(--muted)]">
+      <p className="mt-6 text-body-sm leading-6 text-[var(--muted)]">
         {process.credit.text}
         <a
           href={process.credit.href}
@@ -290,19 +290,19 @@ const Step = ({
     }`}
   >
     <p
-      className={`text-[10px] font-semibold uppercase tracking-[0.16em] ${
+      className={`text-label font-semibold uppercase tracking-[0.16em] ${
         who === 'You' ? 'text-[var(--accent-strong)]' : 'text-[var(--muted)]'
       }`}
     >
       {who}
     </p>
-    <h4 className="mt-1.5 font-display text-base font-semibold tracking-[-0.02em] text-[var(--foreground)]">
+    <h4 className="mt-1.5 font-display text-body font-semibold tracking-[-0.02em] text-[var(--foreground)]">
       {title}
     </h4>
     <div className="mt-3 flex-1 overflow-hidden rounded-lg bg-[var(--surface-strong)]">
       {children}
     </div>
-    <p className="mt-2.5 flex items-center gap-2 text-[13px] text-[var(--muted)]">
+    <p className="mt-2.5 flex items-center gap-2 text-body-sm text-[var(--muted)]">
       <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--accent)]" />
       {caption}
     </p>
@@ -316,8 +316,8 @@ const BoardCard = ({ id, title, moved }: { id: string; title: string; moved?: bo
       moved ? 'border-l-[3px] border-[var(--accent)]' : ''
     }`}
   >
-    <p className="text-[9.5px] font-semibold tracking-[0.05em] text-[var(--muted)]">{id}</p>
-    <p className="mt-0.5 text-[11.5px] font-semibold leading-tight text-[var(--foreground)]">
+    <p className="text-label font-semibold tracking-[0.05em] text-[var(--muted)]">{id}</p>
+    <p className="mt-0.5 text-label font-semibold leading-tight text-[var(--foreground)]">
       {title}
     </p>
     <div className="mt-1.5 flex flex-wrap gap-1">
@@ -328,7 +328,7 @@ const BoardCard = ({ id, title, moved }: { id: string; title: string; moved?: bo
 )
 
 const Pill = ({ children }: { children: React.ReactNode }) => (
-  <span className="rounded-full bg-[var(--surface)] px-1.5 py-px text-[9px] text-[var(--muted)]">
+  <span className="rounded-full bg-[var(--surface)] px-1.5 py-px text-label text-[var(--muted)]">
     {children}
   </span>
 )

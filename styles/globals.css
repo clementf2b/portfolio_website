@@ -168,13 +168,13 @@
 
   /* Used in IntroSection for the about-me paragraph text */
   .section-copy {
-    @apply text-base leading-8 sm:text-lg;
+    @apply text-body leading-8 sm:text-body-lg;
     color: var(--muted);
   }
 
   /* Primary button — accent background, white text */
   .primary-button {
-    @apply inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition duration-300;
+    @apply inline-flex items-center justify-center rounded-full px-6 py-3 text-body-sm font-semibold transition duration-300;
     background: var(--accent);
     /*
      * The old orange glow is gone with the rest of the shadows, and the text
@@ -191,7 +191,7 @@
 
   /* Secondary button — adapts to light/dark via surface token */
   .secondary-button {
-    @apply inline-flex items-center justify-center rounded-full border px-6 py-3 text-sm font-semibold transition duration-300;
+    @apply inline-flex items-center justify-center rounded-full border px-6 py-3 text-body-sm font-semibold transition duration-300;
     border-color: var(--card-border);
     background: var(--surface);
     color: var(--foreground);
