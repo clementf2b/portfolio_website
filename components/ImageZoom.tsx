@@ -232,7 +232,7 @@ const ImageZoom = ({ images, index, onClose, onIndex }: Props) => {
             }}
             inputMode="numeric"
             aria-label="Zoom percentage"
-            className="focus-ring w-12 rounded-full bg-transparent py-2 pl-3 text-right tabular-nums outline-none"
+            className="w-12 rounded-full bg-transparent py-2 pl-3 text-right tabular-nums"
           />
           %
         </span>
@@ -377,7 +377,7 @@ const Round = ({
     aria-label={label}
     disabled={disabled}
     onClick={onClick}
-    className="focus-ring rounded-full bg-white/10 p-2.5 text-white transition hover:bg-white/20 disabled:opacity-30 disabled:hover:bg-white/10"
+    className="rounded-full bg-white/10 p-2.5 text-white transition hover:bg-white/20 disabled:opacity-30 disabled:hover:bg-white/10"
   >
     {children}
   </button>
@@ -400,7 +400,7 @@ const Arrow = ({
       event.stopPropagation()
       onClick()
     }}
-    className={`focus-ring absolute top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white transition hover:bg-white/20 ${
+    className={`absolute top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white transition hover:bg-white/20 ${
       side === 'left' ? 'left-4' : 'right-4'
     }`}
   >

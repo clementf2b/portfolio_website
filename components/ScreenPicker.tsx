@@ -77,7 +77,7 @@ const ScreenPicker = ({ screens, layout = 'grid' }: Props) => {
           <button
             type="button"
             onClick={() => setZoomOpen(true)}
-            className="focus-ring block w-full overflow-hidden rounded-card bg-[var(--surface-strong)] p-4"
+            className="block w-full overflow-hidden rounded-card bg-[var(--surface-strong)] p-4"
           >
             {/*
              * rail: a height cap. The landscape screens are not all the same
@@ -130,7 +130,7 @@ const ScreenPicker = ({ screens, layout = 'grid' }: Props) => {
               onClick={() => setCurrent(index)}
               aria-current={index === current}
               aria-label={`Show ${screen.title}`}
-              className={`focus-ring overflow-hidden rounded-card bg-[var(--surface-strong)] text-left outline outline-2 outline-offset-2 transition-[outline-color,opacity] duration-[var(--dur-base)] ${
+              className={`overflow-hidden rounded-card bg-[var(--surface-strong)] text-left outline outline-2 outline-offset-2 transition-[outline-color,opacity] duration-[var(--dur-base)] focus-visible:outline-[var(--color-focus)] ${
                 index === current
                   ? 'outline-[var(--accent)]'
                   : 'opacity-70 outline-transparent hover:opacity-100'

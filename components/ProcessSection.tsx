@@ -158,7 +158,7 @@ const ProcessSection = () => {
 
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <Step who="Agent" title="Three variants" caption="Built with the real bullets">
-            <a href="/process/experience-variants.html" className="focus-ring block rounded-lg">
+            <a href="/process/experience-variants.html" className="block rounded-lg">
               {/*
                 * The thumbnail is the whole page, so it is tall. Cropped from
                 * the top rather than squashed — it is a preview, and the link
@@ -259,7 +259,7 @@ overflow at 390px.`}
           href={process.credit.href}
           target="_blank"
           rel="noopener noreferrer"
-          className="focus-ring rounded-sm font-semibold text-[var(--accent)] hover:underline"
+          className="rounded-sm font-semibold text-[var(--accent)] hover:underline"
         >
           {process.credit.linkLabel}
         </a>

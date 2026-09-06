@@ -153,15 +153,19 @@
 
 @layer components {
   /*
-   * ── S4 · focus ring ──────────────────────────────────────────────────
-   * Opt-in class, not a global :focus-visible rule. Rolling it out across
-   * every existing element belongs to the 「可及性與互動品質」 epic; applying
-   * it globally here would change how the current page behaves on focus.
+   * ── focus ring ───────────────────────────────────────────────────────
+   * Global, not an opt-in class. It was opt-in while the accessibility
+   * epic was still ahead of us, and by the time it landed 21 of the 24
+   * interactive elements on the page had no focus indicator at all — a
+   * keyboard reader could not see where they were. One rule covers those
+   * and everything added later, which a class per call site never would.
    *
-   * offset keeps the ring clear of the element on both light and dark
-   * grounds without needing a second colour.
+   * :focus-visible, so a mouse click does not draw it. :where() keeps the
+   * specificity at zero, so any element that needs a different ring can
+   * say so without fighting this. The outline follows border-radius on
+   * its own, and offset keeps it clear of the element on both grounds.
    */
-  .focus-ring:focus-visible {
+  :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
     outline: 2px solid var(--color-focus);
     outline-offset: 2px;
   }
