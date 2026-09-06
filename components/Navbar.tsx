@@ -60,7 +60,7 @@ const NavItems: Array<NavItem> = [
  *              to add "text-left" so the text aligns to the left edge.
  */
 const navBtnClass = (isActive: boolean, extraClass = '') =>
-    `cursor-pointer rounded-full border px-5 py-2 text-body-sm font-semibold uppercase tracking-[0.16em] outline-none transition hover:-translate-y-1 ${extraClass} ${
+    `cursor-pointer rounded-full border px-5 py-2 text-body-sm font-semibold uppercase tracking-[0.16em] transition hover:-translate-y-1 ${extraClass} ${
         isActive
             ? 'border-transparent text-[var(--foreground)]'
             : 'border-transparent text-[var(--muted)] hover:bg-[var(--surface)] hover:text-[var(--foreground)]'
