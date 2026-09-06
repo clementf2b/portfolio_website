@@ -26,3 +26,8 @@ jobs:
       - run: npx tsc --noEmit
       - run: npm run lint
       - run: npm run build
+
+      # Against the build above: starts the production server and checks the
+      # things that have actually broken before — routes, the share card, and
+      # every image the page asks for.
+      - run: npm run smoke

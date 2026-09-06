@@ -1,0 +1,28 @@
+# Security alerts already arrive on their own; this is what opens the pull
+# request that fixes them, and keeps the rest from drifting so far that an
+# upgrade becomes a project.
+#
+# Weekly, not daily: this repo changes in bursts, and a daily cadence would
+# mean a queue of PRs nobody reads.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      # One PR for the routine patch and minor bumps. Majors stay separate,
+      # because those are the ones that need a person to read a changelog.
+      minor-and-patch:
+        update-types: [minor, patch]
+    commit-message:
+      prefix: "[Deps]"
+
+  # The CI workflow pins actions by major version; this keeps those current.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    commit-message:
+      prefix: "[CI]"
