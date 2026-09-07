@@ -79,11 +79,27 @@ const Navbar = () => {
      *
      * Why is it sometimes undefined?
      *   During SSR (server-side rendering) and the first client hydration pass,
-     *   next-themes hasn't yet read localStorage or matchMedia.  Checking
-     *   `if (resolvedTheme)` before rendering the theme button prevents a
-     *   mismatch between server HTML and client HTML (hydration error).
+     *   next-themes hasn't yet read localStorage or matchMedia.
+     *
+     *   Skipping the whole button while it is undefined used to be the fix, but
+     *   it caused the very error it was meant to avoid: the server sent no
+     *   <button>, the client rendered one, and React threw away the entire
+     *   server render ("Expected server HTML to contain a matching <button>",
+     *   minified error #418 in production).  The button is now always rendered
+     *   — same element, same aria-label on both sides — and only the icon,
+     *   which is the one theme-dependent bit, waits for `mounted`.
+     *
+     *   Trade-off: before mount the icon is the moon (the light-theme icon).
+     *   A visitor whose resolved theme is dark sees it swap to the sun on the
+     *   first client paint. That flash is one <svg> instead of the whole
+     *   document, and the toggle no longer pops into existence after load.
      */
     const { resolvedTheme, setTheme } = useTheme()
+
+    /* mounted — false during SSR and the first hydration pass, true afterwards.
+     * Anything gated on it renders identically on server and client. */
+    const [mounted, setMounted] = useState(false)
+    useEffect(() => setMounted(true), [])
 
     /* navbar — true when the mobile menu is open */
     const [navbar, setNavbar] = useState(false)
@@ -222,24 +238,23 @@ const Navbar = () => {
                         ))}
 
                         {/*
-                         * Theme toggle — only rendered after hydration (resolvedTheme is
-                         * defined).  This prevents a server/client mismatch that would
-                         * cause React's hydration warning.
+                         * Theme toggle — the button itself is always rendered so the
+                         * server and client agree on the markup; only the icon waits
+                         * for `mounted`, when resolvedTheme is finally known.
                          */}
-                        {resolvedTheme && (
-                            <button
-                                onClick={toggleTheme}
-                                className="ml-2 cursor-pointer rounded-full border border-[var(--card-border)] p-2 transition-transform hover:-translate-y-1"
-                                aria-label="Toggle theme"
-                            >
-                                {/* Show sun icon in dark mode (click → go light); moon in light mode */}
-                                {resolvedTheme === "dark" ? (
-                                    <RiSunLine size={22} className="text-[var(--foreground)]" />
-                                ) : (
-                                    <RiMoonFill size={22} className="text-[var(--foreground)]" />
-                                )}
-                            </button>
-                        )}
+                        <button
+                            onClick={toggleTheme}
+                            className="ml-2 cursor-pointer rounded-full border border-[var(--card-border)] p-2 transition-transform hover:-translate-y-1"
+                            aria-label="Toggle theme"
+                        >
+                            {/* Show sun icon in dark mode (click → go light); moon otherwise,
+                              * which is also what renders before mount. */}
+                            {mounted && resolvedTheme === "dark" ? (
+                                <RiSunLine size={22} className="text-[var(--foreground)]" />
+                            ) : (
+                                <RiMoonFill size={22} className="text-[var(--foreground)]" />
+                            )}
+                        </button>
                     </nav>
 
                     {/* Mobile hamburger — visible only below md breakpoint */}
@@ -273,16 +288,16 @@ const Navbar = () => {
                                 </a>
                             ))}
 
-                            {/* Mobile theme toggle — text label instead of icon-only */}
-                            {resolvedTheme && (
-                                <button
-                                    onClick={toggleTheme}
-                                    className="flex cursor-pointer items-center gap-2 rounded-full px-4 py-2 text-body-sm font-semibold text-[var(--foreground)]"
-                                >
-                                    {resolvedTheme === "dark" ? <RiSunLine size={18} /> : <RiMoonFill size={18} />}
-                                    {resolvedTheme === "dark" ? "Light mode" : "Dark mode"}
-                                </button>
-                            )}
+                            {/* Mobile theme toggle — text label instead of icon-only.
+                              * Same rule as the desktop one: the button is unconditional,
+                              * the theme-dependent icon and label wait for `mounted`. */}
+                            <button
+                                onClick={toggleTheme}
+                                className="flex cursor-pointer items-center gap-2 rounded-full px-4 py-2 text-body-sm font-semibold text-[var(--foreground)]"
+                            >
+                                {mounted && resolvedTheme === "dark" ? <RiSunLine size={18} /> : <RiMoonFill size={18} />}
+                                {mounted && resolvedTheme === "dark" ? "Light mode" : "Dark mode"}
+                            </button>
                         </div>
                     </div>
                 )}
