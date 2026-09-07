@@ -11,8 +11,15 @@
 import next from 'eslint-config-next/core-web-vitals'
 
 const config = [
-  /* Build output and vendored code — never ours to lint. */
-  { ignores: ['.next/**', 'out/**', 'node_modules/**', 'tools/kanban/**'] },
+  /*
+   * Build output and vendored code — never ours to lint.
+   *
+   * .claude holds git worktrees for parallel sessions, each a full second
+   * copy of the repo at some other commit. Flat config, unlike eslintrc,
+   * does not skip dot-directories on its own, so `npm run lint` was
+   * reporting the other branch's code as errors in this one.
+   */
+  { ignores: ['.next/**', 'out/**', 'node_modules/**', 'tools/kanban/**', '.claude/**'] },
   ...next,
 ]
 
