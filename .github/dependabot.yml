@@ -16,6 +16,14 @@ updates:
       # because those are the ones that need a person to read a changelog.
       minor-and-patch:
         update-types: [minor, patch]
+      # React and react-dom are one release, and their peer ranges name each
+      # other. Split across two PRs each half is uninstallable on its own:
+      # npm ci fails on ERESOLVE before anything is built, so both PRs and
+      # both preview deployments go red for a reason that is not in the code.
+      # Grouped, they arrive as the single upgrade they actually are.
+      react:
+        patterns: ['react', 'react-dom', '@types/react', '@types/react-dom']
+        update-types: [major]
     commit-message:
       prefix: "[Deps]"
 

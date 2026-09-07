@@ -6,13 +6,16 @@
  * both read the same constants — and there is no image to re-export when a
  * line changes.
  *
- * The palette is the site's, written out as literals: this runs in the Edge
- * runtime with no stylesheet, so the CSS custom properties are not available.
+ * The palette is the site's, written out as literals: this renders with no
+ * stylesheet, so the CSS custom properties are not available here.
+ *
+ * No runtime export: Next 16 deprecated the Edge runtime, and pinning it was
+ * also what kept this route out of the static build — the card is the same
+ * for every visitor, so it is now generated once at build time.
  */
 import { ImageResponse } from 'next/og'
 import { siteDescription } from '../lib/site'
 
-export const runtime = 'edge'
 export const alt = 'Clement Ng — Senior Software Engineer'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'

@@ -51,22 +51,19 @@ const ImageZoom = ({ images, index, onClose, onIndex }: Props) => {
 
   /* Fitted width in px, measured on load; null until the image arrives. */
   const [fitWidth, setFitWidth] = useState<number | null>(null)
-  const [zoom, setZoom] = useState(1)
-  /* The field's text, kept apart from `zoom` so a half-typed "1" is not 1%. */
-  const [draft, setDraft] = useState('100')
+  /*
+   * The zoom and the field's text are one state, not two. They always move
+   * together, and holding the text separately is what lets a half-typed "1"
+   * stay "1" rather than rendering the image at 1%. As two states they
+   * needed an effect to keep in step — a cascading render for a value both
+   * writers already know.
+   */
+  const [view, setView] = useState(() => viewAt(1))
+  const { zoom, draft } = view
   const frame = useRef<HTMLDivElement>(null)
   const panel = useRef<HTMLDivElement>(null)
 
-  const setZoomTo = useCallback((next: number) => {
-    const clamped = Math.min(Math.max(next, MIN), MAX)
-    setZoom(clamped)
-    /*
-     * Written here as well as by the effect below: committing an empty or
-     * out-of-range field lands on the zoom it already had, so the effect
-     * never fires and the field would keep showing what was rejected.
-     */
-    setDraft(String(Math.round(clamped * 100)))
-  }, [])
+  const setZoomTo = useCallback((next: number) => setView(viewAt(next)), [])
 
   /*
    * Functional, so two clicks landing in one frame step twice — reading
@@ -74,17 +71,21 @@ const ImageZoom = ({ images, index, onClose, onIndex }: Props) => {
    * the first one replaced.
    */
   const stepZoom = useCallback((direction: 1 | -1) => {
-    setZoom((prev) => Math.min(Math.max(nextStep(prev, direction), MIN), MAX))
+    setView((prev) => viewAt(nextStep(prev.zoom, direction)))
   }, [])
 
-  /* The field follows the zoom; typing into it is the only other writer. */
-  useEffect(() => setDraft(String(Math.round(zoom * 100))), [zoom])
-
-  /* A new screen starts fitted again. */
-  useEffect(() => {
+  /*
+   * A new screen starts fitted again. Compared during render rather than
+   * reset in an effect: an effect paints the previous screen's zoom first
+   * and then re-renders, and this comparison is React's own answer for
+   * resetting state when a prop changes.
+   */
+  const [shown, setShown] = useState(index)
+  if (index !== shown) {
+    setShown(index)
     setFitWidth(null)
-    setZoom(1)
-  }, [index])
+    setView(viewAt(1))
+  }
 
   /*
    * Fit is computed from the natural size rather than left to CSS, because
@@ -222,7 +223,9 @@ const ImageZoom = ({ images, index, onClose, onIndex }: Props) => {
         <span className="flex items-center rounded-full bg-white/10 pr-2.5 text-caption font-semibold text-white">
           <input
             value={draft}
-            onChange={(event) => setDraft(event.target.value.replace(/[^\d]/g, ''))}
+            onChange={(event) =>
+              setView((prev) => ({ ...prev, draft: event.target.value.replace(/[^\d]/g, '') }))
+            }
             onBlur={() => commit(draft, zoom, setZoomTo)}
             onKeyDown={(event) => {
               if (event.key !== 'Enter') return
@@ -345,6 +348,17 @@ const ImageZoom = ({ images, index, onClose, onIndex }: Props) => {
       </div>
     </div>
   )
+}
+
+/*
+ * The whole zoom state for a given multiple: clamped, with the field's text
+ * derived from it. Every writer goes through here, so the number and the
+ * text can never disagree — including when a rejected entry lands back on
+ * the zoom it already had, which is the case the old sync effect missed.
+ */
+const viewAt = (next: number) => {
+  const zoom = Math.min(Math.max(next, MIN), MAX)
+  return { zoom, draft: String(Math.round(zoom * 100)) }
 }
 
 /*
