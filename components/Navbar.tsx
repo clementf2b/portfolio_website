@@ -198,10 +198,18 @@ const Navbar = () => {
              * page with surface colour alone — and at the top of the page it
              * does not separate at all.
              */}
+            {/*
+             * The open mobile menu forces the background on and drops the pill
+             * shape. At the top of the page `scrolled` is false, so the bar is
+             * transparent — fine for a single row of links, but the expanded
+             * menu then floated over the hero text with nothing behind it, and
+             * rounded-full turned the tall panel into a circle that cut the
+             * first and last rows off at the corners.
+             */}
             <div
-                className={`mx-auto max-w-7xl rounded-full px-5 transition-colors duration-300 ${
-                    scrolled ? 'bg-[var(--surface)] backdrop-blur-xl' : 'bg-transparent'
-                }`}
+                className={`mx-auto max-w-7xl px-5 transition-colors duration-300 ${
+                    navbar ? 'rounded-3xl' : 'rounded-full'
+                } ${scrolled || navbar ? 'bg-[var(--surface)] backdrop-blur-xl' : 'bg-transparent'}`}
             >
                 <div className="flex items-center justify-between py-2 md:py-4">
 
@@ -290,10 +298,13 @@ const Navbar = () => {
 
                             {/* Mobile theme toggle — text label instead of icon-only.
                               * Same rule as the desktop one: the button is unconditional,
-                              * the theme-dependent icon and label wait for `mounted`. */}
+                              * the theme-dependent icon and label wait for `mounted`.
+                              * navBtnClass rather than its own padding and casing: it was
+                              * the one row in the menu whose text started 4px to the left
+                              * of the links and in sentence case. */}
                             <button
                                 onClick={toggleTheme}
-                                className="flex cursor-pointer items-center gap-2 rounded-full px-4 py-2 text-body-sm font-semibold text-[var(--foreground)]"
+                                className={navBtnClass(false, 'flex items-center gap-2 text-left')}
                             >
                                 {mounted && resolvedTheme === "dark" ? <RiSunLine size={18} /> : <RiMoonFill size={18} />}
                                 {mounted && resolvedTheme === "dark" ? "Light mode" : "Dark mode"}
