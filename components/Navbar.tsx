@@ -17,7 +17,7 @@
  */
 "use client"
 import React from "react"
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, useSyncExternalStore } from 'react'
 import { useTheme } from 'next-themes'
 import { RiMoonFill, RiSunLine } from 'react-icons/ri'
 import { IoMdMenu, IoMdClose } from 'react-icons/io'
@@ -96,10 +96,20 @@ const Navbar = () => {
      */
     const { resolvedTheme, setTheme } = useTheme()
 
-    /* mounted — false during SSR and the first hydration pass, true afterwards.
-     * Anything gated on it renders identically on server and client. */
-    const [mounted, setMounted] = useState(false)
-    useEffect(() => setMounted(true), [])
+    /*
+     * mounted — false during SSR and the first hydration pass, true afterwards.
+     * Anything gated on it renders identically on server and client.
+     *
+     * useSyncExternalStore rather than the usual setMounted-in-an-effect: the
+     * store never emits (the subscribe function has nothing to unsubscribe),
+     * so this is just "the server snapshot is false, the client one is true".
+     * Same result, and it does not trip react-hooks/set-state-in-effect.
+     */
+    const mounted = useSyncExternalStore(
+        () => () => {},
+        () => true,
+        () => false
+    )
 
     /* navbar — true when the mobile menu is open */
     const [navbar, setNavbar] = useState(false)
