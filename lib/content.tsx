@@ -74,10 +74,16 @@ export type Company = {
   }
 }
 
+/*
+ * width/height describe the file, not the slot: /icons/navicat.png is the
+ * square 256x256 mark, so 28x28 at h-7. They used to say 112x28, a 4:1 box the
+ * image never had — next/image warned on every load that one dimension was
+ * being overridden by CSS and the other was not.
+ */
 const navicatLogo = {
   src: '/icons/navicat.png',
   alt: 'Navicat logo',
-  width: 112,
+  width: 28,
   height: 28,
   className: 'h-7 w-auto object-contain',
 }
