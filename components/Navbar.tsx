@@ -186,8 +186,18 @@ const Navbar = () => {
          * fixed top-0 z-nav — sits above all page content.
          * px-4 / sm:px-6 / lg:px-8 — horizontal padding scales with viewport.
          * pt-4 — small gap between the browser top edge and the navbar pill.
+         *
+         * While the mobile menu is open the header drops that padding (max-md
+         * only, so the desktop bar keeps floating): the panel has to reach the
+         * top and both edges of the screen, otherwise the page keeps showing
+         * through the 16px gutter above and beside it and the heading
+         * underneath reads straight through the frame.
          */
-        <header className="fixed top-0 z-nav w-full px-4 pt-4 sm:px-6 lg:px-8">
+        <header
+            className={`fixed top-0 z-nav w-full px-4 pt-4 sm:px-6 lg:px-8 ${
+                navbar ? 'max-md:px-0 max-md:pt-0' : ''
+            }`}
+        >
             {/*
              * Pill container — rounded-full gives the navbar its "floating pill" shape.
              * backdrop-blur-xl blurs the page content visible behind the semi-transparent
@@ -205,10 +215,14 @@ const Navbar = () => {
              * menu then floated over the hero text with nothing behind it, and
              * rounded-full turned the tall panel into a circle that cut the
              * first and last rows off at the corners.
+             *
+             * rounded-b-3xl rather than rounded-3xl: with the header padding
+             * gone the panel is flush with the top and sides of the screen, so
+             * only the bottom edge is still a visible corner.
              */}
             <div
                 className={`mx-auto max-w-7xl px-5 transition-colors duration-300 ${
-                    navbar ? 'rounded-3xl' : 'rounded-full'
+                    navbar ? 'rounded-b-3xl' : 'rounded-full'
                 } ${scrolled || navbar ? 'bg-[var(--surface)] backdrop-blur-xl' : 'bg-transparent'}`}
             >
                 <div className="flex items-center justify-between py-2 md:py-4">
