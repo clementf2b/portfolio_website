@@ -24,6 +24,13 @@ updates:
       react:
         patterns: ['react', 'react-dom', '@types/react', '@types/react-dom']
         update-types: [major]
+    ignore:
+      # ESLint 10 removed context.getFilename(), and the eslint-plugin-react
+      # bundled inside eslint-config-next 16 still calls it, so every lint run
+      # throws. Closing the PR only skips that one version; this stops the
+      # weekly reopen. Remove it once eslint-config-next supports ESLint 10.
+      - dependency-name: eslint
+        update-types: ['version-update:semver-major']
     commit-message:
       prefix: "[Deps]"
 
