@@ -136,8 +136,12 @@ const ProjectsSection = () => {
                             <BsArrowUpRight size={14} />
                           </Link>
                         ) : (
-                          /* Not a real button — cursor-default signals it isn't clickable */
-                          <span className="secondary-button cursor-default">Private academic project</span>
+                          /*
+                           * Not a real button — cursor-default signals it isn't
+                           * clickable, and it keeps the hairline edge: the
+                           * stronger one the buttons use would promise a click.
+                           */
+                          <span className="secondary-button cursor-default border-(--card-border)">Private academic project</span>
                         )}
                       </div>
                     </div>

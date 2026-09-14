@@ -293,7 +293,7 @@ const AboutSection = () => {
                               className={`h-1.5 w-6 rounded-full ${
                                 step <= item.level
                                   ? 'bg-(--accent)'
-                                  : 'bg-(--card-border)'
+                                  : 'bg-(--color-line-strong)'
                               }`}
                             />
                           ))}
