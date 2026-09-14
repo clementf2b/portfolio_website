@@ -163,8 +163,10 @@
     --warm-600: #918b81;  /* dark muted */
     --warm-700: #6a645d;  /* light muted */
     --warm-800: #4a4540;
+    --warm-825: #312d2a;  /* dark surface-raised */
     --warm-850: #262320;  /* dark line */
-    --warm-900: #171514;  /* light ink · dark surface */
+    --warm-875: #211e1c;  /* dark surface */
+    --warm-900: #171514;  /* light ink */
     --warm-950: #0d0c0b;  /* dark bg */
 
     /* ── primitive · copper accent ──────────────────────────────────── */
@@ -212,10 +214,17 @@
   /* ── semantic · dark. Primitives are shared; only roles are remapped. ── */
   .dark {
     --color-bg:             var(--warm-950);
-    --color-surface:        var(--warm-900);
-    --color-surface-raised: var(--warm-850);
+    /*
+     * Surfaces stepped apart: 900/850 sat at 1.07:1 against the page and
+     * 1.16:1 against each other, so cards melted into the ground. Now 1.18
+     * and 1.21. Raised stops at 825 because accent text on it is 4.52:1;
+     * a lighter step drops it below AA. Muted moves to 500 for the same
+     * reason (600 would be 3.97:1 on the new raised; 500 is 4.96).
+     */
+    --color-surface:        var(--warm-875);
+    --color-surface-raised: var(--warm-825);
     --color-ink:            var(--warm-200);
-    --color-muted:          var(--warm-600);
+    --color-muted:          var(--warm-500);
     --color-line:           var(--warm-850);
     --color-accent:         var(--copper-400);
     --color-on-accent:      var(--warm-950);
