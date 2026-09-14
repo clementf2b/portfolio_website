@@ -223,13 +223,16 @@ export const process = {
     'This site was rebuilt with an AI agent under a gated workflow: every UI change produced several variants and waited for a decision before any code was written. What follows is not a claim that the agent built it — it is the shape of the loop, and one card carried through it end to end.',
 
 
-  /* The loop. Two of the four steps are the owner's, and it stops at both. */
+  /*
+   * The loop. Two of the four steps are the owner's, and it stops at both.
+   * `column` is the board column the card sits in at that step.
+   */
   loop: [
-    { lane: 'agent', title: 'Proposes options', note: 'built with the real content' },
-    { lane: 'you', title: 'You pick one', note: 'the agent waits here' },
-    { lane: 'agent', title: 'Builds one card', note: 'then brings the evidence' },
-    { lane: 'you', title: 'You review', note: 'and move the card' },
-  ] as { lane: 'agent' | 'you'; title: string; note: string }[],
+    { lane: 'agent', column: 'Options', title: 'Proposes options', note: 'built with the real content' },
+    { lane: 'you', column: 'Decision', title: 'You pick one', note: 'the agent waits here' },
+    { lane: 'agent', column: 'Build', title: 'Builds one card', note: 'then brings the evidence' },
+    { lane: 'you', column: 'Done', title: 'You review', note: 'and move the card' },
+  ] as { lane: 'agent' | 'you'; column: string; title: string; note: string }[],
 
   /* Verbatim from the repository's agent instructions. */
   rules: [
