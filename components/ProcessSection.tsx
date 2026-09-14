@@ -18,10 +18,9 @@
 import React from 'react'
 import Image from 'next/image'
 import { sectionClassName, sectionHeadingClassName } from '../lib/classNames'
+import { HiOutlineUser, HiSparkles } from 'react-icons/hi2'
+import { BsArrowDown, BsArrowRepeat, BsArrowRight, BsArrowUp, BsCheck2, BsPauseFill } from 'react-icons/bs'
 import { process } from '../lib/content'
-
-/* Arrow marker id, referenced from the paths below. */
-const MARKER = 'process-arrow'
 
 /* The four verbs of the loop, lifted out of the caption prose. */
 const Verb = ({ children }: { children: React.ReactNode }) => (
@@ -40,95 +39,43 @@ const ProcessSection = () => {
       {/* ── 1 · The loop ─────────────────────────────────────────────────── */}
       <div className="mt-10">
         {/*
-         * Inline SVG rather than an image so the strokes and fills read from
-         * the tokens and follow the theme. currentColor is set per group; the
-         * two lanes use different tokens so the owner's steps carry more
-         * weight than the agent's.
+         * The loop drawn as the card's trip across the board: each step is a
+         * column holding a small picture of what exists at that point.
          *
-         * Hidden from assistive tech: the list underneath says the same thing
-         * in text, so announcing both would be a duplicate.
+         * HTML rather than the inline SVG it replaced. A viewBox scales its
+         * text with the width, so on a tablet the labels shrank to around
+         * 9px; real markup reflows instead — four columns on a desktop, two
+         * on a tablet, one on a phone — and the text stays its own size.
+         * It also retires the second, screen-reader-only copy of the steps:
+         * this list is the accessible version.
+         *
+         * Arrows and connectors use --color-line-strong. The old diagram drew
+         * them in --card-border, 1.25:1 in both themes and lost in dark.
          */}
-        <svg
-          viewBox="0 0 1020 340"
-          className="mt-6 hidden w-full sm:block"
-          aria-hidden="true"
-          focusable="false"
-        >
-          <defs>
-            <marker
-              id={MARKER}
-              viewBox="0 0 10 10"
-              refX="9"
-              refY="5"
-              markerWidth="6"
-              markerHeight="6"
-              orient="auto-start-reverse"
-            >
-              <path d="M0,0 L10,5 L0,10 z" fill="var(--card-border)" />
-            </marker>
-          </defs>
+        <div className="relative mt-6">
+          <ol className="grid sm:grid-cols-2 sm:gap-4 lg:grid-cols-4 lg:gap-14">
+            {process.loop.map((step, index) => (
+              <LoopStep key={step.title} step={step} index={index} last={index === process.loop.length - 1} />
+            ))}
+          </ol>
 
-          <text x="0" y="52" className="fill-(--accent) text-label font-semibold tracking-[1.6px]">
-            AGENT
-          </text>
-          <text x="0" y="196" className="fill-(--muted) text-label font-semibold tracking-[1.6px]">
-            YOU
-          </text>
-
-          <g fill="none" stroke="var(--card-border)" strokeWidth="1.5" markerEnd={`url(#${MARKER})`}>
-            <path d="M258,96 C300,96 310,150 330,180" />
-            <path d="M508,180 C528,150 538,96 580,96" />
-            <path d="M758,96 C800,96 810,150 830,180" />
-            {/* Loop back: down from the last box, along the foot, up into the first. */}
-            <path
-              d="M919,210 C919,286 919,300 800,300 L160,300 C40,300 40,286 40,180 L40,110"
-              strokeDasharray="5 5"
-            />
-          </g>
-          <text x="480" y="322" textAnchor="middle" className="fill-(--muted) text-label">
-            next card
-          </text>
-
-          {process.loop.map((step, index) => {
-            const x = [80, 330, 580, 830][index]
-            const y = step.lane === 'agent' ? 66 : 150
-            const fill = step.lane === 'agent' ? 'var(--surface-strong)' : 'var(--accent-soft)'
-            const noteFill = step.lane === 'agent' ? 'var(--muted)' : 'var(--accent)'
-            return (
-              <g key={step.title}>
-                <rect x={x} y={y} width="178" height="60" rx="12" fill={fill} />
-                <text x={x + 19} y={y + 28} fill="var(--foreground)" className="text-body font-semibold">
-                  {step.title}
-                </text>
-                <text x={x + 19} y={y + 46} fill={noteFill} className="text-caption">
-                  {step.note}
-                </text>
-              </g>
-            )
-          })}
-        </svg>
-
-        {/* Mobile, and the accessible version of the diagram above. */}
-        <ol className="mt-6 grid gap-3 sm:hidden">
-          {process.loop.map((step) => (
-            <li
-              key={step.title}
-              className={`rounded-card p-4 ${
-                step.lane === 'agent'
-                  ? 'bg-(--surface-strong)'
-                  : 'bg-(--accent-soft)'
-              }`}
-            >
-              <p className="text-label font-semibold uppercase tracking-[0.16em] text-(--muted)">
-                {step.lane === 'agent' ? 'Agent' : 'You'}
-              </p>
-              <p className="mt-1.5 font-display font-semibold text-(--foreground)">
-                {step.title}
-              </p>
-              <p className="mt-0.5 text-body-sm text-(--muted)">{step.note}</p>
-            </li>
-          ))}
-        </ol>
+          {/*
+           * Back to the start. On a desktop it is drawn: a dashed return from
+           * the last column to the first, with the label on the line. Below
+           * that the columns wrap, so it is said instead.
+           */}
+          <div aria-hidden className="relative mx-[12.5%] hidden h-10 rounded-b-[18px] border-2 border-t-0 border-dashed border-(--color-line-strong) lg:block">
+            <BsArrowUp size={18} className="absolute -left-2.5 -top-2.5 text-(--color-line-strong)" />
+            <span className="absolute left-1/2 top-full flex -translate-x-1/2 -translate-y-1/2 items-center gap-2 bg-(--background) px-3 text-caption font-semibold text-(--muted)">
+              <BsArrowRepeat size={14} />
+              next card
+            </span>
+          </div>
+          <p className="mt-4 flex items-center justify-center gap-2 text-caption text-(--muted) lg:hidden">
+            <BsArrowRepeat size={14} aria-hidden />
+            then the next card starts from the top
+          </p>
+        </div>
 
         {/*
          * No max-w here, unlike the rest of the section's prose: these two
@@ -332,5 +279,148 @@ const Pill = ({ children }: { children: React.ReactNode }) => (
     {children}
   </span>
 )
+
+type LoopStepData = (typeof process.loop)[number]
+
+/*
+ * One column of the loop. The owner's two steps take the accent tint and a
+ * "waits" pill — they are where the agent stops — and the agent's take the
+ * plain surface. Who does each step is written next to its icon — "AI agent"
+ * or "Me" — so none of it rests on colour or an icon alone.
+ */
+const LoopStep = ({ step, index, last }: { step: LoopStepData; index: number; last: boolean }) => {
+  const you = step.lane === 'you'
+  const Art = LOOP_ART[index]
+  return (
+    <li className="relative">
+      <div
+        /*
+         * sm:h-full, not h-full: on a phone the li also holds the down arrow,
+         * and a full-height card pushed it under the next step.
+         */
+        className={`flex flex-col rounded-card p-5 sm:h-full ${
+          you ? 'bg-(--accent-soft)' : 'bg-(--surface)'
+        }`}
+      >
+        <div className="flex items-center justify-between gap-3">
+          <p
+            className={`text-label font-semibold uppercase tracking-[0.16em] ${
+              you ? 'text-(--accent-strong)' : 'text-(--muted)'
+            }`}
+          >
+            {step.column}
+          </p>
+          {/* Who does this step, in words as well as the icon. */}
+          <span
+            className={`inline-flex shrink-0 items-center gap-1.5 rounded-full py-1 pl-2 pr-3 text-caption font-semibold ${
+              you ? 'bg-(--accent) text-(--color-on-accent)' : 'bg-(--surface-strong) text-(--muted)'
+            }`}
+          >
+            {you ? <HiOutlineUser size={14} aria-hidden /> : <HiSparkles size={14} aria-hidden />}
+            {you ? 'Me' : 'AI agent'}
+          </span>
+        </div>
+
+        <p className="mt-4 font-display text-body font-semibold tracking-[-0.02em] text-(--foreground)">
+          {step.title}
+        </p>
+        <p className={`mt-0.5 text-body-sm ${you ? 'text-(--accent-strong)' : 'text-(--muted)'}`}>
+          {step.note}
+        </p>
+
+        {/* The picture is decoration on top of the words; phones get the words. */}
+        <div aria-hidden className="mt-6 hidden sm:block">
+          <Art />
+        </div>
+
+        {you && (
+          /* mt-auto pins the pill to the foot, so both owner columns line up. */
+          <div className="mt-4 sm:mt-auto sm:pt-5">
+            <p className="inline-flex items-center gap-1.5 rounded-full bg-(--accent) px-3 py-1 text-caption font-semibold text-(--color-on-accent)">
+              <BsPauseFill size={12} aria-hidden />
+              agent waits
+            </p>
+          </div>
+        )}
+      </div>
+
+      {!last && (
+        <>
+          {/* Wide: an arrow in the gap to the next column. */}
+          <BsArrowRight
+            aria-hidden
+            size={22}
+            className="absolute -right-[39px] top-1/2 hidden -translate-y-1/2 text-(--color-line-strong) lg:block"
+          />
+          {/* Phone: the columns stack, so the arrow points down. */}
+          <span aria-hidden className="flex h-8 items-center justify-center text-(--color-line-strong) sm:hidden">
+            <BsArrowDown size={18} />
+          </span>
+        </>
+      )}
+    </li>
+  )
+}
+
+/* A rough page: a heading bar and two lines of text. */
+const Sketch = ({ picked, faded }: { picked?: boolean; faded?: boolean }) => (
+  <span className={`block h-16 flex-1 rounded-lg bg-(--background) p-2 ${faded ? 'opacity-40' : ''}`}>
+    <span className={`block h-1.5 rounded-full ${picked ? 'bg-(--accent)' : 'bg-(--color-line-strong) opacity-60'}`} />
+    <span className="mt-2 block h-1 w-3/4 rounded-full bg-(--color-line-strong) opacity-40" />
+    <span className="mt-1.5 block h-1 w-5/6 rounded-full bg-(--color-line-strong) opacity-40" />
+  </span>
+)
+
+const Tick = () => (
+  <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-(--accent) text-(--color-on-accent)">
+    <BsCheck2 size={14} strokeWidth={0.6} />
+  </span>
+)
+
+/*
+ * What exists at each step, drawn from the same card the section follows
+ * below: three drafts, one kept, the commit that built it, the card in Done.
+ */
+const LOOP_ART = [
+  () => (
+    <div className="flex gap-2">
+      <Sketch />
+      <Sketch />
+      <Sketch />
+    </div>
+  ),
+  () => (
+    <div className="relative flex gap-2">
+      <Sketch picked />
+      <Sketch faded />
+      <Sketch faded />
+      <span className="absolute -top-2.5 left-[calc(33%-18px)]">
+        <Tick />
+      </span>
+    </div>
+  ),
+  () => (
+    <div className="h-16 rounded-lg bg-(--background) px-3 py-2.5">
+      <p className="font-mono text-label font-semibold text-(--foreground)">4a1ab7c [Experience]</p>
+      <p className="mt-2 flex flex-wrap gap-x-3 text-label text-(--muted)">
+        {['tsc', 'build', '390px'].map((check) => (
+          <span key={check} className="inline-flex items-center gap-1">
+            <BsCheck2 size={13} className="text-(--accent)" />
+            {check}
+          </span>
+        ))}
+      </p>
+    </div>
+  ),
+  () => (
+    <div className="flex h-16 items-center gap-3 rounded-lg border-l-[3px] border-(--accent) bg-(--background) px-3">
+      <div className="min-w-0 flex-1">
+        <p className="text-label font-semibold tracking-wider text-(--muted)">TASK-014</p>
+        <p className="truncate text-body-sm font-semibold text-(--foreground)">Experience layout gate</p>
+      </div>
+      <Tick />
+    </div>
+  ),
+]
 
 export default ProcessSection
