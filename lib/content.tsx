@@ -229,9 +229,9 @@ export const process = {
    */
   loop: [
     { lane: 'agent', column: 'Options', title: 'Proposes options', note: 'built with the real content' },
-    { lane: 'you', column: 'Decision', title: 'You pick one', note: 'the agent waits here' },
+    { lane: 'you', column: 'Decision', title: 'I pick one', note: 'the agent waits here' },
     { lane: 'agent', column: 'Build', title: 'Builds one card', note: 'then brings the evidence' },
-    { lane: 'you', column: 'Done', title: 'You review', note: 'and move the card' },
+    { lane: 'you', column: 'Done', title: 'I review', note: 'and move the card' },
   ] as { lane: 'agent' | 'you'; column: string; title: string; note: string }[],
 
   /* Verbatim from the repository's agent instructions. */
