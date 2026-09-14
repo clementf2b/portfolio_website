@@ -20,7 +20,12 @@ import {
   BiLogoJava,
   BiLogoReact,
 } from 'react-icons/bi'
-import { SiApple, SiNextdotjs, SiOpenai, SiSwift } from 'react-icons/si'
+import { SiApple, SiNextdotjs, SiSwift } from 'react-icons/si'
+/*
+ * Simple Icons dropped the OpenAI mark in react-icons 5, so Codex takes the
+ * Remix Icon one. The filled variant matches the solid Si glyphs beside it.
+ */
+import { RiOpenaiFill } from 'react-icons/ri'
 
 /* Accent-coloured emphasis used inside experience bullets. */
 export const Em = ({ children }: { children: React.ReactNode }) => (
@@ -401,7 +406,7 @@ const tools = [
     ),
   },
   {
-    parts: [{ icon: <SiOpenai size={18} />, name: 'Codex' }],
+    parts: [{ icon: <RiOpenaiFill size={18} />, name: 'Codex' }],
     level: 4,
     use: 'The same workflows, run as a second agent',
   },
