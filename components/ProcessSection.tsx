@@ -104,7 +104,7 @@ const ProcessSection = () => {
         </p>
 
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <Step who="Agent" title="Three variants" caption="Built with the real bullets">
+          <Step who="agent" title="Three variants" caption="Built with the real bullets">
             <a href="/process/experience-variants.html" className="block rounded-lg">
               {/*
                 * The thumbnail is the whole page, so it is tall. Cropped from
@@ -122,7 +122,7 @@ const ProcessSection = () => {
             </a>
           </Step>
 
-          <Step who="You" title="Rejected two" caption="Recorded in the decision log">
+          <Step who="me" title="Rejected two" caption="Recorded in the decision log">
             <div className="p-4 text-body-sm leading-6 text-(--foreground)">
               “Cards wrap six long sentences. The frame adds weight, not information.”
               <span className="mt-2 block text-body-sm text-(--muted)">
@@ -131,7 +131,7 @@ const ProcessSection = () => {
             </div>
           </Step>
 
-          <Step who="Agent" title="One commit" caption="Format fixed by your rules">
+          <Step who="agent" title="One commit" caption="Format fixed by my rules">
             {/*
              * Verbatim from the commit, ellipsis where lines are omitted.
              * If the section says "this is the commit", it cannot be reworded.
@@ -159,7 +159,7 @@ overflow at 390px.`}
             </pre>
           </Step>
 
-          <Step who="You" title="Moved the card" caption="Dragged from Verify to Done">
+          <Step who="me" title="Moved the card" caption="Dragged from Verify to Done">
             <div className="p-3">
               <div className="flex items-center justify-between px-1 pb-2 text-label font-semibold text-(--foreground)">
                 <span>Done</span>
@@ -217,8 +217,9 @@ overflow at 390px.`}
 }
 
 /*
- * One column of the end-to-end strip. `who` drives the tint so the owner's two
- * steps read heavier than the agent's, the same split the diagram uses.
+ * One column of the end-to-end strip. `who` drives the tint and the role chip,
+ * so the owner's two steps read heavier than the agent's, the same split the
+ * loop above uses.
  */
 const Step = ({
   who,
@@ -226,24 +227,18 @@ const Step = ({
   caption,
   children,
 }: {
-  who: 'Agent' | 'You'
+  who: 'agent' | 'me'
   title: string
   caption: string
   children: React.ReactNode
 }) => (
   <div
     className={`flex flex-col rounded-card p-4 ${
-      who === 'You' ? 'bg-(--accent-soft)' : 'bg-(--surface)'
+      who === 'me' ? 'bg-(--accent-soft)' : 'bg-(--surface)'
     }`}
   >
-    <p
-      className={`text-label font-semibold uppercase tracking-[0.16em] ${
-        who === 'You' ? 'text-(--accent-strong)' : 'text-(--muted)'
-      }`}
-    >
-      {who}
-    </p>
-    <h4 className="mt-1.5 font-display text-body font-semibold tracking-[-0.02em] text-(--foreground)">
+    <RoleChip me={who === 'me'} className="self-start" />
+    <h4 className="mt-3 font-display text-body font-semibold tracking-[-0.02em] text-(--foreground)">
       {title}
     </h4>
     <div className="mt-3 flex-1 overflow-hidden rounded-lg bg-(--surface-strong)">
@@ -280,6 +275,23 @@ const Pill = ({ children }: { children: React.ReactNode }) => (
   </span>
 )
 
+/*
+ * Who does a step, in words beside the icon. Shared by the loop and the
+ * end-to-end strip so the two parts of the section name the roles the same
+ * way: "AI agent" and "Me", never Agent / You in one place and the other
+ * pair in the next.
+ */
+const RoleChip = ({ me, className = '' }: { me: boolean; className?: string }) => (
+  <span
+    className={`inline-flex shrink-0 items-center gap-1.5 rounded-full py-1 pl-2 pr-3 text-caption font-semibold ${
+      me ? 'bg-(--accent) text-(--color-on-accent)' : 'bg-(--surface-strong) text-(--muted)'
+    } ${className}`}
+  >
+    {me ? <HiOutlineUser size={14} aria-hidden /> : <HiSparkles size={14} aria-hidden />}
+    {me ? 'Me' : 'AI agent'}
+  </span>
+)
+
 type LoopStepData = (typeof process.loop)[number]
 
 /*
@@ -310,15 +322,7 @@ const LoopStep = ({ step, index, last }: { step: LoopStepData; index: number; la
           >
             {step.column}
           </p>
-          {/* Who does this step, in words as well as the icon. */}
-          <span
-            className={`inline-flex shrink-0 items-center gap-1.5 rounded-full py-1 pl-2 pr-3 text-caption font-semibold ${
-              you ? 'bg-(--accent) text-(--color-on-accent)' : 'bg-(--surface-strong) text-(--muted)'
-            }`}
-          >
-            {you ? <HiOutlineUser size={14} aria-hidden /> : <HiSparkles size={14} aria-hidden />}
-            {you ? 'Me' : 'AI agent'}
-          </span>
+          <RoleChip me={you} />
         </div>
 
         <p className="mt-4 font-display text-body font-semibold tracking-[-0.02em] text-(--foreground)">
