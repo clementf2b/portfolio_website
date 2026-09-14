@@ -25,7 +25,7 @@ const MARKER = 'process-arrow'
 
 /* The four verbs of the loop, lifted out of the caption prose. */
 const Verb = ({ children }: { children: React.ReactNode }) => (
-  <b className="font-semibold text-[var(--foreground)]">{children}</b>
+  <b className="font-semibold text-(--foreground)">{children}</b>
 )
 
 const ProcessSection = () => {
@@ -68,10 +68,10 @@ const ProcessSection = () => {
             </marker>
           </defs>
 
-          <text x="0" y="52" className="fill-[var(--accent)] text-label font-semibold [letter-spacing:1.6px]">
+          <text x="0" y="52" className="fill-(--accent) text-label font-semibold tracking-[1.6px]">
             AGENT
           </text>
-          <text x="0" y="196" className="fill-[var(--muted)] text-label font-semibold [letter-spacing:1.6px]">
+          <text x="0" y="196" className="fill-(--muted) text-label font-semibold tracking-[1.6px]">
             YOU
           </text>
 
@@ -85,7 +85,7 @@ const ProcessSection = () => {
               strokeDasharray="5 5"
             />
           </g>
-          <text x="480" y="322" textAnchor="middle" className="fill-[var(--muted)] text-label">
+          <text x="480" y="322" textAnchor="middle" className="fill-(--muted) text-label">
             next card
           </text>
 
@@ -115,17 +115,17 @@ const ProcessSection = () => {
               key={step.title}
               className={`rounded-card p-4 ${
                 step.lane === 'agent'
-                  ? 'bg-[var(--surface-strong)]'
-                  : 'bg-[var(--accent-soft)]'
+                  ? 'bg-(--surface-strong)'
+                  : 'bg-(--accent-soft)'
               }`}
             >
-              <p className="text-label font-semibold uppercase tracking-[0.16em] text-[var(--muted)]">
+              <p className="text-label font-semibold uppercase tracking-[0.16em] text-(--muted)">
                 {step.lane === 'agent' ? 'Agent' : 'You'}
               </p>
-              <p className="mt-1.5 font-display font-semibold text-[var(--foreground)]">
+              <p className="mt-1.5 font-display font-semibold text-(--foreground)">
                 {step.title}
               </p>
-              <p className="mt-0.5 text-body-sm text-[var(--muted)]">{step.note}</p>
+              <p className="mt-0.5 text-body-sm text-(--muted)">{step.note}</p>
             </li>
           ))}
         </ol>
@@ -136,11 +136,11 @@ const ProcessSection = () => {
          * one line on a desktop width. They wrap on narrow screens like
          * anything else.
          */}
-        <p className="mt-5 text-body-sm leading-7 text-[var(--muted)]">
+        <p className="mt-5 text-body-sm leading-7 text-(--muted)">
           The agent <Verb>proposes</Verb> and <Verb>builds</Verb>. I <Verb>choose</Verb> and{' '}
           <Verb>review</Verb>. It follows my rules and shows me the mockup for each change.
         </p>
-        <p className="mt-3 text-body-sm leading-7 text-[var(--muted)]">
+        <p className="mt-3 text-body-sm leading-7 text-(--muted)">
           AI agent waits at both of my steps. It cannot pick which option wins and cannot mark its
           own work done.
         </p>
@@ -148,10 +148,10 @@ const ProcessSection = () => {
 
       {/* ── 2 · One card, end to end ─────────────────────────────────────── */}
       <div className="mt-14">
-        <h3 className="font-display text-title-sm font-semibold tracking-[-0.02em] text-[var(--foreground)]">
+        <h3 className="font-display text-title-sm font-semibold tracking-[-0.02em] text-(--foreground)">
           What a single decision actually looked like
         </h3>
-        <p className="mt-2.5 max-w-[74ch] text-body-sm leading-7 text-[var(--muted)]">
+        <p className="mt-2.5 max-w-[74ch] text-body-sm leading-7 text-(--muted)">
           The card: should the work history be promoted into project cards? Four steps, four real
           artefacts — variants, decision, commit, board.
         </p>
@@ -176,9 +176,9 @@ const ProcessSection = () => {
           </Step>
 
           <Step who="You" title="Rejected two" caption="Recorded in the decision log">
-            <div className="p-4 text-body-sm leading-6 text-[var(--foreground)]">
+            <div className="p-4 text-body-sm leading-6 text-(--foreground)">
               “Cards wrap six long sentences. The frame adds weight, not information.”
-              <span className="mt-2 block text-body-sm text-[var(--muted)]">
+              <span className="mt-2 block text-body-sm text-(--muted)">
                 Variant A kept. The card format was dropped.
               </span>
             </div>
@@ -189,8 +189,8 @@ const ProcessSection = () => {
              * Verbatim from the commit, ellipsis where lines are omitted.
              * If the section says "this is the commit", it cannot be reworded.
              */}
-            <pre className="whitespace-pre-wrap p-4 font-mono text-label leading-[1.55] text-[var(--muted)]">
-              <b className="font-medium text-[var(--foreground)]">4a1ab7c</b>
+            <pre className="whitespace-pre-wrap p-4 font-mono text-label leading-[1.55] text-(--muted)">
+              <b className="font-medium text-(--foreground)">4a1ab7c</b>
               {`
 [Experience] group roles
 under their company and
@@ -198,7 +198,7 @@ make the education line
 continuous
 
 `}
-              <b className="font-medium text-[var(--foreground)]">No wording, date, tag
+              <b className="font-medium text-(--foreground)">No wording, date, tag
 or link changed</b>
               {` — the
 bullets moved as they
@@ -214,9 +214,9 @@ overflow at 390px.`}
 
           <Step who="You" title="Moved the card" caption="Dragged from Verify to Done">
             <div className="p-3">
-              <div className="flex items-center justify-between px-1 pb-2 text-label font-semibold text-[var(--foreground)]">
+              <div className="flex items-center justify-between px-1 pb-2 text-label font-semibold text-(--foreground)">
                 <span>Done</span>
-                <span className="text-[var(--muted)]">13</span>
+                <span className="text-(--muted)">13</span>
               </div>
               <BoardCard id="TASK-014" title="Experience layout gate" moved />
               <BoardCard id="TASK-018" title="Education timeline" />
@@ -224,7 +224,7 @@ overflow at 390px.`}
           </Step>
         </div>
 
-        <p className="mt-5 max-w-[80ch] text-body-sm leading-7 text-[var(--muted)]">
+        <p className="mt-5 max-w-[80ch] text-body-sm leading-7 text-(--muted)">
           The variants are live, and the commit text is verbatim from the public history. The board
           is redrawn rather than screenshotted — but the drag is real, and it is the one step in
           the loop the agent cannot do.
@@ -232,19 +232,19 @@ overflow at 390px.`}
       </div>
 
       {/* ── House rules ──────────────────────────────────────────────────── */}
-      <div className="mt-10 rounded-card bg-[var(--surface)] p-6">
+      <div className="mt-10 rounded-card bg-(--surface) p-6">
         <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-          <h3 className="font-display text-body font-semibold tracking-[-0.02em] text-[var(--foreground)]">
+          <h3 className="font-display text-body font-semibold tracking-[-0.02em] text-(--foreground)">
             The rules it works under
           </h3>
-          <p className="text-body-sm text-[var(--muted)]">
+          <p className="text-body-sm text-(--muted)">
             written by me, in the repo, before any of this ran
           </p>
         </div>
         <ol className="mt-3.5 grid gap-2.5 sm:grid-cols-2 sm:gap-x-8">
           {process.rules.map((rule, index) => (
-            <li key={rule} className="flex gap-2.5 text-body-sm leading-6 text-[var(--muted)]">
-              <span className="pt-0.5 text-label font-semibold tracking-[0.06em] text-[var(--accent)]">
+            <li key={rule} className="flex gap-2.5 text-body-sm leading-6 text-(--muted)">
+              <span className="pt-0.5 text-label font-semibold tracking-[0.06em] text-(--accent)">
                 {String(index + 1).padStart(2, '0')}
               </span>
               <span>{rule}</span>
@@ -253,13 +253,13 @@ overflow at 390px.`}
         </ol>
       </div>
 
-      <p className="mt-6 text-body-sm leading-6 text-[var(--muted)]">
+      <p className="mt-6 text-body-sm leading-6 text-(--muted)">
         {process.credit.text}
         <a
           href={process.credit.href}
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-sm font-semibold text-[var(--accent)] hover:underline"
+          className="rounded-xs font-semibold text-(--accent) hover:underline"
         >
           {process.credit.linkLabel}
         </a>
@@ -286,24 +286,24 @@ const Step = ({
 }) => (
   <div
     className={`flex flex-col rounded-card p-4 ${
-      who === 'You' ? 'bg-[var(--accent-soft)]' : 'bg-[var(--surface)]'
+      who === 'You' ? 'bg-(--accent-soft)' : 'bg-(--surface)'
     }`}
   >
     <p
       className={`text-label font-semibold uppercase tracking-[0.16em] ${
-        who === 'You' ? 'text-[var(--accent-strong)]' : 'text-[var(--muted)]'
+        who === 'You' ? 'text-(--accent-strong)' : 'text-(--muted)'
       }`}
     >
       {who}
     </p>
-    <h4 className="mt-1.5 font-display text-body font-semibold tracking-[-0.02em] text-[var(--foreground)]">
+    <h4 className="mt-1.5 font-display text-body font-semibold tracking-[-0.02em] text-(--foreground)">
       {title}
     </h4>
-    <div className="mt-3 flex-1 overflow-hidden rounded-lg bg-[var(--surface-strong)]">
+    <div className="mt-3 flex-1 overflow-hidden rounded-lg bg-(--surface-strong)">
       {children}
     </div>
-    <p className="mt-2.5 flex items-center gap-2 text-body-sm text-[var(--muted)]">
-      <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--accent)]" />
+    <p className="mt-2.5 flex items-center gap-2 text-body-sm text-(--muted)">
+      <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-(--accent)" />
       {caption}
     </p>
   </div>
@@ -312,12 +312,12 @@ const Step = ({
 /* A card on the board panel. `moved` marks the one that just arrived. */
 const BoardCard = ({ id, title, moved }: { id: string; title: string; moved?: boolean }) => (
   <div
-    className={`mt-2 rounded-lg bg-[var(--background)] p-2.5 ${
-      moved ? 'border-l-[3px] border-[var(--accent)]' : ''
+    className={`mt-2 rounded-lg bg-(--background) p-2.5 ${
+      moved ? 'border-l-[3px] border-(--accent)' : ''
     }`}
   >
-    <p className="text-label font-semibold tracking-[0.05em] text-[var(--muted)]">{id}</p>
-    <p className="mt-0.5 text-label font-semibold leading-tight text-[var(--foreground)]">
+    <p className="text-label font-semibold tracking-wider text-(--muted)">{id}</p>
+    <p className="mt-0.5 text-label font-semibold leading-tight text-(--foreground)">
       {title}
     </p>
     <div className="mt-1.5 flex flex-wrap gap-1">
@@ -328,7 +328,7 @@ const BoardCard = ({ id, title, moved }: { id: string; title: string; moved?: bo
 )
 
 const Pill = ({ children }: { children: React.ReactNode }) => (
-  <span className="rounded-full bg-[var(--surface)] px-1.5 py-px text-label text-[var(--muted)]">
+  <span className="rounded-full bg-(--surface) px-1.5 py-px text-label text-(--muted)">
     {children}
   </span>
 )

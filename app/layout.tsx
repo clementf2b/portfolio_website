@@ -10,7 +10,7 @@ import { siteDescription, siteName, siteTitle, siteUrl } from '../lib/site'
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-sans',
+  variable: '--font-inter',
 })
 
 /*
@@ -22,7 +22,7 @@ const inter = Inter({
 const interTight = Inter_Tight({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-display',
+  variable: '--font-inter-tight',
 })
 
 /*
@@ -70,7 +70,7 @@ export default function RootLayout({
      * here by design.
      */
     <html lang="en" className={`${inter.variable} ${interTight.variable}`} suppressHydrationWarning>
-      <body className="min-h-screen bg-[var(--background)] text-[var(--foreground)] antialiased">
+      <body className="min-h-screen bg-(--background) text-(--foreground) antialiased">
         <Providers>
           <Navbar />
           {children}

@@ -9,15 +9,15 @@ const Footer = () => {
     /* Matches the navbar pill style — same border, surface, and backdrop blur.
        Static position (not fixed) so it stays at the bottom of the page. */
     <footer className="w-full px-4 pb-6 pt-4 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl rounded-full border border-[var(--card-border)] bg-[var(--background)] px-6 py-3 dark:bg-[var(--surface)]">
+      <div className="mx-auto max-w-7xl rounded-full border border-(--card-border) bg-(--background) px-6 py-3 dark:bg-(--surface)">
         <div className="flex flex-col gap-3 text-center md:flex-row md:items-center md:justify-between md:text-left">
-          <p className="text-body-sm text-[var(--muted)]">
+          <p className="text-body-sm text-(--muted)">
             © Clement Ng. Crafted for thoughtful product engineering and long-term software quality.
           </p>
           <div className="flex flex-row items-center justify-center gap-2 md:justify-end">
             <a href="https://github.com/clementf2b" rel="noreferrer" target="_blank">
               <AiOutlineGithub
-                className="cursor-pointer rounded-full border border-[var(--card-border)] p-2 text-[var(--foreground)] transition-transform hover:-translate-y-1"
+                className="cursor-pointer rounded-full border border-(--card-border) p-2 text-(--foreground) transition-transform hover:-translate-y-1"
                 size={30}
               />
             </a>
@@ -27,7 +27,7 @@ const Footer = () => {
               target="_blank"
             >
               <AiOutlineLinkedin
-                className="cursor-pointer rounded-full border border-[var(--card-border)] p-2 text-[var(--foreground)] transition-transform hover:-translate-y-1"
+                className="cursor-pointer rounded-full border border-(--card-border) p-2 text-(--foreground) transition-transform hover:-translate-y-1"
                 size={30}
               />
             </a>

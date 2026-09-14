@@ -29,7 +29,7 @@ import { RiOpenaiFill } from 'react-icons/ri'
 
 /* Accent-coloured emphasis used inside experience bullets. */
 export const Em = ({ children }: { children: React.ReactNode }) => (
-  <b className="font-semibold text-[var(--accent)]">{children}</b>
+  <b className="font-semibold text-(--accent)">{children}</b>
 )
 
 /*
@@ -305,7 +305,7 @@ export const education = {
 
 /* Ink, not accent: names the work without competing with the meter. */
 const Name = ({ children }: { children: React.ReactNode }) => (
-  <b className="font-semibold text-[var(--foreground)]">{children}</b>
+  <b className="font-semibold text-(--foreground)">{children}</b>
 )
 
 const languages = [
