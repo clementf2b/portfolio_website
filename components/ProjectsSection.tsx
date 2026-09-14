@@ -40,7 +40,7 @@ const ProjectsSection = () => {
           {/* Section heading + subtitle */}
           <div className="mb-8">
             <h2 className={sectionHeadingClassName}>Projects</h2>
-            <p className="mt-2 text-body-sm leading-6 text-[var(--muted)]">
+            <p className="mt-2 text-body-sm leading-6 text-(--muted)">
               A selection of projects that reflects my approach to product thinking,
               engineering execution, and interface design.
             </p>
@@ -55,7 +55,7 @@ const ProjectsSection = () => {
            */}
           <div className="space-y-4">
             {projects.map((project) => (
-              <article key={project.name} className="overflow-hidden rounded-card bg-[var(--surface-strong)]">
+              <article key={project.name} className="overflow-hidden rounded-card bg-(--surface-strong)">
 
                   {/*
                    * Always-visible header. Two columns on large screens:
@@ -79,7 +79,7 @@ const ProjectsSection = () => {
                           alt: `${project.name} project preview`,
                         })
                       }
-                      className="group block w-full self-start overflow-hidden rounded-card bg-[var(--surface)]"
+                      className="group block w-full self-start overflow-hidden rounded-card bg-(--surface)"
                     >
                       <Image
                         src={project.image}
@@ -104,24 +104,24 @@ const ProjectsSection = () => {
                         />
                         <div className="min-w-0">
                           <div className="flex flex-wrap items-center gap-2">
-                            <h3 className="font-display text-title font-semibold leading-none tracking-[-0.02em] text-[var(--foreground)]">
+                            <h3 className="font-display text-title font-semibold leading-none tracking-[-0.02em] text-(--foreground)">
                               {project.name}
                             </h3>
                             {/* Year badge — soft accent, reads as a label not an action */}
-                            <span className="inline-flex items-center rounded-full bg-[var(--accent-soft)] px-3 py-1 text-caption font-semibold tracking-[0.14em] text-[var(--accent)]">
+                            <span className="inline-flex items-center rounded-full bg-(--accent-soft) px-3 py-1 text-caption font-semibold tracking-[0.14em] text-(--accent)">
                               {project.yearTag}
                             </span>
                           </div>
-                          <p className="mt-1.5 text-caption font-semibold uppercase tracking-[0.16em] text-[var(--muted)]">
+                          <p className="mt-1.5 text-caption font-semibold uppercase tracking-[0.16em] text-(--muted)">
                             {project.subtitle}
                           </p>
                         </div>
                       </div>
 
-                      <p className="text-body-sm font-medium leading-6 text-[var(--foreground)]">
+                      <p className="text-body-sm font-medium leading-6 text-(--foreground)">
                         {project.description}
                       </p>
-                      <p className="text-body-sm leading-7 text-[var(--muted)]">
+                      <p className="text-body-sm leading-7 text-(--muted)">
                         {project.detail}
                       </p>
 
@@ -158,7 +158,7 @@ const ProjectsSection = () => {
                    * colour: either divides the two regions, and both together
                    * state it twice.
                    */}
-                  <div className="bg-[var(--surface)] px-6 pt-6 sm:px-8 sm:pt-8">
+                  <div className="bg-(--surface) px-6 pt-6 sm:px-8 sm:pt-8">
                     <ScreenPicker screens={project.extraImageList} />
                   </div>
                 </article>

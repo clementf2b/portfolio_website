@@ -57,10 +57,10 @@ const ScreenPicker = ({ screens, layout = 'grid' }: Props) => {
               height={1280}
               /* Only rendered below sm, where it spans the column. */
               sizes="100vw"
-              className="w-full rounded-card bg-[var(--surface-strong)] object-contain"
+              className="w-full rounded-card bg-(--surface-strong) object-contain"
             />
-            <figcaption className="mt-2.5 text-body-sm leading-6 text-[var(--muted)]">
-              <span className="font-semibold text-[var(--foreground)]">{screen.title}</span>
+            <figcaption className="mt-2.5 text-body-sm leading-6 text-(--muted)">
+              <span className="font-semibold text-(--foreground)">{screen.title}</span>
               {screen.description && <span className="mt-1 block">{screen.description}</span>}
             </figcaption>
           </figure>
@@ -77,7 +77,7 @@ const ScreenPicker = ({ screens, layout = 'grid' }: Props) => {
           <button
             type="button"
             onClick={() => setZoomOpen(true)}
-            className="block w-full overflow-hidden rounded-card bg-[var(--surface-strong)] p-4"
+            className="block w-full overflow-hidden rounded-card bg-(--surface-strong) p-4"
           >
             {/*
              * rail: a height cap. The landscape screens are not all the same
@@ -94,18 +94,18 @@ const ScreenPicker = ({ screens, layout = 'grid' }: Props) => {
               /* rail takes most of the row; grid is a fixed 18rem column. */
               sizes={layout === 'rail' ? '(min-width: 640px) 62vw, 100vw' : '288px'}
               className={`h-auto w-full object-contain ${
-                layout === 'rail' ? 'max-h-[32rem]' : ''
+                layout === 'rail' ? 'max-h-128' : ''
               }`}
             />
           </button>
-          <p className="mt-3 text-caption font-semibold uppercase tracking-[0.16em] text-[var(--muted)]">
+          <p className="mt-3 text-caption font-semibold uppercase tracking-[0.16em] text-(--muted)">
             Screen {current + 1} of {screens.length}
           </p>
-          <p className="mt-1.5 font-display text-body-lg font-semibold tracking-[-0.02em] text-[var(--foreground)]">
+          <p className="mt-1.5 font-display text-body-lg font-semibold tracking-[-0.02em] text-(--foreground)">
             {active.title}
           </p>
           {active.description && (
-            <p className="mt-2 max-w-[68ch] text-body-sm leading-6 text-[var(--muted)]">
+            <p className="mt-2 max-w-[68ch] text-body-sm leading-6 text-(--muted)">
               {active.description}
             </p>
           )}
@@ -119,8 +119,8 @@ const ScreenPicker = ({ screens, layout = 'grid' }: Props) => {
         <div
           className={
             layout === 'rail'
-              ? 'flex w-[7.5rem] shrink-0 flex-col gap-3'
-              : 'grid max-w-[34rem] flex-1 grid-cols-2 gap-4'
+              ? 'flex w-30 shrink-0 flex-col gap-3'
+              : 'grid max-w-136 flex-1 grid-cols-2 gap-4'
           }
         >
           {screens.map((screen, index) => (
@@ -130,15 +130,15 @@ const ScreenPicker = ({ screens, layout = 'grid' }: Props) => {
               onClick={() => setCurrent(index)}
               aria-current={index === current}
               aria-label={`Show ${screen.title}`}
-              className={`overflow-hidden rounded-card bg-[var(--surface-strong)] text-left outline outline-2 outline-offset-2 transition-[outline-color,opacity] duration-[var(--dur-base)] focus-visible:outline-[var(--color-focus)] ${
+              className={`overflow-hidden rounded-card bg-(--surface-strong) text-left outline outline-2 outline-offset-2 transition-[outline-color,opacity] duration-(--dur-base) focus-visible:outline-(--color-focus) ${
                 index === current
-                  ? 'outline-[var(--accent)]'
+                  ? 'outline-(--accent)'
                   : 'opacity-70 outline-transparent hover:opacity-100'
               }`}
             >
               <span
-                className={`flex items-center justify-center bg-[var(--surface-strong)] ${
-                  layout === 'rail' ? 'h-[3.25rem]' : 'h-[13.5rem]'
+                className={`flex items-center justify-center bg-(--surface-strong) ${
+                  layout === 'rail' ? 'h-13' : 'h-54'
                 }`}
               >
                 <Image
@@ -150,7 +150,7 @@ const ScreenPicker = ({ screens, layout = 'grid' }: Props) => {
                 />
               </span>
               {layout === 'grid' && (
-                <span className="block px-3 pb-3 pt-2.5 text-caption leading-5 text-[var(--muted)]">
+                <span className="block px-3 pb-3 pt-2.5 text-caption leading-5 text-(--muted)">
                   {screen.title}
                 </span>
               )}

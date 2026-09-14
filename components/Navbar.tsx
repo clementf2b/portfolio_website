@@ -62,8 +62,8 @@ const NavItems: Array<NavItem> = [
 const navBtnClass = (isActive: boolean, extraClass = '') =>
     `cursor-pointer rounded-full border px-5 py-2 text-body-sm font-semibold uppercase tracking-[0.16em] transition hover:-translate-y-1 ${extraClass} ${
         isActive
-            ? 'border-transparent text-[var(--foreground)]'
-            : 'border-transparent text-[var(--muted)] hover:bg-[var(--surface)] hover:text-[var(--foreground)]'
+            ? 'border-transparent text-(--foreground)'
+            : 'border-transparent text-(--muted) hover:bg-(--surface) hover:text-(--foreground)'
     }`
 
 const Navbar = () => {
@@ -233,7 +233,7 @@ const Navbar = () => {
             <div
                 className={`mx-auto max-w-7xl px-5 transition-colors duration-300 ${
                     navbar ? 'rounded-b-3xl' : 'rounded-full'
-                } ${scrolled || navbar ? 'bg-[var(--surface)] backdrop-blur-xl' : 'bg-transparent'}`}
+                } ${scrolled || navbar ? 'bg-(--surface) backdrop-blur-xl' : 'bg-transparent'}`}
             >
                 <div className="flex items-center justify-between py-2 md:py-4">
 
@@ -248,7 +248,7 @@ const Navbar = () => {
                      * tells the style gate rejected. It is now the display sans.
                      */}
                     <a href="#home">
-                        <h2 className="font-display text-title font-semibold tracking-[-0.025em] text-[var(--foreground)] transition-transform hover:-translate-y-1">
+                        <h2 className="font-display text-title font-semibold tracking-tight text-(--foreground) transition-transform hover:-translate-y-1">
                             Clement Ng
                         </h2>
                     </a>
@@ -276,22 +276,22 @@ const Navbar = () => {
                          */}
                         <button
                             onClick={toggleTheme}
-                            className="ml-2 cursor-pointer rounded-full border border-[var(--card-border)] p-2 transition-transform hover:-translate-y-1"
+                            className="ml-2 cursor-pointer rounded-full border border-(--card-border) p-2 transition-transform hover:-translate-y-1"
                             aria-label="Toggle theme"
                         >
                             {/* Show sun icon in dark mode (click → go light); moon otherwise,
                               * which is also what renders before mount. */}
                             {mounted && resolvedTheme === "dark" ? (
-                                <RiSunLine size={22} className="text-[var(--foreground)]" />
+                                <RiSunLine size={22} className="text-(--foreground)" />
                             ) : (
-                                <RiMoonFill size={22} className="text-[var(--foreground)]" />
+                                <RiMoonFill size={22} className="text-(--foreground)" />
                             )}
                         </button>
                     </nav>
 
                     {/* Mobile hamburger — visible only below md breakpoint */}
                     <button
-                        className="rounded-full border border-[var(--card-border)] p-2 text-[var(--foreground)] md:hidden"
+                        className="rounded-full border border-(--card-border) p-2 text-(--foreground) md:hidden"
                         onClick={() => setNavbar(!navbar)}
                     >
                         {/* Toggle between hamburger and × icon based on menu state */}
@@ -302,7 +302,7 @@ const Navbar = () => {
                 {/*
                  * Mobile dropdown menu — rendered inside the navbar pill (not in a
                  * separate overlay) so it inherits the pill's rounded shape and
-                 * backdrop-blur without extra styling.
+                 * backdrop-blur-sm without extra styling.
                  * Only visible when navbar === true.
                  */}
                 {navbar && (

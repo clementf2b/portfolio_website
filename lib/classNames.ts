@@ -24,7 +24,7 @@
  * dark:text-white  — ensures maximum contrast on dark backgrounds
  */
 export const sectionHeadingClassName =
-  'font-sans text-title-lg font-semibold leading-none tracking-[-0.04em] text-[var(--foreground)] dark:text-white sm:text-display-sm lg:text-display'
+  'font-sans text-title-lg font-semibold leading-none tracking-[-0.04em] text-(--foreground) dark:text-white sm:text-display-sm lg:text-display'
 
 /**
  * sectionClassName
@@ -41,4 +41,4 @@ export const sectionHeadingClassName =
  * differs, because what follows a section is not always another section.
  */
 export const sectionClassName =
-  'mt-8 border-t border-[var(--card-border)] pt-10 sm:mt-10 sm:pt-14'
+  'mt-8 border-t border-(--card-border) pt-10 sm:mt-10 sm:pt-14'
