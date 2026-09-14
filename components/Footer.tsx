@@ -15,8 +15,9 @@ const Footer = () => {
             © Clement Ng. Crafted for thoughtful product engineering and long-term software quality.
           </p>
           <div className="flex flex-row items-center justify-center gap-2 md:justify-end">
-            <a href="https://github.com/clementf2b" rel="noreferrer" target="_blank">
+            <a href="https://github.com/clementf2b" rel="noreferrer" target="_blank" aria-label="GitHub (opens in a new tab)">
               <AiOutlineGithub
+                aria-hidden
                 className="cursor-pointer rounded-full border border-(--color-line-strong) p-2 text-(--foreground) transition-transform hover:-translate-y-1"
                 size={30}
               />
@@ -25,8 +26,10 @@ const Footer = () => {
               href="https://www.linkedin.com/in/clement-ng-0872b3141/"
               rel="noreferrer"
               target="_blank"
+              aria-label="LinkedIn (opens in a new tab)"
             >
               <AiOutlineLinkedin
+                aria-hidden
                 className="cursor-pointer rounded-full border border-(--color-line-strong) p-2 text-(--foreground) transition-transform hover:-translate-y-1"
                 size={30}
               />
