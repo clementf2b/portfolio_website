@@ -115,7 +115,9 @@
 @utility secondary-button {
   /* Secondary button — adapts to light/dark via surface token */
   @apply inline-flex items-center justify-center rounded-full border px-6 py-3 text-body-sm font-semibold transition duration-300;
-  border-color: var(--card-border);
+  /* line-strong: in dark the fill is 1.07:1 against the page, so the edge is
+     what makes this read as a button at all. */
+  border-color: var(--color-line-strong);
   background: var(--surface);
   color: var(--foreground);
 
@@ -189,6 +191,14 @@
     --color-accent-soft:    var(--copper-100);
     --color-accent-ink:     var(--copper-700);
     --color-focus:          var(--copper-600);
+    /*
+     * line-strong — for lines that carry meaning rather than divide space:
+     * the empty steps of a skill meter, and the edge of a button whose
+     * background barely differs from the page. --color-line sits at 1.25:1
+     * in both themes, which is right for a hairline and invisible for these.
+     * This is 3.08:1 on the light page (WCAG 1.4.11 asks for 3:1).
+     */
+    --color-line-strong:    var(--warm-600);
 
     /*
      * motion — the one duration anything renders with. The card radius
@@ -212,6 +222,12 @@
     --color-accent-soft:    var(--copper-900);
     --color-accent-ink:     var(--copper-300);
     --color-focus:          var(--copper-400);
+    /*
+     * warm-600, not the warm-700 first proposed: 700 is 3.34:1 on the page but
+     * 2.67:1 on the raised project cards, where "View repository" sits. 600
+     * clears 3:1 on every dark ground (page 5.78, surface 5.39, raised 4.62).
+     */
+    --color-line-strong:    var(--warm-600);
   }
 
   /* ═══════════════════════════════════════════════════════════════════════

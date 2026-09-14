@@ -17,7 +17,7 @@ const Footer = () => {
           <div className="flex flex-row items-center justify-center gap-2 md:justify-end">
             <a href="https://github.com/clementf2b" rel="noreferrer" target="_blank">
               <AiOutlineGithub
-                className="cursor-pointer rounded-full border border-(--card-border) p-2 text-(--foreground) transition-transform hover:-translate-y-1"
+                className="cursor-pointer rounded-full border border-(--color-line-strong) p-2 text-(--foreground) transition-transform hover:-translate-y-1"
                 size={30}
               />
             </a>
@@ -27,7 +27,7 @@ const Footer = () => {
               target="_blank"
             >
               <AiOutlineLinkedin
-                className="cursor-pointer rounded-full border border-(--card-border) p-2 text-(--foreground) transition-transform hover:-translate-y-1"
+                className="cursor-pointer rounded-full border border-(--color-line-strong) p-2 text-(--foreground) transition-transform hover:-translate-y-1"
                 size={30}
               />
             </a>
