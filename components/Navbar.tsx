@@ -293,9 +293,11 @@ const Navbar = () => {
                     <button
                         className="rounded-full border border-(--color-line-strong) p-2 text-(--foreground) md:hidden"
                         onClick={() => setNavbar(!navbar)}
+                        aria-label={navbar ? "Close menu" : "Open menu"}
+                        aria-expanded={navbar}
                     >
                         {/* Toggle between hamburger and × icon based on menu state */}
-                        {navbar ? <IoMdClose size={28} /> : <IoMdMenu size={28} />}
+                        {navbar ? <IoMdClose size={28} aria-hidden /> : <IoMdMenu size={28} aria-hidden />}
                     </button>
                 </div>
 
