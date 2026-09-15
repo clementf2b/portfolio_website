@@ -114,10 +114,8 @@
 
 @utility secondary-button {
   /* Secondary button — adapts to light/dark via surface token */
-  @apply inline-flex items-center justify-center rounded-full border px-6 py-3 text-body-sm font-semibold transition duration-300;
-  /* line-strong: in dark the fill is 1.07:1 against the page, so the edge is
-     what makes this read as a button at all. */
-  border-color: var(--color-line-strong);
+  /* No border: the fill carries the shape, like the rest of the site's surfaces. */
+  @apply inline-flex items-center justify-center rounded-full px-6 py-3 text-body-sm font-semibold transition duration-300;
   background: var(--surface);
   color: var(--foreground);
 

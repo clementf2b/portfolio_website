@@ -137,11 +137,11 @@ const ProjectsSection = () => {
                           </Link>
                         ) : (
                           /*
-                           * Not a real button — cursor-default signals it isn't
-                           * clickable, and it keeps the hairline edge: the
-                           * stronger one the buttons use would promise a click.
+                           * Not a button, so it doesn't wear the button's pill:
+                           * with no border left on buttons, the same fill here
+                           * would promise a click. Plain muted text instead.
                            */
-                          <span className="secondary-button cursor-default border-(--card-border)">Private academic project</span>
+                          <span className="py-3 text-body-sm font-semibold text-(--muted)">Private academic project</span>
                         )}
                       </div>
                     </div>
