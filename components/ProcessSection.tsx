@@ -104,7 +104,7 @@ const ProcessSection = () => {
         </p>
 
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <Step who="agent" title="Three variants" caption="Built with the real bullets">
+          <Step who="agent" title="Three variants" caption="Options for me to pick from">
             <a href="/process/experience-variants.html" className="block rounded-lg">
               {/*
                 * The thumbnail is the whole page, so it is tall. Cropped from
@@ -122,7 +122,7 @@ const ProcessSection = () => {
             </a>
           </Step>
 
-          <Step who="me" title="Rejected two" caption="Recorded in the decision log">
+          <Step who="me" title="Rejected two" caption="I chose, and wrote down the reason">
             <div className="p-4 text-body-sm leading-6 text-(--foreground)">
               “Cards wrap six long sentences. The frame adds weight, not information.”
               <span className="mt-2 block text-body-sm text-(--muted)">
@@ -131,7 +131,7 @@ const ProcessSection = () => {
             </div>
           </Step>
 
-          <Step who="agent" title="One commit" caption="Format fixed by my rules">
+          <Step who="agent" title="One commit" caption="The commit message my rules require">
             {/*
              * Verbatim from the commit, ellipsis where lines are omitted.
              * If the section says "this is the commit", it cannot be reworded.
@@ -159,7 +159,7 @@ overflow at 390px.`}
             </pre>
           </Step>
 
-          <Step who="me" title="Moved the card" caption="Dragged from Verify to Done">
+          <Step who="me" title="Moved the card" caption="Only I can mark it done">
             <div className="p-3">
               <div className="flex items-center justify-between px-1 pb-2 text-label font-semibold text-(--foreground)">
                 <span>Done</span>
