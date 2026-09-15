@@ -7,9 +7,11 @@ import {
 const Footer = () => {
   return (
     /* Matches the navbar pill style — same border, surface, and backdrop blur.
-       Static position (not fixed) so it stays at the bottom of the page. */
+       Static position (not fixed) so it stays at the bottom of the page.
+       A pill only from md, where it is one row: stacked on a phone, the
+       full radius turned three lines of text into an oval. */
     <footer className="w-full px-4 pb-6 pt-4 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl rounded-full border border-(--card-border) bg-(--background) px-6 py-3 dark:bg-(--surface)">
+      <div className="mx-auto max-w-7xl rounded-card border border-(--card-border) md:rounded-full bg-(--background) px-6 py-3 dark:bg-(--surface)">
         <div className="flex flex-col gap-3 text-center md:flex-row md:items-center md:justify-between md:text-left">
           <p className="text-body-sm text-(--muted)">
             © Clement Ng. Crafted for thoughtful product engineering and long-term software quality.
