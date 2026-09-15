@@ -60,7 +60,7 @@ const AboutSection = () => {
           <div>
             <div className="mb-4 flex items-center justify-between gap-4">
               <div>
-                <h3 className={sectionHeadingClassName}>Education journey</h3>
+                <h2 className={sectionHeadingClassName}>Education journey</h2>
                 <p className="mt-2 text-body-sm leading-6 text-(--muted)">
                   {education.blurb}
                 </p>
@@ -107,7 +107,7 @@ const AboutSection = () => {
           <div className="grid gap-12">
             <div className={sectionClassName}>
               <div className="mb-6 flex items-center justify-between gap-4">
-                <h3 className={sectionHeadingClassName}>Experiences</h3>
+                <h2 className={sectionHeadingClassName}>Experiences</h2>
               </div>
 
               {/*
@@ -174,11 +174,11 @@ const AboutSection = () => {
                     {company.roles.map((role, roleIndex) => (
                       <div key={role.title} className={roleIndex > 0 ? 'mt-8' : undefined}>
                         {/*
-                         * 600, not the global h4 700: the 甲 variant's title
+                         * 600, not the global heading 700: the 甲 variant's title
                          * weight. It sits one step under the company name
                          * above it, which carries the 24px.
                          */}
-                        <h4 className="text-title-sm font-semibold tracking-tight">{role.title}</h4>
+                        <h3 className="text-title-sm font-semibold tracking-tight">{role.title}</h3>
                         <p className="mt-1.5 text-caption font-semibold uppercase tracking-[0.16em] text-(--accent)">
                           {role.period}
                         </p>
@@ -240,7 +240,7 @@ const AboutSection = () => {
             {/* ── Technical Strengths ──────────────────────────────────────── */}
             <div className={sectionClassName}>
               <div className="flex items-center justify-between gap-4">
-                <h3 className={sectionHeadingClassName}>Technical strengths</h3>
+                <h2 className={sectionHeadingClassName}>Technical strengths</h2>
               </div>
 
               {/*

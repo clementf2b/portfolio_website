@@ -130,22 +130,26 @@ const ScreenPicker = ({ screens, layout = 'grid' }: Props) => {
               onClick={() => setCurrent(index)}
               aria-current={index === current}
               aria-label={`Show ${screen.title}`}
-              className={`overflow-hidden rounded-card bg-(--surface-strong) text-left outline outline-2 outline-offset-2 transition-[outline-color,opacity] duration-(--dur-base) focus-visible:outline-(--color-focus) ${
-                index === current
-                  ? 'outline-(--accent)'
-                  : 'opacity-70 outline-transparent hover:opacity-100'
+              className={`group overflow-hidden rounded-card bg-(--surface-strong) text-left outline outline-2 outline-offset-2 transition-[outline-color] duration-(--dur-base) focus-visible:outline-(--color-focus) ${
+                index === current ? 'outline-(--accent)' : 'outline-transparent'
               }`}
             >
+              {/*
+               * Only the picture dims on the unselected thumbnails. Dimming the
+               * whole button took the caption under it to 3.05:1.
+               */}
               <span
-                className={`flex items-center justify-center bg-(--surface-strong) ${
+                className={`flex items-center justify-center bg-(--surface-strong) transition-opacity duration-(--dur-base) ${
                   layout === 'rail' ? 'h-13' : 'h-54'
-                }`}
+                } ${index === current ? '' : 'opacity-70 group-hover:opacity-100'}`}
               >
                 <Image
                   src={screen.image}
                   alt=""
                   width={720}
                   height={1280}
+                  /* Rendered width at h-13 / h-54 for a 9:16 screen; without it the thumbnail fetched the 750px file. */
+                  sizes={layout === 'rail' ? '30px' : '122px'}
                   className="max-h-full w-auto object-contain"
                 />
               </span>
