@@ -75,7 +75,7 @@ export type Company = {
   showcase?: {
     title: string
     note: string
-    images: { image: string; title: string; description: string }[]
+    images: { image: string; width: number; height: number; title: string; description: string }[]
   }
 }
 
@@ -141,36 +141,48 @@ export const companies: Company[] = [
       images: [
         {
           image: '/projects/navicat/Screenshot_Navicat_17_Premium_Mac_Main_screen.png',
+          width: 2400,
+          height: 1440,
           title: 'Navicat Premium on macOS',
           description:
             'The main window in Navicat, where a single workspace connects to many types of database at once.',
         },
         {
           image: '/projects/navicat/Screenshot_Navicat_BI_Mac_Main_Screen.png',
+          width: 2600,
+          height: 1410,
           title: 'Navicat BI on macOS',
           description:
             'Turns your data into effective visualizations, giving clear insight through charts and graphs.',
         },
         {
           image: '/projects/navicat/Screenshot_Navicat_17_Premium_Mac_Modeling.png',
+          width: 2600,
+          height: 1600,
           title: 'Data modeling',
           description:
             'Construct data structures and visualize their relationships. Refine the structure to facilitate analysis.',
         },
         {
           image: '/projects/navicat/Screenshot_Navicat_17_Data_Dictionary.png',
+          width: 2200,
+          height: 1447,
           title: 'Data Dictionary',
           description:
             'Create a document for every data element across databases on various server platforms, and automate exporting those documents as PDFs.',
         },
         {
           image: '/projects/navicat/Screenshot_Navicat_17_Premium_Mac_AI.png',
+          width: 1888,
+          height: 1440,
           title: 'AI Assistant',
           description:
             'Get AI help directly within Navicat whenever you need it — ask a question and receive an instant answer.',
         },
         {
           image: '/projects/navicat/Screenshot_Navicat_17_Premium_Linux_Main_screen.png',
+          width: 2400,
+          height: 1440,
           title: 'Navicat on Linux',
           description:
             'Optimized multi-database workflows across native macOS and Linux, so moving between the two costs no environment friction.',
@@ -434,12 +446,14 @@ export type Project = {
   listIcon: string
   name: string
   image: string
+  imageWidth: number
+  imageHeight: number
   link: string
   subtitle: string
   description: string
   detail: string
   yearTag: string
-  extraImageList: { image: string; title: string }[]
+  extraImageList: { image: string; width: number; height: number; title: string }[]
 }
 
 /*
@@ -453,6 +467,7 @@ export type Project = {
  *   listIcon       – small square icon shown in the card header
  *   name           – project title
  *   image          – hero image shown on the left panel of the card
+ *   imageWidth/Height – its real pixel size, so the browser reserves the right box before it loads
  *   link           – GitHub URL; empty string "" means a private/academic project
  *   subtitle       – short context label (e.g. "HKUST Final Year Project")
  *   description    – lead sentence shown in bold
@@ -465,6 +480,8 @@ export const projects: Project[] = [
     listIcon: '/projects/hkust_fyp.png',
     name: 'FaceT',
     image: '/projects/faceTImg.png',
+    imageWidth: 1024,
+    imageHeight: 576,
     link: 'https://github.com/clementf2b/FaceT',
     subtitle: 'HKUST Final Year Project',
     description:
@@ -473,16 +490,18 @@ export const projects: Project[] = [
       'The goal was to reduce the friction involved in choosing suitable cosmetic products. The app combined recommendation flows, product contribution, effect previewing, store lookup, and community feedback into one mobile experience.',
     yearTag: '2017',
     extraImageList: [
-      { image: '/projects/faceT/mainPage.png', title: 'Main page with quick access to core flows' },
-      { image: '/projects/faceT/predictColor.png', title: 'Skin tone prediction experience' },
-      { image: '/projects/faceT/recommedation.png', title: 'Personalized product recommendation screen' },
-      { image: '/projects/faceT/applyResult.png', title: 'Product effect preview before purchase' },
+      { image: '/projects/faceT/mainPage.png', width: 1080, height: 1920, title: 'Main page with quick access to core flows' },
+      { image: '/projects/faceT/predictColor.png', width: 1080, height: 1920, title: 'Skin tone prediction experience' },
+      { image: '/projects/faceT/recommedation.png', width: 1080, height: 1920, title: 'Personalized product recommendation screen' },
+      { image: '/projects/faceT/applyResult.png', width: 1080, height: 1920, title: 'Product effect preview before purchase' },
     ],
   },
   {
     listIcon: '/projects/ecare.png',
     name: 'E-Care',
     image: '/projects/ecareImg.png',
+    imageWidth: 980,
+    imageHeight: 486,
     link: 'https://github.com/ysoseerius/e_care_new',
     subtitle: 'HKUST Mobile Application Design Contest',
     description:
@@ -491,15 +510,17 @@ export const projects: Project[] = [
       'E-Care focused on making healthcare interactions less fragmented for patients and care groups. It introduced account onboarding, appointment flow support, secure record handling, medication reminders, and side-effect reporting.',
     yearTag: '2016',
     extraImageList: [
-      { image: '/projects/ecare/ecare1.png', title: 'Medication report shared with doctors' },
-      { image: '/projects/ecare/ecare2.png', title: 'Medication reminder and alarm flow' },
-      { image: '/projects/ecare/ecare3.png', title: 'Urgent side-effect reporting screen' },
+      { image: '/projects/ecare/ecare1.png', width: 720, height: 1280, title: 'Medication report shared with doctors' },
+      { image: '/projects/ecare/ecare2.png', width: 720, height: 1226, title: 'Medication reminder and alarm flow' },
+      { image: '/projects/ecare/ecare3.png', width: 413, height: 609, title: 'Urgent side-effect reporting screen' },
     ],
   },
   {
     listIcon: '/projects/cccu_fyp.png',
     name: '耆樂寶',
     image: '/projects/cccufypImg.png',
+    imageWidth: 1024,
+    imageHeight: 640,
     link: '',
     subtitle: 'CCCU Final Year Project',
     description:
@@ -508,10 +529,10 @@ export const projects: Project[] = [
       'This project supported event sharing, chat, games, media browsing, and family communication for elderly residents in nursing homes. The product aimed to improve connection, reduce isolation, and give caregivers better visibility into daily life.',
     yearTag: '2014',
     extraImageList: [
-      { image: '/projects/cccufyp/photo3.png', title: 'Built for nursing home usage scenarios' },
-      { image: '/projects/cccufyp/photo1.png', title: 'Account information view' },
-      { image: '/projects/cccufyp/photo5.png', title: 'Login page for users' },
-      { image: '/projects/cccufyp/photo4.png', title: 'Photo upload and sharing flow' },
+      { image: '/projects/cccufyp/photo3.png', width: 2560, height: 1600, title: 'Built for nursing home usage scenarios' },
+      { image: '/projects/cccufyp/photo1.png', width: 2560, height: 1600, title: 'Account information view' },
+      { image: '/projects/cccufyp/photo5.png', width: 2560, height: 1600, title: 'Login page for users' },
+      { image: '/projects/cccufyp/photo4.png', width: 2560, height: 1600, title: 'Photo upload and sharing flow' },
     ],
   },
 ]

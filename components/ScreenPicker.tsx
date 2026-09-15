@@ -19,7 +19,8 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 import ImageZoom from './ImageZoom'
 
-export type Screen = { image: string; title: string; description?: string }
+/* width/height are the file's real pixel size: the browser reserves that box before the image arrives. */
+export type Screen = { image: string; width: number; height: number; title: string; description?: string }
 
 type Props = {
   screens: Screen[]
@@ -53,8 +54,8 @@ const ScreenPicker = ({ screens, layout = 'grid' }: Props) => {
             <Image
               src={screen.image}
               alt={screen.title}
-              width={720}
-              height={1280}
+              width={screen.width}
+              height={screen.height}
               /* Only rendered below sm, where it spans the column. */
               sizes="100vw"
               className="w-full rounded-card bg-(--surface-strong) object-contain"
@@ -89,8 +90,8 @@ const ScreenPicker = ({ screens, layout = 'grid' }: Props) => {
             <Image
               src={active.image}
               alt={active.title}
-              width={1440}
-              height={1280}
+              width={active.width}
+              height={active.height}
               /* rail takes most of the row; grid is a fixed 18rem column. */
               sizes={layout === 'rail' ? '(min-width: 640px) 62vw, 100vw' : '288px'}
               className={`h-auto w-full object-contain ${
@@ -146,8 +147,8 @@ const ScreenPicker = ({ screens, layout = 'grid' }: Props) => {
                 <Image
                   src={screen.image}
                   alt=""
-                  width={720}
-                  height={1280}
+                  width={screen.width}
+                  height={screen.height}
                   /* Rendered width at h-13 / h-54 for a 9:16 screen; without it the thumbnail fetched the 750px file. */
                   sizes={layout === 'rail' ? '30px' : '122px'}
                   className="max-h-full w-auto object-contain"

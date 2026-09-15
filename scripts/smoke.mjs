@@ -105,6 +105,31 @@ check('every local image referenced by the page exists', async () => {
   }
 })
 
+/*
+ * The width/height on an <img> is the box the browser reserves before the
+ * file arrives. Every screenshot once declared 720×1280 portrait while most
+ * were landscape, so the page shrank by ~2,700px as they loaded on a phone
+ * and the nav's jump to #projects landed mid-gallery.
+ */
+check('every image declares its real aspect ratio', async () => {
+  const { readFileSync } = await import('node:fs')
+  const html = await (await fetch(BASE)).text()
+  const wrong = new Set()
+  for (const [tag] of html.matchAll(/<img\b[^>]*>/g)) {
+    const w = Number(tag.match(/\swidth="(\d+)"/)?.[1])
+    const h = Number(tag.match(/\sheight="(\d+)"/)?.[1])
+    const path = tag.match(/url=%2F([^&"]+\.png)&/)?.[1]
+    if (!w || !h || !path) continue
+    const file = decodeURIComponent(path)
+    const png = readFileSync(`public/${file}`)
+    const [realW, realH] = [png.readUInt32BE(16), png.readUInt32BE(20)]
+    if (Math.abs(w / h - realW / realH) / (realW / realH) > 0.02) {
+      wrong.add(`${file}: declares ${w}×${h}, file is ${realW}×${realH}`)
+    }
+  }
+  assert.equal(wrong.size, 0, [...wrong].join('; '))
+})
+
 check('a missing route still returns 404', async () => {
   const res = await fetch(`${BASE}/definitely-not-a-page`)
   assert.equal(res.status, 404)
