@@ -210,9 +210,9 @@ const AboutSection = () => {
                      */}
                     {company.showcase && (
                       <div className="mt-8">
-                        <h5 className="font-display text-body-sm font-semibold uppercase tracking-[0.16em] text-(--color-ink)">
+                        <h4 className="font-display text-body-sm font-semibold uppercase tracking-[0.16em] text-(--color-ink)">
                           {company.showcase.title}
-                        </h5>
+                        </h4>
                         <p className="mt-1.5 text-caption text-(--color-muted)">
                           {company.showcase.note}
                         </p>

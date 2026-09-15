@@ -130,6 +130,18 @@ check('every image declares its real aspect ratio', async () => {
   assert.equal(wrong.size, 0, [...wrong].join('; '))
 })
 
+check('security headers are set', async () => {
+  const res = await fetch(BASE)
+  for (const [key, value] of [
+    ['x-content-type-options', 'nosniff'],
+    ['referrer-policy', 'strict-origin-when-cross-origin'],
+    ['content-security-policy', "frame-ancestors 'none'"],
+    ['x-frame-options', 'DENY'],
+  ]) {
+    assert.equal(res.headers.get(key), value, `${key} is ${res.headers.get(key)}`)
+  }
+})
+
 check('a missing route still returns 404', async () => {
   const res = await fetch(`${BASE}/definitely-not-a-page`)
   assert.equal(res.status, 404)
