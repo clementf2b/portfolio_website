@@ -11,12 +11,14 @@
  *
  * On phones the picker is dropped entirely: a thumbnail small enough to fit
  * beside the main image is too small to choose from, so every screen is
- * stacked at full width and the reader scrolls.
+ * stacked at full width. Stacked, the galleries were four in ten pixels of
+ * the page, so they start collapsed behind a bar that previews the screens.
  */
 "use client"
 
-import React, { useState } from 'react'
+import React, { useId, useRef, useState } from 'react'
 import Image from 'next/image'
+import { BsChevronDown, BsChevronUp } from 'react-icons/bs'
 import ImageZoom from './ImageZoom'
 
 /* width/height are the file's real pixel size: the browser reserves that box before the image arrives. */
@@ -41,14 +43,51 @@ const ScreenPicker = ({ screens, layout = 'grid' }: Props) => {
    * set with the arrows leaves the picker on whatever you stopped at.
    */
   const [zoomOpen, setZoomOpen] = useState(false)
+  const [expanded, setExpanded] = useState(false)
+  const listId = useId()
+  const barRef = useRef<HTMLButtonElement>(null)
   const active = screens[current]
 
   if (screens.length === 0) return null
 
   return (
     <div className="pb-6 sm:pb-8">
-      {/* ── Phones: every screen, stacked ───────────────────────────────── */}
-      <div className="grid gap-6 sm:hidden">
+      {/* ── Phones: a bar that expands to every screen, stacked ─────────── */}
+      <button
+        ref={barRef}
+        type="button"
+        onClick={() => setExpanded(!expanded)}
+        aria-expanded={expanded}
+        aria-controls={listId}
+        className="flex w-full items-center rounded-card bg-(--surface-strong) py-3 pl-3 pr-4 text-left sm:hidden"
+      >
+        {/* A preview, not a picker: decorative, the list below carries the titles. */}
+        <span className="flex shrink-0" aria-hidden>
+          {screens.slice(0, 4).map((screen, index) => (
+            <Image
+              key={screen.image}
+              src={screen.image}
+              alt=""
+              width={screen.width}
+              height={screen.height}
+              sizes="32px"
+              /* Fixed box, cropped: Navicat's landscape shots at natural width pushed the label off a phone. */
+              className={`h-11 w-8 rounded-md bg-(--surface) object-cover object-top ring-2 ring-(--surface-strong) ${index ? '-ml-3' : ''}`}
+            />
+          ))}
+        </span>
+        <span className="ml-4 text-body-sm font-semibold text-(--foreground)">
+          {expanded ? 'Hide screenshots' : `View ${screens.length} screenshots`}
+        </span>
+        {/* Up while collapsed, down once open: the direction picked in review. */}
+        {expanded ? (
+          <BsChevronDown className="ml-auto shrink-0" size={16} aria-hidden />
+        ) : (
+          <BsChevronUp className="ml-auto shrink-0" size={16} aria-hidden />
+        )}
+      </button>
+
+      <div id={listId} hidden={!expanded} className="mt-6 grid gap-6 sm:hidden">
         {screens.map((screen) => (
           <figure key={screen.image}>
             <Image
@@ -66,6 +105,23 @@ const ScreenPicker = ({ screens, layout = 'grid' }: Props) => {
             </figcaption>
           </figure>
         ))}
+        {/*
+         * A second way out at the bottom, so closing a long gallery doesn't
+         * mean scrolling back up to the bar. Closing from here would leave the
+         * reader far below the collapsed bar, so it scrolls the bar back in.
+         */}
+        <button
+          type="button"
+          onClick={() => {
+            setExpanded(false)
+            barRef.current?.scrollIntoView({ block: 'center' })
+          }}
+          aria-controls={listId}
+          className="secondary-button w-full gap-2 bg-(--surface-strong)"
+        >
+          Hide screenshots
+          <BsChevronUp size={14} aria-hidden />
+        </button>
       </div>
 
       {/* ── sm and up: one large, the rest pickable ─────────────────────── */}
