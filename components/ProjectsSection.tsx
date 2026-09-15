@@ -112,7 +112,8 @@ const ProjectsSection = () => {
                               {project.yearTag}
                             </span>
                           </div>
-                          <p className="mt-1.5 text-caption font-semibold uppercase tracking-[0.16em] text-(--muted)">
+                          {/* Tighter tracking on phones: at 0.16em "HKUST Final Year Project" missed one line by a few pixels. */}
+                          <p className="mt-1.5 text-caption font-semibold uppercase tracking-[0.1em] text-(--muted) sm:tracking-[0.16em]">
                             {project.subtitle}
                           </p>
                         </div>
