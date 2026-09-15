@@ -3,12 +3,13 @@
  * ─────────────────────────────────────────────────────────────────────────────
  * Fixed top navigation bar with:
  *   - Logo (display sans, scrolls to #home on click)
- *   - Desktop nav pills (Home / About / Projects) — pill highlights the active section
+ *   - Desktop nav pills (Home / About / Projects / Workflow) — pill highlights the active section
  *   - Light/Dark theme toggle (sun/moon icon)
  *   - Mobile hamburger menu (collapses into a vertical list)
  *
  * Active section detection uses the browser's IntersectionObserver API so the
- * correct pill stays highlighted as the user scrolls — no scroll event listeners.
+ * correct pill stays highlighted as the user scrolls. The one scroll listener
+ * only tracks whether the page has left the top, for the bar's background.
  *
  * "use client" is required because this component:
  *   - Reads browser state (scroll position, DOM)

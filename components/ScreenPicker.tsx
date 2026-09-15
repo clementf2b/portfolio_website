@@ -6,8 +6,8 @@
  * It replaced a grid that rendered every screenshot at full size. Three of
  * those galleries ran the page past 25,000px, and the fix at the time was to
  * collapse them behind a disclosure — which hid the work instead of showing
- * it. This shows all of it in roughly one screen's height, so nothing needs
- * hiding.
+ * it. From sm up this shows all of it in roughly one screen's height, so
+ * nothing is hidden there.
  *
  * On phones the picker is dropped entirely: a thumbnail small enough to fit
  * beside the main image is too small to choose from, so every screen is
