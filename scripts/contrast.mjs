@@ -73,7 +73,14 @@ const audit = `(() => {
     if (cs.visibility === 'hidden' || !el.getClientRects().length || el.closest('[aria-hidden="true"]')) continue
     checked++
     const bg = backdrop(el)
-    const [hi, lo] = [lum(over(rgba(cs.color), bg)), lum(bg)].sort((a, b) => b - a)
+    // opacity on the element or any ancestor fades the text toward what is
+    // behind it; a dimmed thumbnail's caption got past the check without this.
+    // ponytail: treats the backdrop as undimmed, fine while dimmed parts sit on their own colour
+    let opacity = 1
+    for (let e = el; e; e = e.parentElement) opacity *= Number(getComputedStyle(e).opacity)
+    const fg = rgba(cs.color)
+    fg[3] *= opacity
+    const [hi, lo] = [lum(over(fg, bg)), lum(bg)].sort((a, b) => b - a)
     const ratio = (hi + 0.05) / (lo + 0.05)
     const size = parseFloat(cs.fontSize)
     const min = size >= 24 || (size >= 18.66 && Number(cs.fontWeight) >= 700) ? 3 : 4.5
