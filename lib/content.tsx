@@ -200,7 +200,9 @@ export const companies: Company[] = [
       alt: 'Accord HK icon',
       width: 28,
       height: 25,
-      className: 'h-6 w-auto object-contain',
+      /* The file has a white background. On a dark page that read as a white
+         sticker; rounded with a little padding it reads as an app icon. */
+      className: 'h-6 w-auto object-contain dark:box-content dark:rounded-md dark:bg-white dark:p-0.5',
     },
     summary:
       'A boutique technology agency specializing in custom mobile application development for retail and consumer-facing brands.',
