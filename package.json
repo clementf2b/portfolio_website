@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint .",
     "kanban": "node tools/kanban/server.mjs",
-    "smoke": "node scripts/smoke.mjs"
+    "smoke": "node scripts/smoke.mjs",
+    "contrast": "node scripts/contrast.mjs"
   },
   "dependencies": {
     "next": "^16.3.4",

@@ -31,3 +31,7 @@ jobs:
       # things that have actually broken before — routes, the share card, and
       # every image the page asks for.
       - run: npm run smoke
+
+      # Every visible text element, light and dark, desktop and phone, must
+      # meet WCAG AA. Uses the Chrome the runner already has.
+      - run: npm run contrast
