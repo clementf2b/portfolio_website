@@ -31,11 +31,11 @@ const TagList = ({ tags }: { tags: string[] }) => (
     {tags.map((tag) => (
       /*
        * key=tag is safe here because each tag is unique within a single list.
-       * bg-(--accent-soft) is a translucent version of the accent colour
+       * bg-(--color-accent-soft) is a translucent version of the accent colour
        * (defined in globals.css) so the pill tint adapts to light/dark mode
        * without any extra logic.
        */
-      <span key={tag} className="rounded-full bg-(--accent-soft) px-3 py-1 text-caption font-semibold tracking-wide text-(--accent)">
+      <span key={tag} className="rounded-full bg-(--color-accent-soft) px-3 py-1 text-caption font-semibold tracking-wide text-(--color-accent)">
         {tag}
       </span>
     ))}
@@ -61,7 +61,7 @@ const AboutSection = () => {
             <div className="mb-4 flex items-center justify-between gap-4">
               <div>
                 <h2 className={sectionHeadingClassName}>Education journey</h2>
-                <p className="mt-2 text-body-sm leading-6 text-(--muted)">
+                <p className="mt-2 text-body-sm leading-6 text-(--color-muted)">
                   {education.blurb}
                 </p>
               </div>
@@ -83,19 +83,19 @@ const AboutSection = () => {
              * in a row. Stacked, a vertical run of dots down the left would be
              * decoration, not a timeline.
              */}
-            <ol className="relative mt-6 grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-7 lg:pt-9 lg:before:absolute lg:before:inset-x-0 lg:before:top-0 lg:before:h-0.5 lg:before:bg-(--card-border) lg:before:content-['']">
+            <ol className="relative mt-6 grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-7 lg:pt-9 lg:before:absolute lg:before:inset-x-0 lg:before:top-0 lg:before:h-0.5 lg:before:bg-(--color-line) lg:before:content-['']">
               {education.timeline.map((entry) => (
                 <li
                   key={entry.period}
-                  className="relative border-t-2 border-(--card-border) pt-4 lg:border-t-0 lg:pt-0 lg:before:absolute lg:before:-top-9.75 lg:before:left-0 lg:before:h-2.5 lg:before:w-2.5 lg:before:rounded-full lg:before:bg-(--accent) lg:before:content-['']"
+                  className="relative border-t-2 border-(--color-line) pt-4 lg:border-t-0 lg:pt-0 lg:before:absolute lg:before:-top-9.75 lg:before:left-0 lg:before:h-2.5 lg:before:w-2.5 lg:before:rounded-full lg:before:bg-(--color-accent) lg:before:content-['']"
                 >
-                  <p className="text-caption font-semibold uppercase tracking-[0.16em] text-(--accent)">
+                  <p className="text-caption font-semibold uppercase tracking-[0.16em] text-(--color-accent)">
                     {entry.period}
                   </p>
-                  <p className="mt-2.5 font-display text-body-lg font-semibold leading-snug tracking-[-0.02em] text-(--foreground)">
+                  <p className="mt-2.5 font-display text-body-lg font-semibold leading-snug tracking-[-0.02em] text-(--color-ink)">
                     {entry.school}
                   </p>
-                  <p className="mt-1.5 text-body-sm leading-6 text-(--muted)">
+                  <p className="mt-1.5 text-body-sm leading-6 text-(--color-muted)">
                     {entry.qualification}
                   </p>
                 </li>
@@ -139,7 +139,7 @@ const AboutSection = () => {
                       href={company.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-display text-title font-semibold tracking-tight text-(--foreground) transition-colors hover:text-(--accent)"
+                      className="font-display text-title font-semibold tracking-tight text-(--color-ink) transition-colors hover:text-(--color-accent)"
                     >
                       {company.name}
                     </a>
@@ -150,7 +150,7 @@ const AboutSection = () => {
                      * recruiter scans for. The dates carry the weight now;
                      * the location stays small and sits ahead of them.
                      */}
-                    <span className="text-caption font-semibold uppercase tracking-[0.16em] text-(--muted)">
+                    <span className="text-caption font-semibold uppercase tracking-[0.16em] text-(--color-muted)">
                       {company.location}
                     </span>
                     {/*
@@ -160,17 +160,17 @@ const AboutSection = () => {
                      * "separate with surface colour, never lines" is broken
                      * — a divider inside a line, not a region boundary.
                      */}
-                    <span aria-hidden className="h-[18px] w-px bg-(--card-border)" />
-                    <span className="text-title-sm font-semibold tracking-[-0.01em] text-(--muted)">
+                    <span aria-hidden className="h-[18px] w-px bg-(--color-line)" />
+                    <span className="text-title-sm font-semibold tracking-[-0.01em] text-(--color-muted)">
                       {company.period}
                     </span>
                   </div>
 
-                  <p className="mt-3 max-w-[76ch] text-body-sm leading-7 text-(--muted) sm:text-body">
+                  <p className="mt-3 max-w-[76ch] text-body-sm leading-7 text-(--color-muted) sm:text-body">
                     {company.summary}
                   </p>
 
-                  <div className="mt-7 border-l border-(--card-border) pl-4 sm:pl-6">
+                  <div className="mt-7 border-l border-(--color-line) pl-4 sm:pl-6">
                     {company.roles.map((role, roleIndex) => (
                       <div key={role.title} className={roleIndex > 0 ? 'mt-8' : undefined}>
                         {/*
@@ -179,7 +179,7 @@ const AboutSection = () => {
                          * above it, which carries the 24px.
                          */}
                         <h3 className="text-title-sm font-semibold tracking-tight">{role.title}</h3>
-                        <p className="mt-1.5 text-caption font-semibold uppercase tracking-[0.16em] text-(--accent)">
+                        <p className="mt-1.5 text-caption font-semibold uppercase tracking-[0.16em] text-(--color-accent)">
                           {role.period}
                         </p>
 
@@ -189,10 +189,10 @@ const AboutSection = () => {
                          * not floating in the middle of the block. mt-2 lines it
                          * up with the cap height. shrink-0 stops it collapsing.
                          */}
-                        <ul className="mt-4 space-y-2.5 text-body-sm leading-7 text-(--muted)">
+                        <ul className="mt-4 space-y-2.5 text-body-sm leading-7 text-(--color-muted)">
                           {role.bullets.map((bullet, bulletIndex) => (
                             <li key={bulletIndex} className="flex items-start gap-2.5">
-                              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-(--accent)" />
+                              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-(--color-accent)" />
                               <span className="max-w-[76ch]">{bullet}</span>
                             </li>
                           ))}
@@ -210,10 +210,10 @@ const AboutSection = () => {
                      */}
                     {company.showcase && (
                       <div className="mt-8">
-                        <h5 className="font-display text-body-sm font-semibold uppercase tracking-[0.16em] text-(--foreground)">
+                        <h5 className="font-display text-body-sm font-semibold uppercase tracking-[0.16em] text-(--color-ink)">
                           {company.showcase.title}
                         </h5>
-                        <p className="mt-1.5 text-caption text-(--muted)">
+                        <p className="mt-1.5 text-caption text-(--color-muted)">
                           {company.showcase.note}
                         </p>
                         {/*
@@ -227,7 +227,7 @@ const AboutSection = () => {
                          * to 2,416px and took the whole page into horizontal
                          * scroll.
                          */}
-                        <div className="mt-4 rounded-card bg-(--surface) px-6 pt-6 sm:px-8 sm:pt-8">
+                        <div className="mt-4 rounded-card bg-(--color-surface) px-6 pt-6 sm:px-8 sm:pt-8">
                           <ScreenPicker screens={company.showcase.images} layout="rail" />
                         </div>
                       </div>
@@ -258,22 +258,22 @@ const AboutSection = () => {
                */}
               {skillGroups.map((group) => (
                 <div key={group.label} className="mt-6">
-                  <p className="mb-1 text-caption font-semibold uppercase tracking-[0.18em] text-(--muted)">
+                  <p className="mb-1 text-caption font-semibold uppercase tracking-[0.18em] text-(--color-muted)">
                     {group.label}
                   </p>
                   <div>
                     {group.items.map((item) => (
                       <div
                         key={item.parts.map((part) => part.name).join('/')}
-                        className="flex flex-col items-start gap-y-2 border-t border-(--card-border) py-3 sm:flex-row sm:items-center sm:gap-x-5 sm:gap-y-0"
+                        className="flex flex-col items-start gap-y-2 border-t border-(--color-line) py-3 sm:flex-row sm:items-center sm:gap-x-5 sm:gap-y-0"
                       >
                         {/* Each mark sits with the name it belongs to. */}
-                        <span className="flex flex-wrap items-center gap-x-1.5 text-body font-semibold tracking-[-0.01em] text-(--foreground) sm:w-58 sm:shrink-0">
+                        <span className="flex flex-wrap items-center gap-x-1.5 text-body font-semibold tracking-[-0.01em] text-(--color-ink) sm:w-58 sm:shrink-0">
                           {item.parts.map((part, index) => (
                             <React.Fragment key={part.name}>
-                              {index > 0 && <span className="text-(--muted)">/</span>}
+                              {index > 0 && <span className="text-(--color-muted)">/</span>}
                               <span className="flex items-center gap-1.5">
-                                <span className="text-(--accent)">{part.icon}</span>
+                                <span className="text-(--color-accent)">{part.icon}</span>
                                 {part.name}
                               </span>
                             </React.Fragment>
@@ -292,13 +292,13 @@ const AboutSection = () => {
                               key={step}
                               className={`h-1.5 w-6 rounded-full ${
                                 step <= item.level
-                                  ? 'bg-(--accent)'
+                                  ? 'bg-(--color-accent)'
                                   : 'bg-(--color-line-strong)'
                               }`}
                             />
                           ))}
                         </span>
-                        <span className="min-w-0 flex-1 text-body-sm leading-6 text-(--muted)">
+                        <span className="min-w-0 flex-1 text-body-sm leading-6 text-(--color-muted)">
                           {item.use}
                         </span>
                       </div>

@@ -31,9 +31,9 @@ const IntroSection = () => {
              * The 52px display treatment agreed in the mockup belongs to the
              * visual revamp Epic; this keeps the current type scale.
              */}
-          <h1 className="mb-10 font-display text-title-lg font-semibold leading-[1.06] tracking-[-0.033em] text-(--foreground) sm:text-display-sm lg:text-display xl:text-display-lg">
+          <h1 className="mb-10 font-display text-title-lg font-semibold leading-[1.06] tracking-[-0.033em] text-(--color-ink) sm:text-display-sm lg:text-display xl:text-display-lg">
             <span className="block">9+ years of cross-platform engineering.</span>
-            <span className="block text-(--accent)">AI-assisted workflow.</span>
+            <span className="block text-(--color-accent)">AI-assisted workflow.</span>
           </h1>
         </div>
 
@@ -70,9 +70,9 @@ const IntroSection = () => {
               C++, Swift, Objective-C, and modern web tooling. I also incorporate
               AI-assisted coding into my workflow to prototype faster and refine
               ideas. I focus on{' '}
-              <span className="font-semibold text-(--accent)">cross-platform engineering</span>{' '}
+              <span className="font-semibold text-(--color-accent)">cross-platform engineering</span>{' '}
               across desktop and mobile products, working from{' '}
-              <span className="font-semibold text-(--accent)">Hong Kong</span>{' '}
+              <span className="font-semibold text-(--color-accent)">Hong Kong</span>{' '}
               with an overseas team.
             </p>
 
@@ -128,7 +128,7 @@ const IntroSection = () => {
            * rather than the button row.
            */}
           <div className="order-1 flex justify-center lg:order-2 lg:-mt-12 lg:justify-start">
-            <div className="rounded-full bg-(--surface) p-1.5">
+            <div className="rounded-full bg-(--color-surface) p-1.5">
               {/*
                * The inner ring is one step up from the outer, so the frame
                * reads as two quiet bands rather than a halo. The amber glow
@@ -140,7 +140,7 @@ const IntroSection = () => {
                * the hero. Drained, the strongest colour goes back to the
                * accent line in the title.
                */}
-              <div className="rounded-full bg-(--surface-strong) p-1.5">
+              <div className="rounded-full bg-(--color-surface-raised) p-1.5">
                 <Image
                   src="/avatar.png"
                   alt="Portrait of Clement Ng"
@@ -161,7 +161,7 @@ const IntroSection = () => {
         <a href="#about" aria-label="Scroll to about section" className="group p-2">
           <HiArrowDown
             size={26}
-            className="animate-bounce text-(--accent) transition-transform duration-300 group-hover:translate-y-1"
+            className="animate-bounce text-(--color-accent) transition-transform duration-300 group-hover:translate-y-1"
           />
         </a>
       </div>

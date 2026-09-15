@@ -11,16 +11,16 @@ const Footer = () => {
        A pill only from md, where it is one row: stacked on a phone, the
        full radius turned three lines of text into an oval. */
     <footer className="w-full px-4 pb-6 pt-4 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl rounded-card border border-(--card-border) md:rounded-full bg-(--background) px-6 py-3 dark:bg-(--surface)">
+      <div className="mx-auto max-w-7xl rounded-card border border-(--color-line) md:rounded-full bg-(--color-bg) px-6 py-3 dark:bg-(--color-surface)">
         <div className="flex flex-col gap-3 text-center md:flex-row md:items-center md:justify-between md:text-left">
-          <p className="text-body-sm text-(--muted)">
+          <p className="text-body-sm text-(--color-muted)">
             © Clement Ng. Crafted for thoughtful product engineering and long-term software quality.
           </p>
           <div className="flex flex-row items-center justify-center gap-2 md:justify-end">
             <a href="https://github.com/clementf2b" rel="noreferrer" target="_blank" aria-label="GitHub (opens in a new tab)">
               <AiOutlineGithub
                 aria-hidden
-                className="cursor-pointer rounded-full border border-(--color-line-strong) p-2 text-(--foreground) transition-transform hover:-translate-y-1"
+                className="cursor-pointer rounded-full border border-(--color-line-strong) p-2 text-(--color-ink) transition-transform hover:-translate-y-1"
                 size={30}
               />
             </a>
@@ -32,7 +32,7 @@ const Footer = () => {
             >
               <AiOutlineLinkedin
                 aria-hidden
-                className="cursor-pointer rounded-full border border-(--color-line-strong) p-2 text-(--foreground) transition-transform hover:-translate-y-1"
+                className="cursor-pointer rounded-full border border-(--color-line-strong) p-2 text-(--color-ink) transition-transform hover:-translate-y-1"
                 size={30}
               />
             </a>

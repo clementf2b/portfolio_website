@@ -92,13 +92,13 @@
 @utility section-copy {
   /* Used in IntroSection for the about-me paragraph text */
   @apply text-body leading-8 sm:text-body-lg;
-  color: var(--muted);
+  color: var(--color-muted);
 }
 
 @utility primary-button {
   /* Primary button — accent background, white text */
   @apply inline-flex items-center justify-center rounded-full px-6 py-3 text-body-sm font-semibold transition duration-300;
-  background: var(--accent);
+  background: var(--color-accent);
   /*
      * The old orange glow is gone with the rest of the shadows, and the text
      * colour is now the token rather than a hardcoded white — on the dark
@@ -108,7 +108,7 @@
 
   &:hover {
     transform: translateY(-2px);
-    background: var(--accent-strong);
+    background: var(--color-accent-ink);
   }
 }
 
@@ -116,8 +116,8 @@
   /* Secondary button — adapts to light/dark via surface token */
   /* No border: the fill carries the shape, like the rest of the site's surfaces. */
   @apply inline-flex items-center justify-center rounded-full px-6 py-3 text-body-sm font-semibold transition duration-300;
-  background: var(--surface);
-  color: var(--foreground);
+  background: var(--color-surface);
+  color: var(--color-ink);
 
   /* Mixed toward the text colour, not swapped for a surface token: the
      button sits on the page and on raised cards, and a surface hover
@@ -125,7 +125,7 @@
      the page and the card in either theme. */
   &:hover {
     transform: translateY(-2px);
-    background: color-mix(in srgb, var(--foreground) 15%, var(--surface));
+    background: color-mix(in srgb, var(--color-ink) 15%, var(--color-surface));
   }
 }
 
@@ -135,8 +135,8 @@
    * Direction: Apple structure × warm palette, light default.
    * Decision record: ai/artifacts/專案設置/mockup-decision-style-direction.md
    *
-   * Components read the legacy aliases further down rather than these names
-   * directly; the 「視覺改版套用」 epic migrates the call sites across.
+   * Components read the semantic --color-* names directly. The primitives
+   * (--warm-*, --copper-*) are only ever referenced from this block.
    *
    * No shadow tokens exist by design: the chosen direction separates
    * regions with surface colour, never with shadows or borders.
@@ -241,30 +241,6 @@
     --color-line-strong:    var(--warm-600);
   }
 
-  /* ═══════════════════════════════════════════════════════════════════════
-   * LEGACY TOKEN ALIASES
-   *
-   * These names are still read by every component. Rather than rewriting each
-   * var() call site, each legacy name now points at its S3 equivalent, so the
-   * whole site adopts the approved palette from one place. Call sites migrate
-   * to the --color-* names region by region; when the last one moves, the
-   * alias it used disappears from this block.
-   *
-   * One block, not two: next-themes puts .dark on <html>, which is :root
-   * itself, so --color-* has already resolved to its dark value by the time
-   * these aliases are substituted. A separate .dark block would be dead code.
-   * ═══════════════════════════════════════════════════════════════════════ */
-  :root {
-    --background:      var(--color-bg);
-    --foreground:      var(--color-ink);
-    --muted:           var(--color-muted);
-    --surface:         var(--color-surface);
-    --surface-strong:  var(--color-surface-raised);
-    --card-border:     var(--color-line);
-    --accent:          var(--color-accent);
-    --accent-strong:   var(--color-accent-ink);
-    --accent-soft:     var(--color-accent-soft);
-  }
 
   html {
     scroll-behavior: smooth;
@@ -281,8 +257,8 @@
 
   body {
     font-family: var(--font-sans);
-    background: var(--background);
-    color: var(--foreground);
+    background: var(--color-bg);
+    color: var(--color-ink);
   }
 
   /* Headings use the display face, Inter Tight. */

@@ -24,7 +24,7 @@ import { process } from '../lib/content'
 
 /* The four verbs of the loop, lifted out of the caption prose. */
 const Verb = ({ children }: { children: React.ReactNode }) => (
-  <b className="font-semibold text-(--foreground)">{children}</b>
+  <b className="font-semibold text-(--color-ink)">{children}</b>
 )
 
 const ProcessSection = () => {
@@ -50,7 +50,7 @@ const ProcessSection = () => {
          * this list is the accessible version.
          *
          * Arrows and connectors use --color-line-strong. The old diagram drew
-         * them in --card-border, 1.25:1 in both themes and lost in dark.
+         * them in --color-line, 1.25:1 in both themes and lost in dark.
          */}
         <div className="relative mt-6">
           <ol className="grid sm:grid-cols-2 sm:gap-4 lg:grid-cols-4 lg:gap-14">
@@ -66,12 +66,12 @@ const ProcessSection = () => {
            */}
           <div aria-hidden className="relative mx-[12.5%] hidden h-10 rounded-b-[18px] border-2 border-t-0 border-dashed border-(--color-line-strong) lg:block">
             <BsArrowUp size={18} className="absolute -left-2.5 -top-2.5 text-(--color-line-strong)" />
-            <span className="absolute left-1/2 top-full flex -translate-x-1/2 -translate-y-1/2 items-center gap-2 bg-(--background) px-3 text-caption font-semibold text-(--muted)">
+            <span className="absolute left-1/2 top-full flex -translate-x-1/2 -translate-y-1/2 items-center gap-2 bg-(--color-bg) px-3 text-caption font-semibold text-(--color-muted)">
               <BsArrowRepeat size={14} />
               next card
             </span>
           </div>
-          <p className="mt-4 flex items-center justify-center gap-2 text-caption text-(--muted) lg:hidden">
+          <p className="mt-4 flex items-center justify-center gap-2 text-caption text-(--color-muted) lg:hidden">
             <BsArrowRepeat size={14} aria-hidden />
             then the next card starts from the top
           </p>
@@ -83,11 +83,11 @@ const ProcessSection = () => {
          * one line on a desktop width. They wrap on narrow screens like
          * anything else.
          */}
-        <p className="mt-5 text-body-sm leading-7 text-(--muted)">
+        <p className="mt-5 text-body-sm leading-7 text-(--color-muted)">
           The agent <Verb>proposes</Verb> and <Verb>builds</Verb>. I <Verb>choose</Verb> and{' '}
           <Verb>review</Verb>. It follows my rules and shows me the mockup for each change.
         </p>
-        <p className="mt-3 text-body-sm leading-7 text-(--muted)">
+        <p className="mt-3 text-body-sm leading-7 text-(--color-muted)">
           AI agent waits at both of my steps. It cannot pick which option wins and cannot mark its
           own work done.
         </p>
@@ -95,10 +95,10 @@ const ProcessSection = () => {
 
       {/* ── 2 · One card, end to end ─────────────────────────────────────── */}
       <div className="mt-14">
-        <h3 className="font-display text-title-sm font-semibold tracking-[-0.02em] text-(--foreground)">
+        <h3 className="font-display text-title-sm font-semibold tracking-[-0.02em] text-(--color-ink)">
           What a single decision actually looked like
         </h3>
-        <p className="mt-2.5 max-w-[74ch] text-body-sm leading-7 text-(--muted)">
+        <p className="mt-2.5 max-w-[74ch] text-body-sm leading-7 text-(--color-muted)">
           The card: should the work history be promoted into project cards? Four steps, four real
           artefacts — variants, decision, commit, board.
         </p>
@@ -123,9 +123,9 @@ const ProcessSection = () => {
           </Step>
 
           <Step who="me" title="Rejected two" caption="I chose, and wrote down the reason">
-            <div className="p-4 text-body-sm leading-6 text-(--foreground)">
+            <div className="p-4 text-body-sm leading-6 text-(--color-ink)">
               “Cards wrap six long sentences. The frame adds weight, not information.”
-              <span className="mt-2 block text-body-sm text-(--muted)">
+              <span className="mt-2 block text-body-sm text-(--color-muted)">
                 Variant A kept. The card format was dropped.
               </span>
             </div>
@@ -136,8 +136,8 @@ const ProcessSection = () => {
              * Verbatim from the commit, ellipsis where lines are omitted.
              * If the section says "this is the commit", it cannot be reworded.
              */}
-            <pre className="whitespace-pre-wrap p-4 font-mono text-label leading-[1.55] text-(--muted)">
-              <b className="font-medium text-(--foreground)">4a1ab7c</b>
+            <pre className="whitespace-pre-wrap p-4 font-mono text-label leading-[1.55] text-(--color-muted)">
+              <b className="font-medium text-(--color-ink)">4a1ab7c</b>
               {/*
                * No hard line breaks inside a paragraph: they were set for the
                * narrow desktop column, and a phone wrapped them a second time
@@ -147,7 +147,7 @@ const ProcessSection = () => {
 [Experience] group roles under their company and make the education line continuous
 
 `}
-              <b className="font-medium text-(--foreground)">No wording, date, tag or link changed</b>
+              <b className="font-medium text-(--color-ink)">No wording, date, tag or link changed</b>
               {` — the bullets moved as they were, all thirteen of them.
 
 Verified: tsc clean, build passes, 13 bullets render, no horizontal overflow at 390px.`}
@@ -156,9 +156,9 @@ Verified: tsc clean, build passes, 13 bullets render, no horizontal overflow at 
 
           <Step who="me" title="Moved the card" caption="Only I can mark it done">
             <div className="p-3">
-              <div className="flex items-center justify-between px-1 pb-2 text-label font-semibold text-(--foreground)">
+              <div className="flex items-center justify-between px-1 pb-2 text-label font-semibold text-(--color-ink)">
                 <span>Done</span>
-                <span className="text-(--muted)">13</span>
+                <span className="text-(--color-muted)">13</span>
               </div>
               <BoardCard id="TASK-014" title="Experience layout gate" moved />
               <BoardCard id="TASK-018" title="Education timeline" />
@@ -166,7 +166,7 @@ Verified: tsc clean, build passes, 13 bullets render, no horizontal overflow at 
           </Step>
         </div>
 
-        <p className="mt-5 max-w-[80ch] text-body-sm leading-7 text-(--muted)">
+        <p className="mt-5 max-w-[80ch] text-body-sm leading-7 text-(--color-muted)">
           The variants are live, and the commit text is verbatim from the public history. The board
           is redrawn rather than screenshotted — but the drag is real, and it is the one step in
           the loop the agent cannot do.
@@ -174,19 +174,19 @@ Verified: tsc clean, build passes, 13 bullets render, no horizontal overflow at 
       </div>
 
       {/* ── House rules ──────────────────────────────────────────────────── */}
-      <div className="mt-10 rounded-card bg-(--surface) p-6">
+      <div className="mt-10 rounded-card bg-(--color-surface) p-6">
         <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-          <h3 className="font-display text-body font-semibold tracking-[-0.02em] text-(--foreground)">
+          <h3 className="font-display text-body font-semibold tracking-[-0.02em] text-(--color-ink)">
             The rules it works under
           </h3>
-          <p className="text-body-sm text-(--muted)">
+          <p className="text-body-sm text-(--color-muted)">
             written by me, in the repo, before any of this ran
           </p>
         </div>
         <ol className="mt-3.5 grid gap-2.5 sm:grid-cols-2 sm:gap-x-8">
           {process.rules.map((rule, index) => (
-            <li key={rule} className="flex gap-2.5 text-body-sm leading-6 text-(--muted)">
-              <span className="pt-0.5 text-label font-semibold tracking-[0.06em] text-(--accent)">
+            <li key={rule} className="flex gap-2.5 text-body-sm leading-6 text-(--color-muted)">
+              <span className="pt-0.5 text-label font-semibold tracking-[0.06em] text-(--color-accent)">
                 {String(index + 1).padStart(2, '0')}
               </span>
               <span>{rule}</span>
@@ -195,13 +195,13 @@ Verified: tsc clean, build passes, 13 bullets render, no horizontal overflow at 
         </ol>
       </div>
 
-      <p className="mt-6 text-body-sm leading-6 text-(--muted)">
+      <p className="mt-6 text-body-sm leading-6 text-(--color-muted)">
         {process.credit.text}
         <a
           href={process.credit.href}
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-xs font-semibold text-(--accent) hover:underline"
+          className="rounded-xs font-semibold text-(--color-accent) hover:underline"
         >
           {process.credit.linkLabel}
         </a>
@@ -229,18 +229,18 @@ const Step = ({
 }) => (
   <div
     className={`flex flex-col rounded-card p-4 ${
-      who === 'me' ? 'bg-(--accent-soft)' : 'bg-(--surface)'
+      who === 'me' ? 'bg-(--color-accent-soft)' : 'bg-(--color-surface)'
     }`}
   >
     <RoleChip me={who === 'me'} className="self-start" />
-    <h4 className="mt-3 font-display text-body font-semibold tracking-[-0.02em] text-(--foreground)">
+    <h4 className="mt-3 font-display text-body font-semibold tracking-[-0.02em] text-(--color-ink)">
       {title}
     </h4>
-    <div className="mt-3 flex-1 overflow-hidden rounded-lg bg-(--surface-strong)">
+    <div className="mt-3 flex-1 overflow-hidden rounded-lg bg-(--color-surface-raised)">
       {children}
     </div>
-    <p className="mt-2.5 flex items-center gap-2 text-body-sm text-(--muted)">
-      <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-(--accent)" />
+    <p className="mt-2.5 flex items-center gap-2 text-body-sm text-(--color-muted)">
+      <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-(--color-accent)" />
       {caption}
     </p>
   </div>
@@ -249,12 +249,12 @@ const Step = ({
 /* A card on the board panel. `moved` marks the one that just arrived. */
 const BoardCard = ({ id, title, moved }: { id: string; title: string; moved?: boolean }) => (
   <div
-    className={`mt-2 rounded-lg bg-(--background) p-2.5 ${
-      moved ? 'border-l-[3px] border-(--accent)' : ''
+    className={`mt-2 rounded-lg bg-(--color-bg) p-2.5 ${
+      moved ? 'border-l-[3px] border-(--color-accent)' : ''
     }`}
   >
-    <p className="text-label font-semibold tracking-wider text-(--muted)">{id}</p>
-    <p className="mt-0.5 text-label font-semibold leading-tight text-(--foreground)">
+    <p className="text-label font-semibold tracking-wider text-(--color-muted)">{id}</p>
+    <p className="mt-0.5 text-label font-semibold leading-tight text-(--color-ink)">
       {title}
     </p>
     <div className="mt-1.5 flex flex-wrap gap-1">
@@ -265,7 +265,7 @@ const BoardCard = ({ id, title, moved }: { id: string; title: string; moved?: bo
 )
 
 const Pill = ({ children }: { children: React.ReactNode }) => (
-  <span className="rounded-full bg-(--surface) px-1.5 py-px text-label text-(--muted)">
+  <span className="rounded-full bg-(--color-surface) px-1.5 py-px text-label text-(--color-muted)">
     {children}
   </span>
 )
@@ -279,7 +279,7 @@ const Pill = ({ children }: { children: React.ReactNode }) => (
 const RoleChip = ({ me, className = '' }: { me: boolean; className?: string }) => (
   <span
     className={`inline-flex shrink-0 items-center gap-1.5 rounded-full py-1 pl-2 pr-3 text-caption font-semibold ${
-      me ? 'bg-(--accent) text-(--color-on-accent)' : 'bg-(--surface-strong) text-(--muted)'
+      me ? 'bg-(--color-accent) text-(--color-on-accent)' : 'bg-(--color-surface-raised) text-(--color-muted)'
     } ${className}`}
   >
     {me ? <HiOutlineUser size={14} aria-hidden /> : <HiSparkles size={14} aria-hidden />}
@@ -306,13 +306,13 @@ const LoopStep = ({ step, index, last }: { step: LoopStepData; index: number; la
          * and a full-height card pushed it under the next step.
          */
         className={`flex flex-col rounded-card p-5 sm:h-full ${
-          you ? 'bg-(--accent-soft)' : 'bg-(--surface)'
+          you ? 'bg-(--color-accent-soft)' : 'bg-(--color-surface)'
         }`}
       >
         <div className="flex items-center justify-between gap-3">
           <p
             className={`text-label font-semibold uppercase tracking-[0.16em] ${
-              you ? 'text-(--accent-strong)' : 'text-(--muted)'
+              you ? 'text-(--color-accent-ink)' : 'text-(--color-muted)'
             }`}
           >
             {step.column}
@@ -320,10 +320,10 @@ const LoopStep = ({ step, index, last }: { step: LoopStepData; index: number; la
           <RoleChip me={you} />
         </div>
 
-        <p className="mt-4 font-display text-body font-semibold tracking-[-0.02em] text-(--foreground)">
+        <p className="mt-4 font-display text-body font-semibold tracking-[-0.02em] text-(--color-ink)">
           {step.title}
         </p>
-        <p className={`mt-0.5 text-body-sm ${you ? 'text-(--accent-strong)' : 'text-(--muted)'}`}>
+        <p className={`mt-0.5 text-body-sm ${you ? 'text-(--color-accent-ink)' : 'text-(--color-muted)'}`}>
           {step.note}
         </p>
 
@@ -335,7 +335,7 @@ const LoopStep = ({ step, index, last }: { step: LoopStepData; index: number; la
         {you && (
           /* mt-auto pins the pill to the foot, so both owner columns line up. */
           <div className="mt-4 sm:mt-auto sm:pt-5">
-            <p className="inline-flex items-center gap-1.5 rounded-full bg-(--accent) px-3 py-1 text-caption font-semibold text-(--color-on-accent)">
+            <p className="inline-flex items-center gap-1.5 rounded-full bg-(--color-accent) px-3 py-1 text-caption font-semibold text-(--color-on-accent)">
               <BsPauseFill size={12} aria-hidden />
               agent waits
             </p>
@@ -363,15 +363,15 @@ const LoopStep = ({ step, index, last }: { step: LoopStepData; index: number; la
 
 /* A rough page: a heading bar and two lines of text. */
 const Sketch = ({ picked, faded }: { picked?: boolean; faded?: boolean }) => (
-  <span className={`block h-16 flex-1 rounded-lg bg-(--background) p-2 ${faded ? 'opacity-40' : ''}`}>
-    <span className={`block h-1.5 rounded-full ${picked ? 'bg-(--accent)' : 'bg-(--color-line-strong) opacity-60'}`} />
+  <span className={`block h-16 flex-1 rounded-lg bg-(--color-bg) p-2 ${faded ? 'opacity-40' : ''}`}>
+    <span className={`block h-1.5 rounded-full ${picked ? 'bg-(--color-accent)' : 'bg-(--color-line-strong) opacity-60'}`} />
     <span className="mt-2 block h-1 w-3/4 rounded-full bg-(--color-line-strong) opacity-40" />
     <span className="mt-1.5 block h-1 w-5/6 rounded-full bg-(--color-line-strong) opacity-40" />
   </span>
 )
 
 const Tick = () => (
-  <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-(--accent) text-(--color-on-accent)">
+  <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-(--color-accent) text-(--color-on-accent)">
     <BsCheck2 size={14} strokeWidth={0.6} />
   </span>
 )
@@ -399,12 +399,12 @@ const LOOP_ART = [
     </div>
   ),
   () => (
-    <div className="h-16 rounded-lg bg-(--background) px-3 py-2.5">
-      <p className="font-mono text-label font-semibold text-(--foreground)">4a1ab7c [Experience]</p>
-      <p className="mt-2 flex flex-wrap gap-x-3 text-label text-(--muted)">
+    <div className="h-16 rounded-lg bg-(--color-bg) px-3 py-2.5">
+      <p className="font-mono text-label font-semibold text-(--color-ink)">4a1ab7c [Experience]</p>
+      <p className="mt-2 flex flex-wrap gap-x-3 text-label text-(--color-muted)">
         {['tsc', 'build', '390px'].map((check) => (
           <span key={check} className="inline-flex items-center gap-1">
-            <BsCheck2 size={13} className="text-(--accent)" />
+            <BsCheck2 size={13} className="text-(--color-accent)" />
             {check}
           </span>
         ))}
@@ -412,10 +412,10 @@ const LOOP_ART = [
     </div>
   ),
   () => (
-    <div className="flex h-16 items-center gap-3 rounded-lg border-l-[3px] border-(--accent) bg-(--background) px-3">
+    <div className="flex h-16 items-center gap-3 rounded-lg border-l-[3px] border-(--color-accent) bg-(--color-bg) px-3">
       <div className="min-w-0 flex-1">
-        <p className="text-label font-semibold tracking-wider text-(--muted)">TASK-014</p>
-        <p className="truncate text-body-sm font-semibold text-(--foreground)">Experience layout gate</p>
+        <p className="text-label font-semibold tracking-wider text-(--color-muted)">TASK-014</p>
+        <p className="truncate text-body-sm font-semibold text-(--color-ink)">Experience layout gate</p>
       </div>
       <Tick />
     </div>
