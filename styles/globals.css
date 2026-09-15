@@ -119,9 +119,13 @@
   background: var(--surface);
   color: var(--foreground);
 
+  /* Mixed toward the text colour, not swapped for a surface token: the
+     button sits on the page and on raised cards, and a surface hover
+     matched the card and made the button vanish. 15% stays clear of both
+     the page and the card in either theme. */
   &:hover {
     transform: translateY(-2px);
-    background: var(--surface-strong);
+    background: color-mix(in srgb, var(--foreground) 15%, var(--surface));
   }
 }
 
