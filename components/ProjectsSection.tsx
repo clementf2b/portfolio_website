@@ -62,7 +62,7 @@ const ProjectsSection = () => {
                    *   Left  (1.1fr) — hero image
                    *   Right (0.9fr) — icon, name, year, context, copy, link
                    * Everything a visitor needs to judge the project without
-                   * expanding anything; only the screen gallery hides.
+                   * expanding anything; only the phone gallery collapses.
                    */}
                   <div className="grid gap-0 p-6 sm:p-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-6">
 
@@ -150,11 +150,9 @@ const ProjectsSection = () => {
 
                   {/*
                    * ── Interface snapshots ──────────────────────────────────
-                   * No disclosure any more. The gallery was collapsed because
-                   * it rendered every screenshot at full size and ran the page
-                   * past 25,000px; the picker holds all of them in about one
-                   * screen's height, so there is nothing left to hide behind a
-                   * "3 screens" bar.
+                   * From sm up the picker holds every screenshot in about one
+                   * screen's height. On phones they stack at full width, so
+                   * ScreenPicker starts them collapsed behind a preview bar.
                    */}
                   {/*
                    * The gallery takes the dimmer surface while the header
