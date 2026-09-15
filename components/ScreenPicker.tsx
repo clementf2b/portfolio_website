@@ -59,7 +59,7 @@ const ScreenPicker = ({ screens, layout = 'grid' }: Props) => {
         onClick={() => setExpanded(!expanded)}
         aria-expanded={expanded}
         aria-controls={listId}
-        className="flex w-full items-center rounded-card bg-(--surface-strong) py-3 pl-3 pr-4 text-left sm:hidden"
+        className="flex w-full items-center rounded-card bg-(--color-surface-raised) py-3 pl-3 pr-4 text-left sm:hidden"
       >
         {/* A preview, not a picker: decorative, the list below carries the titles. */}
         <span className="flex shrink-0" aria-hidden>
@@ -72,11 +72,11 @@ const ScreenPicker = ({ screens, layout = 'grid' }: Props) => {
               height={screen.height}
               sizes="32px"
               /* Fixed box, cropped: Navicat's landscape shots at natural width pushed the label off a phone. */
-              className={`h-11 w-8 rounded-md bg-(--surface) object-cover object-top ring-2 ring-(--surface-strong) ${index ? '-ml-3' : ''}`}
+              className={`h-11 w-8 rounded-md bg-(--color-surface) object-cover object-top ring-2 ring-(--color-surface-raised) ${index ? '-ml-3' : ''}`}
             />
           ))}
         </span>
-        <span className="ml-4 text-body-sm font-semibold text-(--foreground)">
+        <span className="ml-4 text-body-sm font-semibold text-(--color-ink)">
           {expanded ? 'Hide screenshots' : `View ${screens.length} screenshots`}
         </span>
         {/* Up while collapsed, down once open: the direction picked in review. */}
@@ -97,10 +97,10 @@ const ScreenPicker = ({ screens, layout = 'grid' }: Props) => {
               height={screen.height}
               /* Only rendered below sm, where it spans the column. */
               sizes="100vw"
-              className="w-full rounded-card bg-(--surface-strong) object-contain"
+              className="w-full rounded-card bg-(--color-surface-raised) object-contain"
             />
-            <figcaption className="mt-2.5 text-body-sm leading-6 text-(--muted)">
-              <span className="font-semibold text-(--foreground)">{screen.title}</span>
+            <figcaption className="mt-2.5 text-body-sm leading-6 text-(--color-muted)">
+              <span className="font-semibold text-(--color-ink)">{screen.title}</span>
               {screen.description && <span className="mt-1 block">{screen.description}</span>}
             </figcaption>
           </figure>
@@ -117,7 +117,7 @@ const ScreenPicker = ({ screens, layout = 'grid' }: Props) => {
             barRef.current?.scrollIntoView({ block: 'center' })
           }}
           aria-controls={listId}
-          className="secondary-button w-full gap-2 bg-(--surface-strong)"
+          className="secondary-button w-full gap-2 bg-(--color-surface-raised)"
         >
           Hide screenshots
           <BsChevronUp size={14} aria-hidden />
@@ -134,7 +134,7 @@ const ScreenPicker = ({ screens, layout = 'grid' }: Props) => {
           <button
             type="button"
             onClick={() => setZoomOpen(true)}
-            className="block w-full overflow-hidden rounded-card bg-(--surface-strong) p-4"
+            className="block w-full overflow-hidden rounded-card bg-(--color-surface-raised) p-4"
           >
             {/*
              * rail: a height cap. The landscape screens are not all the same
@@ -155,14 +155,14 @@ const ScreenPicker = ({ screens, layout = 'grid' }: Props) => {
               }`}
             />
           </button>
-          <p className="mt-3 text-caption font-semibold uppercase tracking-[0.16em] text-(--muted)">
+          <p className="mt-3 text-caption font-semibold uppercase tracking-[0.16em] text-(--color-muted)">
             Screen {current + 1} of {screens.length}
           </p>
-          <p className="mt-1.5 font-display text-body-lg font-semibold tracking-[-0.02em] text-(--foreground)">
+          <p className="mt-1.5 font-display text-body-lg font-semibold tracking-[-0.02em] text-(--color-ink)">
             {active.title}
           </p>
           {active.description && (
-            <p className="mt-2 max-w-[68ch] text-body-sm leading-6 text-(--muted)">
+            <p className="mt-2 max-w-[68ch] text-body-sm leading-6 text-(--color-muted)">
               {active.description}
             </p>
           )}
@@ -187,8 +187,8 @@ const ScreenPicker = ({ screens, layout = 'grid' }: Props) => {
               onClick={() => setCurrent(index)}
               aria-current={index === current}
               aria-label={`Show ${screen.title}`}
-              className={`group overflow-hidden rounded-card bg-(--surface-strong) text-left outline outline-2 outline-offset-2 transition-[outline-color] duration-(--dur-base) focus-visible:outline-(--color-focus) ${
-                index === current ? 'outline-(--accent)' : 'outline-transparent'
+              className={`group overflow-hidden rounded-card bg-(--color-surface-raised) text-left outline outline-2 outline-offset-2 transition-[outline-color] duration-(--dur-base) focus-visible:outline-(--color-focus) ${
+                index === current ? 'outline-(--color-accent)' : 'outline-transparent'
               }`}
             >
               {/*
@@ -196,7 +196,7 @@ const ScreenPicker = ({ screens, layout = 'grid' }: Props) => {
                * whole button took the caption under it to 3.05:1.
                */}
               <span
-                className={`flex items-center justify-center bg-(--surface-strong) transition-opacity duration-(--dur-base) ${
+                className={`flex items-center justify-center bg-(--color-surface-raised) transition-opacity duration-(--dur-base) ${
                   layout === 'rail' ? 'h-13' : 'h-54'
                 } ${index === current ? '' : 'opacity-70 group-hover:opacity-100'}`}
               >
@@ -211,7 +211,7 @@ const ScreenPicker = ({ screens, layout = 'grid' }: Props) => {
                 />
               </span>
               {layout === 'grid' && (
-                <span className="block px-3 pb-3 pt-2.5 text-caption leading-5 text-(--muted)">
+                <span className="block px-3 pb-3 pt-2.5 text-caption leading-5 text-(--color-muted)">
                   {screen.title}
                 </span>
               )}

@@ -70,7 +70,7 @@ export default function RootLayout({
      * here by design.
      */
     <html lang="en" className={`${inter.variable} ${interTight.variable}`} suppressHydrationWarning>
-      <body className="min-h-screen bg-(--background) text-(--foreground) antialiased">
+      <body className="min-h-screen bg-(--color-bg) text-(--color-ink) antialiased">
         <Providers>
           <Navbar />
           {children}

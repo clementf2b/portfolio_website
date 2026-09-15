@@ -49,7 +49,7 @@ const NavItems: Array<NavItem> = [
  * Active state  → ink text
  * Inactive state → muted text
  *
- * The active pill used to be filled with --surface-strong, which made it the
+ * The active pill used to be filled with --color-surface-raised, which made it the
  * lightest thing on an otherwise warm-grey page — a lot of visual weight for
  * "you are in this section". Colour and weight carry that on their own.
  *
@@ -63,8 +63,8 @@ const NavItems: Array<NavItem> = [
 const navBtnClass = (isActive: boolean, extraClass = '') =>
     `cursor-pointer rounded-full border px-5 py-2 text-body-sm font-semibold uppercase tracking-[0.16em] transition hover:-translate-y-1 ${extraClass} ${
         isActive
-            ? 'border-transparent text-(--foreground)'
-            : 'border-transparent text-(--muted) hover:bg-(--surface) hover:text-(--foreground)'
+            ? 'border-transparent text-(--color-ink)'
+            : 'border-transparent text-(--color-muted) hover:bg-(--color-surface) hover:text-(--color-ink)'
     }`
 
 const Navbar = () => {
@@ -251,7 +251,7 @@ const Navbar = () => {
             <div
                 className={`mx-auto max-w-7xl px-5 transition-colors duration-300 ${
                     navbar ? 'rounded-b-3xl' : 'rounded-full'
-                } ${scrolled || navbar ? 'bg-(--surface) backdrop-blur-xl' : 'bg-transparent'}`}
+                } ${scrolled || navbar ? 'bg-(--color-surface) backdrop-blur-xl' : 'bg-transparent'}`}
             >
                 <div className="flex items-center justify-between py-2 md:py-4">
 
@@ -266,7 +266,7 @@ const Navbar = () => {
                      * tells the style gate rejected. It is now the display sans.
                      */}
                     <a href="#home">
-                        <h2 className="font-display text-title font-semibold tracking-tight text-(--foreground) transition-transform hover:-translate-y-1">
+                        <h2 className="font-display text-title font-semibold tracking-tight text-(--color-ink) transition-transform hover:-translate-y-1">
                             Clement Ng
                         </h2>
                     </a>
@@ -300,9 +300,9 @@ const Navbar = () => {
                             {/* Show sun icon in dark mode (click → go light); moon otherwise,
                               * which is also what renders before mount. */}
                             {mounted && resolvedTheme === "dark" ? (
-                                <RiSunLine size={22} className="text-(--foreground)" />
+                                <RiSunLine size={22} className="text-(--color-ink)" />
                             ) : (
-                                <RiMoonFill size={22} className="text-(--foreground)" />
+                                <RiMoonFill size={22} className="text-(--color-ink)" />
                             )}
                         </button>
                     </nav>
@@ -310,7 +310,7 @@ const Navbar = () => {
                     {/* Mobile hamburger — visible only below md breakpoint */}
                     <button
                         ref={menuButton}
-                        className="rounded-full border border-(--color-line-strong) p-2 text-(--foreground) md:hidden"
+                        className="rounded-full border border-(--color-line-strong) p-2 text-(--color-ink) md:hidden"
                         onClick={() => setNavbar(!navbar)}
                         aria-label={navbar ? "Close menu" : "Open menu"}
                         aria-expanded={navbar}
