@@ -7,14 +7,10 @@ cross-platform desktop and mobile products from Hong Kong. Live at
 Built with Next.js 16 (App Router, Turbopack), React 19, TypeScript 6 and
 Tailwind CSS 4, deployed on Vercel.
 
-![Desktop, light theme](docs/screenshots/desktop-light.png)
-
-<table>
-  <tr>
-    <td><img src="docs/screenshots/desktop-dark.png" alt="Desktop, dark theme"></td>
-    <td width="30%"><img src="docs/screenshots/mobile-light.png" alt="Phone, light theme"></td>
-  </tr>
-</table>
+<p>
+  <img src="docs/screenshots/desktop-light.png" alt="Desktop, light theme" width="76%">
+  <img src="docs/screenshots/mobile-light.png" alt="Phone, light theme" width="21.9%">
+</p>
 
 ## What's on the page
 
