@@ -138,24 +138,19 @@ const ProcessSection = () => {
              */}
             <pre className="whitespace-pre-wrap p-4 font-mono text-label leading-[1.55] text-(--muted)">
               <b className="font-medium text-(--foreground)">4a1ab7c</b>
+              {/*
+               * No hard line breaks inside a paragraph: they were set for the
+               * narrow desktop column, and a phone wrapped them a second time
+               * into one- and two-word lines. The column wraps the text now.
+               */}
               {`
-[Experience] group roles
-under their company and
-make the education line
-continuous
+[Experience] group roles under their company and make the education line continuous
 
 `}
-              <b className="font-medium text-(--foreground)">No wording, date, tag
-or link changed</b>
-              {` — the
-bullets moved as they
-were, all thirteen of
-them.
+              <b className="font-medium text-(--foreground)">No wording, date, tag or link changed</b>
+              {` — the bullets moved as they were, all thirteen of them.
 
-Verified: tsc clean,
-build passes, 13 bullets
-render, no horizontal
-overflow at 390px.`}
+Verified: tsc clean, build passes, 13 bullets render, no horizontal overflow at 390px.`}
             </pre>
           </Step>
 

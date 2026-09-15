@@ -17,7 +17,7 @@
  */
 "use client"
 import React from "react"
-import { useEffect, useState, useCallback, useSyncExternalStore } from 'react'
+import { useEffect, useRef, useState, useCallback, useSyncExternalStore } from 'react'
 import { useTheme } from 'next-themes'
 import { RiMoonFill, RiSunLine } from 'react-icons/ri'
 import { IoMdMenu, IoMdClose } from 'react-icons/io'
@@ -186,6 +186,23 @@ const Navbar = () => {
      */
     const closeMenu = useCallback(() => setNavbar(false), [])
 
+    /*
+     * Escape closes the open menu, as menus do everywhere else, and hands
+     * focus back to the toggle so a keyboard user isn't left on a link that
+     * just disappeared.
+     */
+    const menuButton = useRef<HTMLButtonElement>(null)
+    useEffect(() => {
+        if (!navbar) return
+        const onKey = (e: KeyboardEvent) => {
+            if (e.key !== 'Escape') return
+            setNavbar(false)
+            menuButton.current?.focus()
+        }
+        document.addEventListener('keydown', onKey)
+        return () => document.removeEventListener('keydown', onKey)
+    }, [navbar])
+
     /* Toggles between light and dark, inverting whatever is currently resolved */
     const toggleTheme = () => {
         setTheme(resolvedTheme === "dark" ? "light" : "dark")
@@ -291,6 +308,7 @@ const Navbar = () => {
 
                     {/* Mobile hamburger — visible only below md breakpoint */}
                     <button
+                        ref={menuButton}
                         className="rounded-full border border-(--color-line-strong) p-2 text-(--foreground) md:hidden"
                         onClick={() => setNavbar(!navbar)}
                         aria-label={navbar ? "Close menu" : "Open menu"}
