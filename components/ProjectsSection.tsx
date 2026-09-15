@@ -84,8 +84,8 @@ const ProjectsSection = () => {
                       <Image
                         src={project.image}
                         alt={`${project.name} project preview`}
-                        width={1200}
-                        height={900}
+                        width={project.imageWidth}
+                        height={project.imageHeight}
                         /* 1.1fr of the 1280 grid at lg; full width below it. */
                         sizes="(min-width: 1024px) 620px, 100vw"
                         className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]"
