@@ -12,7 +12,6 @@
  * marker syntax to parse and nothing to get subtly wrong at 3am.
  */
 import React from 'react'
-import Image from 'next/image'
 import {
   BiLogoCPlusPlus,
   BiLogoDocker,
@@ -386,32 +385,31 @@ const languages = [
   },
 ]
 
+/*
+ * Claude Code has no react-icons entry. The mark used to be a PNG recoloured
+ * with a stack of CSS filters, which landed on #d2904a — lighter and yellower
+ * than the accent the other tool icons use, and 2.19:1 on the light page. It
+ * is the same 8x8 sprite traced into rectangles, so it takes currentColor like
+ * every react-icons mark and stays sharp at any size.
+ */
+const ClaudeCodeMark = () => (
+  <svg viewBox="0 0 8 8" width={20} height={20} fill="currentColor" aria-hidden className="h-5 w-5">
+    <rect x="1" y="1" width="6" height="1" />
+    <rect x="1" y="2" width="1" height="1" />
+    <rect x="3" y="2" width="2" height="1" />
+    <rect x="6" y="2" width="1" height="1" />
+    <rect x="0" y="3" width="8" height="1" />
+    <rect x="1" y="4" width="6" height="1" />
+    <rect x="2" y="5" width="1" height="1" />
+    <rect x="5" y="5" width="1" height="1" />
+  </svg>
+)
+
 const tools = [
   {
     parts: [
       {
-        /*
-         * Claude Code has no react-icons entry, so the mark is a PNG. It was
-         * fetched from raw.githubusercontent.com, which put a third-party
-         * host in the render path and required an images.remotePatterns
-         * allowlist for one 1.4 KB file; it is now checked in.
-         *
-         * The filter recolours it to the accent: desaturate → re-saturate →
-         * rotate hue → fine-tune.
-         */
-        icon: (
-          <Image
-            src="/icons/claude-code.png"
-            alt=""
-            width={20}
-            height={20}
-            className="h-5 w-5 object-contain"
-            style={{
-              filter:
-                'brightness(0) saturate(100%) invert(58%) sepia(50%) saturate(500%) hue-rotate(350deg) brightness(95%) contrast(90%)',
-            }}
-          />
-        ),
+        icon: <ClaudeCodeMark />,
         name: 'Claude Code',
       },
     ],
