@@ -331,7 +331,7 @@ const languages = [
     level: 5,
     use: (
       <>
-        <Name>Navicat</Name>&apos;s Linux UI and shared backend, 2017 – now
+        <Name>Navicat</Name>&apos;s Linux UI and shared backend, {/* no-break: keeps the date range on one line */}2017{'\u00a0'}–{'\u00a0'}now
       </>
     ),
   },
