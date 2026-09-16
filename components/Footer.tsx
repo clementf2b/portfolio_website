@@ -21,7 +21,7 @@ const Footer = () => {
             <a href="https://github.com/clementf2b" rel="noreferrer" target="_blank" aria-label="GitHub (opens in a new tab)">
               <AiOutlineGithub
                 aria-hidden
-                className="cursor-pointer rounded-full border border-(--color-line-strong) p-2 text-(--color-ink) transition-transform hover:-translate-y-1"
+                className="cursor-pointer rounded-full bg-(--color-ink)/8 p-2 text-(--color-ink) transition-transform hover:-translate-y-1"
                 size={30}
               />
             </a>
@@ -33,7 +33,7 @@ const Footer = () => {
             >
               <AiOutlineLinkedin
                 aria-hidden
-                className="cursor-pointer rounded-full border border-(--color-line-strong) p-2 text-(--color-ink) transition-transform hover:-translate-y-1"
+                className="cursor-pointer rounded-full bg-(--color-ink)/8 p-2 text-(--color-ink) transition-transform hover:-translate-y-1"
                 size={30}
               />
             </a>

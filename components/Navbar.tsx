@@ -294,7 +294,7 @@ const Navbar = () => {
                          */}
                         <button
                             onClick={toggleTheme}
-                            className="ml-2 cursor-pointer rounded-full border border-(--color-line-strong) p-2 transition-transform hover:-translate-y-1"
+                            className="ml-2 cursor-pointer rounded-full bg-(--color-ink)/8 p-2 transition-transform hover:-translate-y-1"
                             aria-label="Toggle theme"
                         >
                             {/* Show sun icon in dark mode (click → go light); moon otherwise,
@@ -310,7 +310,7 @@ const Navbar = () => {
                     {/* Mobile hamburger — visible only below md breakpoint */}
                     <button
                         ref={menuButton}
-                        className="rounded-full border border-(--color-line-strong) p-2 text-(--color-ink) md:hidden"
+                        className="rounded-full bg-(--color-ink)/8 p-2 text-(--color-ink) md:hidden"
                         onClick={() => setNavbar(!navbar)}
                         aria-label={navbar ? "Close menu" : "Open menu"}
                         aria-expanded={navbar}
