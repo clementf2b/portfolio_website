@@ -18,24 +18,23 @@ const Footer = () => {
             © Clement Ng. Crafted for thoughtful product engineering and long-term software quality.
           </p>
           <div className="flex flex-row items-center justify-center gap-2 md:justify-end">
-            <a href="https://github.com/clementf2b" rel="noreferrer" target="_blank" aria-label="GitHub (opens in a new tab)">
-              <AiOutlineGithub
-                aria-hidden
-                className="cursor-pointer rounded-full bg-(--color-ink)/8 p-2 text-(--color-ink) transition-transform hover:-translate-y-1"
-                size={30}
-              />
+            <a
+              href="https://github.com/clementf2b"
+              rel="noreferrer"
+              target="_blank"
+              aria-label="GitHub (opens in a new tab)"
+              className="icon-button"
+            >
+              <AiOutlineGithub aria-hidden size={30} />
             </a>
             <a
               href="https://www.linkedin.com/in/clement-ng-0872b3141/"
               rel="noreferrer"
               target="_blank"
               aria-label="LinkedIn (opens in a new tab)"
+              className="icon-button"
             >
-              <AiOutlineLinkedin
-                aria-hidden
-                className="cursor-pointer rounded-full bg-(--color-ink)/8 p-2 text-(--color-ink) transition-transform hover:-translate-y-1"
-                size={30}
-              />
+              <AiOutlineLinkedin aria-hidden size={30} />
             </a>
           </div>
         </div>
