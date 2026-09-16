@@ -205,9 +205,14 @@ const ScreenPicker = ({ screens, layout = 'grid' }: Props) => {
                   alt=""
                   width={screen.width}
                   height={screen.height}
-                  /* Rendered width at h-13 / h-54 for a 9:16 screen; without it the thumbnail fetched the 750px file. */
-                  sizes={layout === 'rail' ? '30px' : '122px'}
-                  className="max-h-full w-auto object-contain"
+                  /* Rendered width of the slot; without it the thumbnail fetched the 750px file. */
+                  sizes={layout === 'rail' ? '120px' : '122px'}
+                  /*
+                   * rail fills its landscape slot: contained, a wide screenshot
+                   * in the 52px-tall box shrank to a sliver with blank sides.
+                   * grid stays contained (see the note above the grid).
+                   */
+                  className={layout === 'rail' ? 'h-full w-full object-cover object-top' : 'max-h-full w-auto object-contain'}
                 />
               </span>
               {layout === 'grid' && (

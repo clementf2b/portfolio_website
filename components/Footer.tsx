@@ -8,12 +8,13 @@ const Footer = () => {
   return (
     /* Matches the navbar pill style — same border, surface, and backdrop blur.
        Static position (not fixed) so it stays at the bottom of the page.
-       A pill only from md, where it is one row: stacked on a phone, the
-       full radius turned three lines of text into an oval. */
+       A pill only from lg: below that the text wraps (three lines on a phone,
+       two at tablet width) and a full radius turned it into an oval.
+       text-pretty keeps the wrap from leaving one word on its own line. */
     <footer className="w-full px-4 pb-6 pt-4 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl rounded-card border border-(--color-line) md:rounded-full bg-(--color-bg) px-6 py-3 dark:bg-(--color-surface)">
+      <div className="mx-auto max-w-7xl rounded-card border border-(--color-line) lg:rounded-full bg-(--color-bg) px-6 py-3 dark:bg-(--color-surface)">
         <div className="flex flex-col gap-3 text-center md:flex-row md:items-center md:justify-between md:text-left">
-          <p className="text-body-sm text-(--color-muted)">
+          <p className="text-pretty text-body-sm text-(--color-muted)">
             © Clement Ng. Crafted for thoughtful product engineering and long-term software quality.
           </p>
           <div className="flex flex-row items-center justify-center gap-2 md:justify-end">
