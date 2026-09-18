@@ -10,9 +10,12 @@ const Footer = () => {
        Static position (not fixed) so it stays at the bottom of the page.
        A pill only from lg: below that the text wraps (three lines on a phone,
        two at tablet width) and a full radius turned it into an oval.
-       text-pretty keeps the wrap from leaving one word on its own line. */
+       text-pretty keeps the wrap from leaving one word on its own line.
+       Same width as the navbar pill (both max-w-7xl in the same gutters).
+       Padding scales with the 40px icon discs (was 12/24 around 46px ones),
+       so it sits a little shorter than the navbar: 62px against 72px. */
     <footer className="w-full px-4 pb-6 pt-4 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl rounded-card border border-(--color-line) lg:rounded-full bg-(--color-bg) px-6 py-3 dark:bg-(--color-surface)">
+      <div className="mx-auto max-w-7xl rounded-card border border-(--color-line) lg:rounded-full bg-(--color-bg) px-5 py-2.5 dark:bg-(--color-surface)">
         <div className="flex flex-col gap-3 text-center md:flex-row md:items-center md:justify-between md:text-left">
           <p className="text-pretty text-body-sm text-(--color-muted)">
             © Clement Ng. Crafted for thoughtful product engineering and long-term software quality.
@@ -25,7 +28,7 @@ const Footer = () => {
               aria-label="GitHub (opens in a new tab)"
               className="icon-button"
             >
-              <AiOutlineGithub aria-hidden size={30} />
+              <AiOutlineGithub aria-hidden size={24} />
             </a>
             <a
               href="https://www.linkedin.com/in/clement-ng-0872b3141/"
@@ -34,7 +37,7 @@ const Footer = () => {
               aria-label="LinkedIn (opens in a new tab)"
               className="icon-button"
             >
-              <AiOutlineLinkedin aria-hidden size={30} />
+              <AiOutlineLinkedin aria-hidden size={24} />
             </a>
           </div>
         </div>

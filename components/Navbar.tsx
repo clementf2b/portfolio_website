@@ -300,9 +300,9 @@ const Navbar = () => {
                             {/* Show sun icon in dark mode (click → go light); moon otherwise,
                               * which is also what renders before mount. */}
                             {mounted && resolvedTheme === "dark" ? (
-                                <RiSunLine size={22} className="text-(--color-ink)" />
+                                <RiSunLine size={24} className="text-(--color-ink)" />
                             ) : (
-                                <RiMoonFill size={22} className="text-(--color-ink)" />
+                                <RiMoonFill size={24} className="text-(--color-ink)" />
                             )}
                         </button>
                     </nav>
@@ -316,7 +316,7 @@ const Navbar = () => {
                         aria-expanded={navbar}
                     >
                         {/* Toggle between hamburger and × icon based on menu state */}
-                        {navbar ? <IoMdClose size={28} aria-hidden /> : <IoMdMenu size={28} aria-hidden />}
+                        {navbar ? <IoMdClose size={24} aria-hidden /> : <IoMdMenu size={24} aria-hidden />}
                     </button>
                 </div>
 
