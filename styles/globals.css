@@ -93,7 +93,8 @@
 @utility icon-button {
   /* The icon-only controls: hamburger, theme toggle, footer links. Same disc
      the site uses instead of borders, and the same hover as the buttons —
-     lift two pixels, deepen the fill — so every clickable thing behaves alike. */
+     lift two pixels, deepen the fill — so every clickable thing behaves alike.
+     Every icon inside is 24px, so every disc is 40px. */
   @apply inline-flex cursor-pointer items-center justify-center rounded-full p-2 transition duration-300;
   background: color-mix(in srgb, var(--color-ink) 8%, transparent);
   color: var(--color-ink);
