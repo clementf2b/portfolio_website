@@ -138,11 +138,14 @@ const ProjectsSection = () => {
                           </Link>
                         ) : (
                           /*
-                           * Not a button, so it doesn't wear the button's pill:
-                           * with no border left on buttons, the same fill here
-                           * would promise a click. Plain muted text instead.
+                           * Sits where "View repository" would, shaped like it so
+                           * the row reads the same, but plainly disabled: muted
+                           * text, no arrow, no hover lift, a not-allowed cursor.
+                           * Not a <button> — there is nothing to press.
                            */
-                          <span className="py-3 text-body-sm font-semibold text-(--color-muted)">Private academic project</span>
+                          <span className="inline-flex cursor-not-allowed items-center justify-center rounded-full bg-(--color-surface) px-6 py-3 text-body-sm font-semibold text-(--color-muted)">
+                            Private academic project
+                          </span>
                         )}
                       </div>
                     </div>
