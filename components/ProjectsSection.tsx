@@ -132,9 +132,20 @@ const ProjectsSection = () => {
                            * target="_blank" + rel="noopener noreferrer": the new
                            * tab cannot reach window.opener and sends no Referer.
                            */
-                          <Link href={project.link} target="_blank" rel="noopener noreferrer" className="secondary-button gap-2">
+                          <Link href={project.link} target="_blank" rel="noopener noreferrer" className="secondary-button group gap-2">
                             View repository
-                            <BsArrowUpRight size={14} />
+                            {/*
+                             * A 0.7 stroke brings the arrow up to the label's
+                             * semibold weight; on hover it slips 2px up-right,
+                             * the way it points, as the button lifts.
+                             */}
+                            <BsArrowUpRight
+                              size={14}
+                              strokeWidth={0.7}
+                              strokeLinejoin="round"
+                              aria-hidden
+                              className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                            />
                           </Link>
                         ) : (
                           /*
