@@ -2,7 +2,7 @@
 
 A single-page portfolio for Clement Ng, a senior software developer working on
 cross-platform desktop and mobile products from Hong Kong. Live at
-**https://clementng-portfolio.vercel.app**, in a light and a dark theme.
+**https://clement-ng.vercel.app**, in a light and a dark theme.
 
 Built with Next.js 16 (App Router, Turbopack), React 19, TypeScript 6 and
 Tailwind CSS 4, deployed on Vercel.
@@ -16,7 +16,7 @@ Tailwind CSS 4, deployed on Vercel.
 
 An introduction, education and work history, technical strengths, three
 projects with their screens, and a Workflow section on how the site was built.
-**[See it on the site →](https://clementng-portfolio.vercel.app)**
+**[See it on the site →](https://clement-ng.vercel.app)**
 
 ## How it was built with an AI agent
 
@@ -24,7 +24,7 @@ Rebuilt with Claude Code under a gated workflow based on
 [Monstrare](https://github.com/pjwang2022/Monstrare): the agent proposes
 options and builds one task card at a time; I pick the option and review the
 evidence before anything merges.
-**[The loop, and one real decision traced end to end →](https://clementng-portfolio.vercel.app/#workflow)**
+**[The loop, and one real decision traced end to end →](https://clement-ng.vercel.app/#workflow)**
 
 ## Running it
 
